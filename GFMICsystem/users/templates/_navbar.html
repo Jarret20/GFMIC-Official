@@ -1,0 +1,46 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-landing navbar-light fixed-top" id="navbar">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'users:home' %}">
+            <img src="{% static 'assets/images/logos/black logo.png' %}" class="card-logo card-logo-dark" alt="logo dark" height="60">
+            <img src="{% static 'assets/images/logos/white logo.png' %}" class="card-logo card-logo-light" alt="logo light" height="60">
+        </a>
+        <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="mdi mdi-menu"></i>
+        </button>   
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+                <li class="nav-item">
+                    <a class="nav-link fs-14 active" href="#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-14" href="#aboutus">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-14" href="#membership">Membership</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-14" href="#events">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-14" href="#news">News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-14" href="#faqs">FAQs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-14" href="#contact">Contact Us</a>
+                </li>
+            </ul>
+
+            <div class="">
+                <a href="{% url 'users:login' %}" class="btn btn-link fw-medium mx-auto">Sign In</a>
+                <a href="{% url 'users:register' %}" class="btn btn-primary">Sign Up</a>
+            </div>
+        </div>
+
+    </div>
+</nav>
+<div class="bg-overlay bg-overlay-pattern"></div>   
+<!-- end navbar -->

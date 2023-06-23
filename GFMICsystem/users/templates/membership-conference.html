@@ -1,0 +1,179 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <title>Membership Conference | GFMIC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="GFMIC" name="Capstone"/>
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/logos/gfmic logo.PNG' %}">
+    <!--Swiper slider css-->
+    <link href="{% static '/assets/libs/swiper/swiper-bundle.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Layout config Js -->
+    <script src="{% static 'assets/js/layout.js' %}"></script>
+    <!-- Bootstrap Css -->
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="{% static 'assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
+
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar-example">
+
+    <!-- Begin page -->
+    <div class="layout-wrapper landing">
+        <nav class="navbar navbar-expand-lg navbar-landing navbar-dark fixed-top" id="navbar">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'users:home' %}">
+                    <img src="{% static 'assets/images/logos/black logo.png' %}" class="card-logo card-logo-dark" alt="logo dark" height="60">
+                    <img src="{% static 'assets/images/logos/white logo.png' %}" class="card-logo card-logo-light" alt="logo light" height="60">
+                </a>
+                <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="mdi mdi-menu"></i>
+                </button>   
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" href="{% url 'users:home_event' %}">Events</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" href="{% url 'users:webinar' %}">Webinar</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" href="{% url 'users:national_convention' %}">National Convention</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-14 active" href="{% url 'users:membership_conference' %}">Membership Conference</a>
+                        </li>
+                    </ul>
+
+                    <div class="">
+                        <a href="{% url 'users:login' %}" class="btn btn-link fw-medium mx-auto">Sign In</a>
+                        <a href="{% url 'users:register' %}" class="btn btn-primary">Sign Up</a>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+            <div class="bg-overlay bg-overlay-pattern"></div>
+        <!-- end navbar -->
+
+        <!-- start plan -->
+        <section class="section bg-grey" id="categories">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+                        <div class="text-left mb-5">
+                            <br><br>
+                            <h2 class="mb-3 fw-bold lh-base" style="text-align:center;color:#007c99">Membership Conference</h2>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary waves-effect waves-light">ALL</button>
+                                <button type="button" class="btn btn-primary waves-effect waves-light">2020</button>
+                                <button type="button" class="btn btn-primary waves-effect waves-light">2021</button>
+                            </div>
+                        </div>
+                        <!-- 2020 -->
+                        <div class="text-left mb-5">
+                            <img src="{% static 'assets/images/webinar/membership-2020.PNG' %}" class="img-fluid" alt="Responsive image" width="1600" height="1600"><br><br>
+                            <h2 class="mb-3 fw-bold lh-base text-muted" style="text-align:center">ABOUT</h2>
+                            <p style="text-align:justify" class="text-muted"><b>Greetings from GFMIC, Inc. (formerly Electronic Financials Users’ Circle (EUC), Inc.)!</p>
+                            
+                            <p style="text-align:justify" class="text-muted">GFMIC has launched a series of seven webinars this year 2020 via Zoom which started on October 6 and ended on November 17.  This is the response of our organization to pursue its mission as premiere partner in capacity building of personnel of the financial management services and allied offices, amidst the health crisis brought about by the COVID-19 pandemic.  </p>
+                            <p style="text-align:justify" class="text-muted">As a culminating activity, the 2020 Membership Conference shall be held from December 3-4, 2020 (morning) via Zoom. We are cordially inviting the heads and personnel of the finance, budget, accounting, treasury, procurement, information and communications technology, and allied offices of the national government agencies, government-owned or controlled corporations, and local government units, including the barangays.</p>
+                            <p style="text-align:justify" class="text-muted">Two interesting topics await the members/participants such as Updates from the Department of Budget and Management (DBM) on Budget and Treasury Management System and a topic on Digital Transformation to be delivered by a representative from Microsoft Philippines.</p>
+                            <p style="text-align:justify" class="text-muted">The highlight of the conference will be the awarding of citations to eNGAS/eBudget System user-agencies under different categories, as well as the oath-taking of GFMIC officers and new members.</p><br>
+                            <h2 class="mb-3 fw-bold lh-base text-muted" style="text-align:center">PROGRAM OF ACTIVITIES</h2>
+                            <img src="{% static 'assets/images/webinar/DAY1-2020.PNG' %}" class="img-fluid" alt="Responsive image" width="1600" height="1600"><BR><BR>
+                            <img src="{% static 'assets/images/webinar/DAY2-2020.PNG' %}" class="img-fluid" alt="Responsive image" width="1600" height="1600">
+                            <h2 class="mb-3 fw-bold lh-base text-muted" style="text-align:center">PROGRAM OF ACTIVITIES</h2>
+                            <p style="text-align:center" class="text-muted">Please contact GFMIC, Inc. at mobile phone numbers 0927-794-5452, 0965-813-1185 and 0955-470-7762</p>
+                            <br><br>
+                        </div>
+                        <!-- end 2020 -->
+                        
+                        <!-- 2021 -->
+                        <div class="text-left mb-5">
+                            <img src="{% static 'assets/images/webinar/membership-2021.PNG' %}" class="img-fluid" alt="Responsive image" width="1600" height="1600"><br><br>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary waves-effect waves-light">Download Presentation Materials</button>
+                                <button type="button" class="btn btn-primary waves-effect waves-light">Download Invitation</button>
+                            </div><br><br>
+                            <img src="{% static 'assets/images/webinar/membership-2021-2.png' %}" class="img-fluid" alt="Responsive image" width="1600" height="1600"><br><br>
+                            <h2 class="mb-3 fw-bold lh-base text-muted" style="text-align:center">Membership Conference Highlights</h2>
+                            <h3 class="mb-3 fw-bold lh-base" style="text-align:center;color:#007c99">Day 1 - 11/18/21</h3>
+                            <p style="text-align:justify" class="text-muted"><b>• Keynote Speaker</p>
+                            <p style="text-align:justify;color:#51C5E0" ><em>Hon. Michael G. Aguinaldo, Chairperson, Commission on Audit (COA)</em></p><br>
+                            <p style="text-align:justify" class="text-muted"><b>• Awarding of eNGAS and eBudget System Users</p>
+                            <p style="text-align:justify;color:#51C5E0" ><em>President Commissioner Luzvi Pangan Chatto, Chairperson - Committee on Awards</em></p><br>
+                            <p style="text-align:justify" class="text-muted"><b>• Technical Session 1:</p>
+                            <p style="text-align:justify" class="text-muted"><b>COA’s Digitization: The Road Towards an Integrated Financial Management Information System</p>
+                            <p style="text-align:justify;color:#51C5E0" ><em>Asst. Commissioner Luzvi Pangan Chatto, Commission on Audit (COA)</em></p><br>
+                            <p style="text-align:justify" class="text-muted"><b>• Technical Session 2:</p>
+                            <p style="text-align:justify" class="text-muted"><b>Auditing of Government Funds during the New Normal</p>
+                            <p style="text-align:justify;color:#51C5E0" ><em>Ms. Maribeth F. de Jesus Director IV National Government Sector Commission on Audit</em></p><br>
+                            <p style="text-align:justify" class="text-muted"><b>• Announcement of vacancies in the Board of Trustees</p>
+                            <p style="text-align:justify;color:#51C5E0" ><em>Atty. Marlon R. Marquina Chairperson Committee on Election</em></p><br>
+
+                            <h3 class="mb-3 fw-bold lh-base" style="text-align:center;color:#007c99">Day 2 - 11/19/21</h3>
+                            <p style="text-align:justify" class="text-muted"><b>• Election and Membership Meeting</p>
+                            <p style="text-align:justify;color:#51C5E0" ><em>Atty. Marlon R. Marquina, Chairman, Committee on Election</em></p><br>
+                            <p style="text-align:justify" class="text-muted"><b>• Technical Session 3:</p>
+                            <p style="text-align:justify" class="text-muted"><b>The National ID: Its Significance in the Life of the Filipino</p>
+                            <p style="text-align:justify;color:#51C5E0" ><em>Dr. Claire Dennis S. Mapa, Undersecretary Philippine Statistics Authority</em></p><br>
+                            <p style="text-align:justify" class="text-muted"><b>• Technical Session 4:</p>
+                            <p style="text-align:justify" class="text-muted"><b>PhilHealth Benefits Updates</p>
+                            <p style="text-align:justify;color:#51C5E0" ><em>Dr. Shirley B. Domingo Vice President & Spokesperson PhilHealth</em></p><br>
+                            <p style="text-align:justify" class="text-muted"><b>• Oath-Taking of New Members</p>
+                            <p style="text-align:justify;color:#51C5E0" ><em>Chairperson Carmela S. Perez</em></p><br>
+                           
+                            <h2 class="mb-3 fw-bold lh-base text-muted" style="text-align:center">ABOUT</h2>
+                            <p style="text-align:justify" class="text-muted">The Government Financial Management Innovators Circle (GFMIC), Inc., an organization of government financial management professionals who utilize information and communications technology as a tool for productivity, transparency and accountability, is conducting its Annual Membership Conference, with the theme: “Financial Trends and Transformation in the New Normal” on November 18-19, 2021 via Zoom platform.</p>
+                            <p style="text-align:justify" class="text-muted">In this regard, we are cordially inviting the heads and personnel of the finance, budget, accounting, treasury, procurement, information and communications technology and allied offices of National Government Agencies, Government Corporations and Local Government Units, including the Barangays (Barangay Chairman, Kagawads, Treasurers, Secretaries and Record Keepers) to attend this Conference. </p>
+                            <p style="text-align:justify" class="text-muted">The registration fee for the two-day conference is P1,200.00 per participant and may be deposited under Government Financial Management Innovators Circle (GFMIC), Inc. to any Philippine National Bank Branch under PNB Current Account No. 1102-7000-2003 or to any Land Bank Branch under LBP Current Account No. 1691-1707-28. Please visit the GFMIC website at www.gfmic.ph on how to register to the said Conference and/or to be a member.</p>
+                            <p style="text-align:justify" class="text-muted"> We look forward to your participation in our Membership Conference and thank you very much for your continued support. </p>
+                            <br><br>
+                        </div>
+                        <!-- end 2021 -->
+
+                    </div><!-- end col -->
+                </div><!-- end row -->
+               
+            </div><!-- end container -->
+        </section>
+        <!-- end plan -->
+        
+        </section>
+
+    </div>
+    <!-- end layout wrapper -->
+
+</body>
+{% include 'home_footer.html' %}
+
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+    <script src="{% static 'assets/libs/feather-icons/feather.min.js' %}"></script>
+    <script src="{% static 'assets/js/pages/plugins/lord-icon-2.1.0.js' %}"></script>
+    <script src="{% static 'assets/js/plugins.js' %}"></script>
+    <!--Swiper slider js-->
+    <script src="{% static 'assets/libs/swiper/swiper-bundle.min.js' %}"></script>
+    <!-- landing init -->
+    <script src="{% static 'assets/js/pages/landing.init.js' %}"></script>
+    <!-- App js -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+</html>

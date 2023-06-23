@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>{% block title %} {% endblock %} | GFMIC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="GFMIC" name="Capstone"/>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static '/assets/images/logos/gfmic logo.PNG' %}">
+    <!-- Layout config Js -->
+    <script src="{% static '/assets/js/layout.js' %}"></script>
+    <!-- Bootstrap Css -->
+    <link href="{% static '/assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{% static '/assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{% static '/assets/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="{% static '/assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
+
+
+
+    {% block page-css %}
+
+	{% endblock %}
+
+</head>
+<body>
+    {% block content%}
+
+    {% endblock %}
+
+    <script src="{% static '/assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static '/assets/libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static '/assets/libs/node-waves/waves.min.js' %}"></script>
+    <script src="{% static '/assets/libs/feather-icons/feather.min.js' %}"></script>
+    <script src="{% static '/assets/js/pages/plugins/lord-icon-2.1.0.js' %}"></script>
+    <script src="{% static '/assets/js/plugins.js' %}"></script>
+
+    <!-- particles js -->
+    <script src="{% static '/assets/libs/particles.js/particles.js' %}"></script>
+    <!-- particles app js -->
+    <script src="{% static '/assets/js/pages/particles.app.js' %}"></script>
+    <!-- password-addon init -->
+    <script src="{% static '/assets/js/pages/password-addon.init.js' %}"></script>
+    <!-- prismjs plugin -->
+    <script src="{% static '/assets/libs/prismjs/prism.js' %}"></script>
+    <script src="{% static '/assets/js/pages/form-validation.init.js' %}"></script>
+    <!-- notifications init -->
+    <script src="{% static '/assets/js/pages/notifications.init.js' %}"></script>
+    <!-- App js -->
+    <script src="{% static '/assets/js/app.js' %}"></script>
+    <!-- google library, js and cdn jquery -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <!-- Modal Js -->
+    <script src="{% static 'assets/js/pages/modal.init.js' %}"></script>
+    <!-- notifications init -->
+    <script src="{% static 'assets/js/pages/notifications.init.js' %}"></script>
+  
+    
+    
+    
+	{% block page-js %} {% endblock %}
+
+	{% block page-level %} {% endblock %}
+</body>
+</html>

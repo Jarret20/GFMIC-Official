@@ -1,0 +1,598 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Event Payment list
+{% endblock %}
+ 
+{% block content %}
+
+ <!-- start page title -->
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Event Payments</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">GFMIC</a></li>
+                    <li class="breadcrumb-item active">Event Payment List</li>
+                </ol>
+            </div>
+            <p hidden id="approver_id" name="approver_id">{{ request.session.session_user_id }}</p>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Payment List</h5>
+            </div>
+            <img hidden id="gfmiclogo" style="width: auto; height: auto;"/>
+
+            <img hidden id="ecert" style="width: auto; height: auto;"/>
+
+            <img hidden id="Receipt" style="width: auto; height: auto;"/>
+
+            <div class="card-body">
+                {% if event_payment_list %}
+                    <table id="scroll-horizontal" class="table nowrap align-middle" style="width:100%">
+                        <p hidden >{{request.session.session_user_id}}</p>
+                        <thead class="table-light border">
+                            <tr>
+                                <!-- <th width="1%"></th> -->
+                                <th class="text-nowrap" data-sort="customer_name">Payment #</th>
+                                <th class="text-nowrap" data-sort="email">Name</th>
+                                <th class="text-nowrap" data-sort="email">Contact #</th>
+                                <th class="text-nowrap" data-sort="email">Event Title</th>
+                                {% if request.session.session_user_sub == 'ADMIN' or request.session.session_user_sub == 'ASSOCIATE' %}
+                                <th class="text-nowrap" data-sort="email">Amount</th>
+                                {% else %}
+                                <th class="text-nowrap" data-sort="email">Event Link</th>
+                                {% endif %}
+                                <th class="text-nowrap" data-sort="phone">Date</th>
+                                <th class="text-nowrap" data-sort="phone">Status</th>
+                                <th class="text-nowrap" data-sort="action">Action</th>
+                            </tr>
+                        </thead>
+                    {% for m in event_payment_list %}
+                        
+                        <tbody >
+                            <tr>
+                        {% if request.session.session_user_sub == 'GUEST' or request.session.session_user_sub == 'PREMIUM' %}
+                            {% if m.reg_member_id.user_id == request.session.session_user_id %}
+                                <!-- <td width="1%" class="f-s-600 text-inverse" id="{{ m.reg_event_id }}">{{ forloop.counter }}</td> -->
+                                <td class="text-nowrap customer_name">{{ m.reg_event_no }}</td>
+                                <td class="text-nowrap customer_name">{{ m.reg_member_id.user_fname }} {{m.reg_member_id.user_lname}}</td>
+                                <td class=" text-nowrap customer_name">{{ m.reg_member_id.user_mobile }}</td>
+                                <td class="text-nowrap customer_name">{{ m.reg_ev_id.event_title }}</td>
+                                {% if m.reg_payment_status == 'APPROVED' %}
+                                <td class="text-nowrap customer_name"><a href='{{ m.reg_ev_id.event_link }}' onclick="zoom_flag('{{m.reg_ev_id.event_id}}', '{{ m.reg_member_id.user_id }}')" target = "_blank" class="text-primary d-inline-block edit-item-btn"><span class="badge bg-info" ><i></i> EVENT LINK</span></a></td>
+                                {% else %}
+                                <td class="text-nowrap customer_name"><a href=''  class="text-primary d-inline-block edit-item-btn"><span class="badge bg-info" ><i></i><del>EVENT LINK</del></span></a></td>
+                                {% endif %}
+                                <td class="text-nowrap customer_name">{{ m.reg_payment_date|date:"Y-m-d" }}</td>
+                                {% if m.reg_payment_status == 'PENDING' %}
+                                    <td class="text-nowrap status"> <span class="badge bg-warning text-uppercase">{{ m.reg_payment_status }}</span></td>
+                                {% elif m.reg_payment_status == 'APPROVED' %}
+                                    <td class="text-nowrap status"><span class="badge bg-primary text-uppercase">{{ m.reg_payment_status }}</span></td>
+                                {% else %}
+                                    <td class="text-nowrap status"><span class="badge bg-danger text-uppercase">{{ m.reg_payment_status }}</span></td>
+                                {% endif %}
+                                <td class="text-nowrap">
+                                    <!-- '{{ m.reg_event_id }}' -->
+                                    <!-- onClick="viewPayment('{{ m.reg_member_id.user_id }}', '{{ m.reg_ev_id.event_id }}')" -->
+                                    <ul class="list-inline hstack gap-2 mb-0">
+                                        <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                            <a data-bs-target="#view-payment" data-bs-toggle="modal" onClick="viewPayment('{{ m.reg_member_id.user_id }}', '{{ m.reg_ev_id.event_id }}')" class="text-primary d-inline-block edit-item-btn">
+                                                <i class="ri-eye-fill fs-16"></i>
+                                            </a>
+                                        </li>
+                                          <!--FOR eCert-->
+                                          {% if m.reg_attendance == 1 %}
+                                            <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                                <a data-bs-target="" data-bs-toggle="modal" onClick="" class="text-primary d-inline-block edit-item-btn">
+                                                <button type="button" onclick="genCert('{{m.reg_member_id.user_id}}', '{{ m.reg_ev_id.event_id }}')" class="btn btn-info btn-label waves-effect waves-light rounded-pill"><i class="ri-printer-line label-icon align-middle rounded-pill fs-16 me-2"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eCertificate</button></a>
+                                            </li>
+                                          {% else %} 
+                                           <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="NOT AVAILABLE">
+                                                <a data-bs-target="" data-bs-toggle="modal" onClick="" class="text-primary d-inline-block edit-item-btn">
+                                                <button type="button" onclick="" class="btn btn-info btn-label waves-effect waves-light rounded-pill"><i class="ri-printer-line label-icon align-middle rounded-pill fs-16 me-2"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eCertificate</button></a>
+                                            </li>
+                                          {% endif %}
+                                          <!--FOR OR-->
+                                          {% if m.reg_payment_status == 'APPROVED' %}
+                                            <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                                <a data-bs-target="" data-bs-toggle="modal" onClick="" class="text-primary d-inline-block edit-item-btn">
+                                                <button type="button" onclick="genReceipt('{{m.reg_member_id.user_id}}', '{{ m.reg_ev_id.event_id }}')" class="btn btn-success btn-label waves-effect waves-light rounded-pill"><i class="ri-printer-line label-icon align-middle rounded-pill fs-16 me-2"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Official Receipt</button></a>
+                                            </li>
+                                          {% else %}
+                                            <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="NOT AVAILABLE">
+                                                <a data-bs-target="" data-bs-toggle="modal" onClick="" class="text-primary d-inline-block edit-item-btn">
+                                                <button type="button" onclick="" class="btn btn-success btn-label waves-effect waves-light rounded-pill"><i class="ri-printer-line label-icon align-middle rounded-pill fs-16 me-2"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Official Receipt</button></a>
+                                            </li>
+                                            {% endif %}
+                                    </ul>
+                                </td>
+                            {% endif %}
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <!-- <td width="1%" class="f-s-600 text-inverse" id="{{ m.reg_event_id }}">{{ forloop.counter }}</td> -->
+                                <td class="customer_name">{{ m.reg_event_no }}</td>
+                                <td class="customer_name">{{ m.reg_member_id.user_fname }} {{m.reg_member_id.user_lname}}</td>
+                                <td class="customer_name">{{ m.reg_member_id.user_mobile }}</td>
+                                <td class="customer_name">{{ m.reg_ev_id.event_title }}</td>
+                                <td class="customer_name">{{ m.reg_ev_id.event_amount }}</td>
+                                <td class="customer_name">{{ m.reg_payment_date|date:"Y-m-d" }}</td>
+                                {% if m.reg_payment_status == 'PENDING' %}
+                                <td class="status"> <span class="badge bg-warning text-uppercase">{{ m.reg_payment_status }}</span></td>
+                                {% elif m.reg_payment_status == 'APPROVED' %}
+                                <td class="status"><span class="badge bg-primary text-uppercase">{{ m.reg_payment_status }}</span></td>
+                                {% else %}
+                                <td class="status"><span class="badge bg-danger text-uppercase">{{ m.reg_payment_status }}</span></td>
+                                {% endif %}
+                                <td>
+                                <!-- '{{ m.reg_event_id }}' -->
+                                <!-- onClick="viewPayment('{{ m.reg_member_id.user_id }}', '{{ m.reg_ev_id.event_id }}')" -->
+                                <ul class="list-inline hstack gap-2 mb-0">
+                                    <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                            <a data-bs-target="#view-payment" data-bs-toggle="modal" onClick="viewPayment('{{ m.reg_member_id.user_id }}', '{{ m.reg_ev_id.event_id }}')" class="text-primary d-inline-block edit-item-btn">
+                                            <i class="ri-eye-fill fs-16"></i>
+                                            </a>
+                                    </li>
+                                    {% if m.reg_payment_status == 'PENDING' %}
+                                    <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Approve">
+                                        <a class="text-success d-inline-block add-item-btn" data-bs-toggle="modal" onClick="payment_approved('{{ m.reg_member_id.user_id }}', '{{ m.reg_ev_id.event_id }}')">
+                                        <i class="ri-check-fill fs-16" ></i>
+                                        </a>
+                                    </li>
+                
+                                    <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Denied">
+                                        <a class="text-danger d-inline-block remove-item-btn" data-bs-toggle="modal" onClick="payment_denied('{{ m.reg_member_id.user_id }}', '{{ m.reg_ev_id.event_id }}')">
+                                        <i class=" ri-close-fill fs-16"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    {% endfor %}
+                    </table>
+                {% else %}
+                    <table id="scroll-horizontal" class="table nowrap align-middle" style="width:100%">
+                        <thead>
+                            <tr>
+                            <!-- <th width="1%"></th> -->
+                            <th class="sort" data-sort="customer_name">Payment #</th>
+                            <th class="sort" data-sort="email">Name</th>
+                            <th class="sort" data-sort="email">Contact #</th>
+                            <th class="sort" data-sort="email">Event Title</th>
+                            <th class="sort" data-sort="email">Amount</th>
+                            <th class="sort" data-sort="email">Mode</th>
+                            <th class="sort" data-sort="phone">Date</th>
+                            <th class="sort" data-sort="phone">Status</th>
+                    
+                            <th class="sort" data-sort="action">Action</th>
+                            </tr>
+                        </thead>
+                    </table>    
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ <!-- View Event Payment Modal -->
+ <div class="modal fade" id="view-payment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="">View Event Payment Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+                <div class="modal-body">
+
+                    <div class="mb-3" id="modal-id" style="display: none;">
+                        <label for="id-field" class="form-label">Event ID</label>
+                        <input type="text" id="id-field" class="form-control" placeholder="ID" readonly />
+                    </div>
+                    
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label class="form-label" for="payment_no">Payment #</label>
+                            <input type="text" class="form-control" id="payment_no" name="payment_no" placeholder="" readonly="" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Membership Number.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label class="form-label" for="payee">Name</label>
+                            <input type="text" class="form-control" id="payee" name="payee" placeholder="" readonly="" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Membership Number.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label class="form-label" for="ev_title">Event Title</label>
+                            <input type="text" class="form-control" id="ev_title" name="ev_title" placeholder="" readonly="" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Membership Number.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label class="form-label" for="pay_amount">Payment Amount</label>
+                            <input type="text" class="form-control" id="pay_amount" name="pay_amount" placeholder="" readonly="" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Membership Number.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label for="pay_mode" class="form-label">Mode of Payment</label>
+                                <input type="text" class="form-control" name="pay_mode" id="pay_mode" placeholder="" readonly="" required="">
+                            <div class="invalid-feedback">
+                                Please provide an Event Status.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label for="pay_status" class="form-label">Payment Status</label>
+                                <input type="text" class="form-control" name="pay_status" id="pay_status" placeholder="" readonly="" required="">
+                            <div class="invalid-feedback">
+                                Please provide an Event Status.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <label class="form-label" for="branches_description">Proof of Payment</label>
+                        <img src="" class="card-logo card-logo-dark" id="proof_pic" height="600">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Change User Type Modal -->
+<div class="modal fade" id="associate" data-bs-backdrop="static" data-bs-target="#associate" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center p-5">
+                <lord-icon
+                    src="https://cdn.lordicon.com/lupuorrc.json"
+                    trigger="loop"
+                    colors="primary:#121331,secondary:#08a88a"
+                    style="width:120px;height:120px">
+                </lord-icon>
+                
+                <div class="mt-4">
+                    <h4 class="mb-3">Are you sure?</h4>
+                    <p class="text-muted mb-4">The user type will be changed to ASSOCIATE.</p>
+                    <div class="hstack gap-2 justify-content-center">
+                        <a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
+                        <a href="javascript:void(0);" class="btn btn-success">Approve</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block page-js %}
+
+<script>
+
+document.getElementById("gfmiclogo").src = "/media/black.png";
+
+document.getElementById("Receipt").src = "/media/receipt.jpg";
+
+document.getElementById("ecert").src = "/media/certificate.jpg";
+
+function genReceipt(member_id, event_id){
+    // alert(member_id)
+    // alert(event_id)
+    var wme = window.open("","", "width = 816px, height = 1344px");
+    $.ajax({
+            url: '{% url "users:view_payment" %}',
+            type: "POST",
+            data: {
+                member_id: member_id,
+                event_id:event_id,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            dataType: 'json',
+            success: function(data){
+                wme.document.write('<page size="Letter" style="word-wrap:break-word; margin-top: 20px;">')
+                
+                wme.document.write('<div class="bg-image" style="max-width: 100%;"><img src="/media/receipt.jpg"/> <h4 style="text-align-last: center; margin-top: -280px; margin-right: -10px; margin-left: 60px; font-size:250%;">'+ data.reg_name +'</h4> <p style="text-align-last: center; margin-top: -220px; margin-right: -50px; margin-left: 100px; font-size:150%;">'+ data.reg_event_no +'</p> <p class="m-0" Style="text-align-last: center; margin-top: 150px; margin-right: -30px; margin-left: 40px; font-size:150%;">'+ data.e_title +'</p> <p class="m-0" Style="text-align-last: center; margin-top: -20px; margin-right: -30px; margin-left: 40px; font-size:150%;">'+ data.e_desc +'</p> <p class="m-0" Style="text-align-last: center; margin-top: -200px; margin-right: -100px; margin-left: 500px; font-size:150%;">'+ data.reg_date +'</p> <p class="m-0" style="text-align-last: center; margin-top: 200px; margin-right: -10px; margin-left: 30px; font-size:150%;">P'+ data.reg_payment_amount +'.00</p> <p style="text-align-last: center; margin-top: -20px; margin-right: -10px; margin-left: 30px; font-size:150%;">'+ data.reg_event_creator +'</p> </div> <div class="row" style=" margin-top: 50px; bottom: 0;"><p style="font-family: Times New Roman; font-size: 15.5px; color: black; font-weight: 400; text-align: center;"><b>Unit 909, The One Executive Building,West Ave, Quezon City, Metro Manila Phone: (Direct Line) (02) 3412 1117 Email: gfmic@gmail.com Website: https://gfmic.ph/</b></p><br><p style="font-family: Times New Roman; font-size: 18.5px; color: black; font-weight: 400; text-align: center; margin-top: -10px;"></p></div>')
+
+                wme.document.write('</page>')
+                
+                wme.document.close();
+                wme.focus()
+                wme.print();
+                wme.close();
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+    
+}
+
+function genCert(member_id,event_id){
+    // alert(member_id)
+    var wme = window.open("","", "width = 816px, height = 1344px");
+    $.ajax({
+            url: '{% url "users:view_payment" %}',
+            type: "POST",
+            data: {
+                member_id: member_id,
+                event_id:event_id,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            dataType: 'json',
+            success: function(data){
+                wme.document.write('<page size="Letter" style="word-wrap:break-word; margin-top: 20px;">')
+   
+                        wme.document.write('<div class="bg-image" style="max-width: 22rem;"><img src="/media/certificate.jpg"/> <h4 style="text-align-last: center; margin-top: -410px; margin-right: -400px; margin-left: 200px; font-size:300%;">'+ data.reg_name +'</h4> <p class="m-0" Style="text-align-last: center; margin-top: -60px; margin-right: -600px; margin-left: 200px; font-size:150%;"><b>'+ data.e_title +'</b></p> <p class="m-0" Style="text-align-last: right; margin-top: 10px; margin-right: -300px; margin-left: 300px; font-size:150%;">'+ data.e_date +'</p> <p style="text-align-last: right; margin-top: 55px; margin-right: -300px; margin-left: 300px; font-size:150%;">'+ data.reg_ecert_no +'</p> </div> <div class="row" style=" margin-top: 150px; bottom: 0;"><p style="font-family: Times New Roman; font-size: 15.5px; color: black; font-weight: 400; text-align: center;"><b>Unit 909, The One Executive Building,West Ave, Quezon City, Metro Manila Phone: (Direct Line) (02) 3412 1117 Email: gfmic@gmail.com Website: https://gfmic.ph/</b></p><br><p style="font-family: Times New Roman; font-size: 18.5px; color: black; font-weight: 400; text-align: center; margin-top: -10px;"></p></div>')
+                wme.document.write('</page>')
+                wme.document.close();
+                wme.focus()
+                wme.print();
+                wme.close();
+
+
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+    
+}
+
+function zoom_flag(event_id, user_id){
+    // alert(event_id)
+    // alert(user_id)
+    $.ajax({
+        type:'POST',
+        url : "{% url 'users:event_zoomlink_flag' %}",
+        dataType: 'json',
+        data: {
+            event_id:event_id,
+            user_id:user_id,
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success: function(data){
+            console.log(success)
+            window.location.reload()  
+        },
+        error: function(error){
+            console.log(error)
+        }
+    });
+}
+
+function viewPayment(member_id, event_id){
+    // alert(reg_id)
+    // alert(member_id)
+    // alert(event_id)
+    // document.getElementById('member_id').textContent = user_id
+    $.ajax({
+            type:'POST',
+            url : "{% url 'users:view_payment' %}",
+            dataType: 'json',
+            data: {
+                // reg_id:reg_id,
+                member_id:member_id,
+                event_id:event_id,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            success: function(data){
+                $('#payment_no').val(data.reg_event_no).text(data.reg_event_no);
+                if (data.reg_payment_amount){
+                    $('#pay_amount').val(data.reg_payment_amount).text(data.reg_payment_amount);
+                    $('#pay_mode').val(data.reg_pmode).text(data.reg_pmode);
+                    document.getElementById("proof_pic").setAttribute("src", "/media/" + data.reg_proof_payment); 
+                    $('#pay_status').val(data.reg_payment_status).text(data.reg_payment_status);
+                    document.getElementById("payee").placeholder = data.reg_name;
+                    // ('#payee').val(data.reg_name).value(data.reg_name);  //payee name
+                    document.getElementById("ev_title").placeholder = data.e_title;  //event title
+                    // document.getElementById('payee').placeholder = data.reg_member_id.user_fname + ' - ' + data.reg_member_id.user_lname;
+                    // document.getElementById('ev_title').innerHTML = data.reg_ev_id.event_title;
+                }
+                // else {
+                //     $('#user_amount').val('N/A').text('N/A');
+                //     $('#user_mode').val('N/A').text('N/A');
+                //     $('#user_start').val('N/A').text('N/A');
+                //     $('#user_end').val('N/A').text('N/A');
+                //     $('#m_status').val('N/A').text('N/A');
+                //     document.getElementById("proof_pic").setAttribute("src", "/media/proof_pic/images.png"); 
+                // }
+                
+            },
+            error: function(error){
+                console.log(error)
+            }
+        });
+}
+
+    function payment_approved(member_id, event_id){
+        // alert(member_id, event_id)
+        var approver_id = document.getElementById('approver_id').textContent;
+      //   alert(approver_id)
+        const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+        })
+        swalWithBootstrapButtons.fire({
+        title: 'Are you sure',
+        text: "You want to approve this?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, approve it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                type:'POST',
+                url : "{% url 'users:event_payment_approve' %}",
+                dataType: 'json',
+                data: {
+                  member_id:member_id,
+                  approver_id:approver_id,
+                  event_id:event_id,
+                  csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                success: function(data){
+                    window.location.reload()
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+            } 
+        });
+        return false;
+    }
+
+    function payment_denied(member_id, event_id){
+        // alert(user_id)
+        var approver_id = document.getElementById('approver_id').textContent;
+        const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+        })
+        swalWithBootstrapButtons.fire({
+        title: 'Are you sure',
+        text: "You want to disapprove this?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, disapprove it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                    type:'POST',
+                    url : "{% url 'users:event_payment_denied' %}",
+                    dataType: 'json',
+                    data: {
+                        member_id:member_id,
+                        event_id:event_id,
+                        approver_id:approver_id,
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                    },
+                    success: function(data){
+                        window.location.reload()
+                    },
+                    error: function(error){
+                        console.log(error)
+                    }
+                });
+            } 
+        });
+        return false;
+            
+    }
+
+    
+function submit_account(){
+    var m_no = document.getElementById('m_no').textContent;
+    var m_name = document.getElementById('m_name').textContent;
+    var m_mobile = document.getElementById('m_mobile').textContent;
+    var m_satus = document.getElementById('m_satus').textContent;
+    var m_sub = document.getElementById('m_sub').textContent;
+    var email = 'sapmle@gmail.com'
+    var pass = 123
+    // alert(m_no, m_name, m_mobile, m_satus, m_sub)
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure',
+        text: "You want to save this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, save it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type:'POST',
+                url : "{% url 'users:add_membership' %}",
+                dataType: 'json',
+                data: {
+                    m_no:m_no,
+                    m_name:m_name,
+                    m_mobile:m_mobile,
+                    m_satus:m_satus,
+                    m_sub:m_sub,
+                    email:email,
+                    pass:pass,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                success: function(data){
+                    swalWithBootstrapButtons.fire(
+                        'Saved!',
+                        'Your record has been saved.',
+                        'success'
+                    )
+                    setTimeout(function(){
+                        window.location.reload()  
+                }, 1000);
+                    
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+            'Cancelled'
+            )
+        }
+    });
+    return false;
+}
+
+</script>
+
+{% endblock %}
+

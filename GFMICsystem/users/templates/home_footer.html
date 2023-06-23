@@ -1,0 +1,108 @@
+{% load static %}
+<!-- Start footer -->
+<footer class="custom-footer bg-dark py-5 position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mt-4">
+                <div>
+                    <div>
+                        <img src="{% static 'assets/images/logos/white logo.png' %}" alt="logo light" height="60">
+                    </div>
+                    <div class="mt-4 fs-13">
+                        <p style="text-align:justify">"Working globally with governments, organizations, and individuals, the International Consortium on Governmental Financial Management, Inc. 
+                        is dedicated to improving financial management, so governments can better serve their citizens."  </p>
+                    
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 ms-lg-auto">
+                <div class="row">
+                    <div class="col-sm-4 mt-4">
+                        <h5 class="text-white mb-0">Company</h5>
+                        <div class="text-muted mt-3">
+                            <ul class="list-unstyled ff-secondary footer-list fs-14">
+                                <li><a href="{% url 'users:about' %}">About Us</a></li>
+                                <li><a href="{% url 'users:register' %}">Membership</a></li>
+                                <li><a href="{% url 'users:home_event' %}">Events</a></li>
+                                <li><a href="#news">News</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mt-4">
+                        <h5 class="text-white mb-0">Discover</h5>
+                        <div class="text-muted mt-3">
+                            <ul class="list-unstyled ff-secondary footer-list fs-14">
+                                <li><a href="{% url 'users:webinar' %}">Webinars</a></li>
+                                <li><a href="https://www.google.com/maps/place/The+One+Executive+Building,
+                            +5+West+Ave,+Quezon+City,+Metro+Manila,+Philippines/@14.637727,121.024846,
+                            10z/data=!4m5!3m4!1s0x3397b65107c0e407:0xef78051484f3ac00!8m2!3d14.6377267!4d121.0248458?hl=en-US">Location</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mt-4">
+                        <h5 class="text-white mb-0">Support</h5>
+                        <div class="text-muted mt-3">
+                            <ul class="list-unstyled ff-secondary footer-list fs-14">
+                                <li><a href="{% url 'users:faqs' %}">FAQ</a></li>
+                                <li><a href="https://www.facebook.com/messages/t/204865663057588">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row text-center text-sm-start align-items-center mt-5">
+            <div class="col-sm-6">
+
+                <div>
+                    <p class="copy-rights mb-0">
+                        <script>document.write(new Date().getFullYear())</script> © GFMIC, INC.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="text-sm-end mt-3 mt-sm-0">
+                    <ul class="list-inline mb-0 footer-social-link">
+                        <li class="list-inline-item">
+                            <a href="https://www.facebook.com/gfmic.inc" class="avatar-xs d-block">
+                                <div class="avatar-title rounded-circle">
+                                    <i class="ri-facebook-fill"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.google.com/maps/place/The+One+Executive+Building,
+                            +5+West+Ave,+Quezon+City,+Metro+Manila,+Philippines/@14.637727,121.024846,
+                            10z/data=!4m5!3m4!1s0x3397b65107c0e407:0xef78051484f3ac00!8m2!3d14.6377267!4d121.0248458?hl=en-US"
+                                class="avatar-xs d-block">
+                                <div class="avatar-title rounded-circle">
+                                    <i class="ri-google-fill"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://twitter.com/icgfm"
+                                class="avatar-xs d-block">
+                                <div class="avatar-title rounded-circle">
+                                    <i class="ri-twitter-fill"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.instagram.com/icgfm/"
+                                class="avatar-xs d-block">
+                                <div class="avatar-title rounded-circle">
+                                    <i class="ri-instagram-fill"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end footer -->

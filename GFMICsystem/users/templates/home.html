@@ -1,0 +1,636 @@
+{% extends 'base_home.html' %}
+{% load static %}
+{% block title %}
+    Home
+{% endblock %}
+{% block content %}
+ 
+<!-- start hero section -->
+<section class="section nft-hero" id="home">
+    <div class="container">
+        <div class="row align-items-center">
+        <div class="col-md-5">
+            <div class="mt-md-4"> 
+                    
+                    <P class="mb-4 font-22 text-white">
+                        WELCOME TO
+                    </P>
+                    <h2 class="text-white fw-bold mb-4 mt-3 hero-title" style="color: #f1f1f1;"> 
+                        GFMIC, INC.
+                    </h2>
+
+                    <p></p>
+                    <p class="mb-4 font-21 text-white" style="text-align:justify">“At GFMIC”, President Mayette said, “We believe strongly that our profession can be enhanced more by 
+                            incorporating innovative practices in the day-to-day conduct of our professional activities as well 
+                            as building capacities of the people manning the systems.”</p>
+                        <div>
+                            <span class="badge bg-danger rounded-pill">New</span>
+                            <span class="text-white-50 ms-1">New Discounts this month! Get your membership Today!</span>
+                        </div>
+                        <br>
+
+                    <a href="{% url 'users:register' %}" target="" class="btn btn-info">Be a member now!<i class="mdi mdi-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+            <div class="col-md-5 offset-md-2">
+                <div class="text-md-end mt-3 mt-md-0">
+                    <img src="{% static 'assets/images/logos/sales-team.png' %}" alt="" class="img-fluid w-100">
+                </div>
+            </div>
+            </div><!--end col-->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end hero section -->
+
+<section class="section">
+<div class="container">
+        <div class="row justify-content-center">
+                <div class="text-center mt-lg-1 pt-1">
+<div class="mt-4 mt-sm-5 pt-sm-5 mb-sm-n5 demo-carousel">
+    <div class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner shadow-lg p-2 bg-white rounded">
+            <div class="carousel-item active" data-bs-interval="2000">
+                <img src="{% static 'assets/images/webinar/14.JPG' %}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="{% static 'assets/images/webinar/3.PNG' %}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="{% static 'assets/images/webinar/10.JPG' %}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="{% static 'assets/images/webinar/11.JPG' %}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="{% static 'assets/images/webinar/12.JPG' %}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="{% static 'assets/images/webinar/13.JPG' %}" class="d-block w-100" alt="...">
+            </div>
+        </div>
+    </div>
+</div>
+</div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end hero section -->
+
+<!-- start services -->
+<section class="section" id="aboutus">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-5">
+                    <h1 class="mb-3 ff-secondary fw-semibold lh-base"><i class="ri-pencil-ruler-2-line fs-36"></i>&ensp;About Us&ensp;
+                    <a href="{% url 'users:about' %}" class="btn btn-secondary">For more Info <i class="ri-arrow-right-line align-middle ms-1"></i></a></p>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+
+        <div class="row g-3">
+            <div class="col-lg-4">
+                <div class="d-flex p-3">
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm icon-effect">
+                            <div class="avatar-title bg-transparent text-success rounded-circle">
+                                <i class="ri-pencil-ruler-2-line fs-36"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="fs-18">Webinars</h5>
+                        <p class="text-muted my-3 ff-secondary" style="text-align:justify">Events held virtually that is hosted by GFMIC and is broadcasted via internet worldwide.</p>
+                        <div>
+                            <a href="#" class="fs-13 fw-medium">Learn More <i class="ri-arrow-right-s-line align-bottom"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+            <div class="col-lg-4">
+                <div class="d-flex p-3">
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm icon-effect">
+                            <div class="avatar-title bg-transparent text-success rounded-circle">
+                                <i class="ri-palette-line fs-36"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="fs-18">Bitbo Academy</h5>
+                        <p class="text-muted my-3 ff-secondary" style="text-align:justify">The BITBo is a reliable, integrated and automated system specially developed for the barangays in the Philippines.</p>
+                        <div>
+                            <a href="#" class="fs-13 fw-medium">Learn More <i class="ri-arrow-right-s-line align-bottom"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+            <div class="col-lg-4">
+                <div class="d-flex p-3">
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm icon-effect">
+                            <div class="avatar-title bg-transparent text-success rounded-circle">
+                                <i class="ri-lightbulb-flash-line fs-36"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="fs-18">National Conventions</h5>
+                        <p class="text-muted my-3 ff-secondary" style="text-align:justify">GFMIC holds national conventions annually.</p>
+                        <div>
+                            <a href="#" class="fs-13 fw-medium">Learn More <i class="ri-arrow-right-s-line align-bottom"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+            <div class="col-lg-4">
+                <div class="d-flex p-3">
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm icon-effect">
+                            <div class="avatar-title bg-transparent text-success rounded-circle">
+                                <i class="ri-customer-service-line fs-36"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="fs-18">Membership Conference</h5>
+                        <p class="text-muted my-3 ff-secondary" style="text-align:justify">GFMIC members can participate on all of the conference that GFMIC hosts physically and virtually.</p>
+                        <div>
+                            <a href="#" class="fs-13 fw-medium">Learn More <i class="ri-arrow-right-s-line align-bottom"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+            <div class="col-lg-4">
+                <div class="d-flex p-3">
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm icon-effect">
+                            <div class="avatar-title bg-transparent text-success rounded-circle">
+                                <i class="ri-stack-line fs-36"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="fs-18">National Events</h5>
+                        <p class="text-muted my-3 ff-secondary" style="text-align:justify">GFMIC holds interactive events yearly that anyone can enjoy and learn more.</p>
+                        <div>
+                            <a href="#" class="fs-13 fw-medium">Learn More <i class="ri-arrow-right-s-line align-bottom"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+            <div class="col-lg-4">
+                <div class="d-flex p-3">
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm icon-effect">
+                            <div class="avatar-title bg-transparent text-success rounded-circle">
+                                <i class="ri-settings-2-line fs-36"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="fs-18">eCertificates</h5>
+                        <p class="text-muted my-3 ff-secondary" style="text-align:justify">GFMIC members can claim their eCertificates every webinars and events they have attended.</p>
+                        <div>
+                            <a href="#" class="fs-13 fw-medium">Learn More <i class="ri-arrow-right-s-line align-bottom"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+
+            
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end container -->
+</section>
+<!-- end services -->
+
+<!-- start features -->
+<section class="section bg-light py-5" id="membership">
+    <div class="container">
+        <div class="row align-items-center gy-4">
+            <div class="col-lg-6 col-sm-7 mx-auto">
+                <div>
+                    <img src="{% static 'assets/images/logos/bitbo.PNG' %}" alt="" class="img-fluid mx-auto">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="text-muted">
+                    <h3 class="mb-3 fs-20">BITBo Academy&ensp;
+                    <a href="https://prod.brgyit-bot.com/portal/" class="btn btn-secondary">For more Info <i class="ri-arrow-right-line align-middle ms-1"></i></a></p>
+                    </h3>
+                    <p style="text-align:justify" class="mb-4 ff-secondary fs-16">Bringing Change to Local Governance
+                    The BITBo is a reliable, integrated and automated system specially developed for the barangays in the Philippines. 
+                    It provides a more organized approach to processing, storing, and managing data that are relevant and needed by the barangays. 
+                    Barangay IT Robot is designed to handle a wide-range of information relating to barangay profile, citizens profile, 
+                    barangay IDs/clearances/certifications, blotter cases, local businesses, and barangay legislation. The system is equipped with 
+                    features and functionalities that will provide complete and accurate information for a more effective management of barangay transactions.</p>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end container -->
+</section>
+<!-- end features -->
+
+<br><br>
+    <!-- start marketplace -->
+    <section class="section bg-gray" id="events">
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="text-center">
+				<h2 class="mb-3 fw-bold lh-base">Events&ensp;
+                    <a href="{% url 'users:home_event' %}" class="btn btn-secondary">For more Info <i class="ri-arrow-right-line align-middle ms-1"></i></a></p>
+                    </h2>
+                    <p class="text-muted mb-4">Collection of pictures from past and upcoming events throughout the years.</p>
+
+                                <ul class="list-inline categories-filter animation-nav" id="filter">
+                                    <li class="list-inline-item"><a class="categories active" data-filter="*">All</a></li>
+                                    <li class="list-inline-item"><a class="categories" data-filter=".project">2020</a></li>
+                                    <li class="list-inline-item"><a class="categories" data-filter=".designing">2021</a></li>
+                                    <li class="list-inline-item"><a class="categories" data-filter=".photography">2022</a></li>
+                                    <li class="list-inline-item"><a class="categories" data-filter=".development">2023</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="row gallery-wrapper">
+                                <div class="element-item col-xxl-3 col-xl-4 col-sm-6 project" data-category="project">
+                                    <div class="gallery-box card">
+                                        <div class="gallery-container">
+                                            <a class="image-popup" href="{% static 'assets/images/events/1.jpg' %}" title="">
+                                                <img class="gallery-img img-fluid mx-auto" src="{% static 'assets/images/events/1.jpg' %}" alt="" />
+                                                <div class="gallery-overlay">
+                                                    <h5 class="overlay-caption">Event 1</h5>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end col -->
+                                <div class="element-item col-xxl-3 col-xl-4 col-sm-6 photography" data-category="photography">
+                                    <div class="gallery-box card">
+                                        <div class="gallery-container">
+                                            <a class="image-popup" href="{% static 'assets/images/events/2.jpg' %}" title="">
+                                                <img class="gallery-img img-fluid mx-auto" src="{% static 'assets/images/events/2.jpg' %}" alt="" />
+                                                <div class="gallery-overlay">
+                                                    <h5 class="overlay-caption">Event 2</h5>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end col -->
+                                <div class="element-item col-xxl-3 col-xl-4 col-sm-6 designing" data-category="designing">
+                                    <div class="gallery-box card">
+                                        <div class="gallery-container">
+                                            <a class="image-popup" href="{% static 'assets/images/events/3.jpg' %}" title="">
+                                                <img class="gallery-img img-fluid mx-auto" src="{% static 'assets/images/events/3.jpg' %}" alt="" />
+                                                <div class="gallery-overlay">
+                                                    <h5 class="overlay-caption">Event 3</h5>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end col -->
+                                <div class="element-item col-xxl-3 col-xl-4 col-sm-6 photography" data-category="photography">
+                                    <div class="gallery-box card">
+                                        <div class="gallery-container">
+                                            <a class="image-popup" href="{% static 'assets/images/events/9.jpg' %}" title="">
+                                                <img class="gallery-img img-fluid mx-auto" src="{% static 'assets/images/events/9.jpg' %}" alt="" />
+                                                <div class="gallery-overlay">
+                                                    <h5 class="overlay-caption">Event 4</h5>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end col -->
+                                <div class="element-item col-xxl-3 col-xl-4 col-sm-6 project" data-category="project">
+                                    <div class="gallery-box card">
+                                        <div class="gallery-container">
+                                            <a class="image-popup" href="{% static 'assets/images/events/11.jpg' %}" title="">
+                                                <img class="gallery-img img-fluid mx-auto" src="{% static 'assets/images/events/11.jpg' %}" alt="" />
+                                                <div class="gallery-overlay">
+                                                    <h5 class="overlay-caption">Event 5</h5>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end col -->
+                                <div class="element-item col-xxl-3 col-xl-4 col-sm-6 photography" data-category="photography">
+                                    <div class="gallery-box card">
+                                        <div class="gallery-container">
+                                            <a class="image-popup" href="{% static 'assets/images/events/12.jpg' %}" title="">
+                                                <img class="gallery-img img-fluid mx-auto" src="{% static 'assets/images/events/12.jpg' %}" alt="" />
+                                                <div class="gallery-overlay">
+                                                    <h5 class="overlay-caption">Event 6</h5>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end col -->
+                                <div class="element-item col-xxl-3 col-xl-4 col-sm-6 project" data-category="project">
+                                    <div class="gallery-box card">
+                                        <div class="gallery-container">
+                                            <a class="image-popup" href="{% static 'assets/images/events/14.jpg' %}" title="">
+                                                <img class="gallery-img img-fluid mx-auto" src="{% static 'assets/images/events/14.jpg' %}" alt="" />
+                                                <div class="gallery-overlay">
+                                                    <h5 class="overlay-caption">Event 7</h5>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end col -->
+                                <div class="element-item col-xxl-3 col-xl-4 col-sm-6 designing" data-category="designing">
+                                    <div class="gallery-box card">
+                                        <div class="gallery-container">
+                                            <a class="image-popup" href="{% static 'assets/images/events/8.jpg' %}" title="">
+                                                <img class="gallery-img img-fluid mx-auto" src="{% static 'assets/images/events/8.jpg' %}" alt="" />
+                                                <div class="gallery-overlay">
+                                                    <h5 class="overlay-caption">Event 8</h5>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end col -->
+                            </div>
+                            <!-- end row -->
+                        </div>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- ene card body -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+    </div><!-- end container -->
+</section>
+<!-- end marketplace -->
+
+<!-- start features -->
+<section class="section" id="news">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-5">
+                    <h2 class="mb-3 fw-bold lh-base">News</h2>
+                    <p class="text-muted">Announcements about GFMIC. Check for more updates.</p>
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+        
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card shadow-none">
+                    <div class="card-body">
+                        <img src="{% static 'assets/images/nft/wallet.png' %}" alt="" class="avatar-sm">
+                        <h5 class="mt-4">13th Annual National Convention</h5>
+                        <p class="text-muted fs-14">Greetings from GFMIC, Inc. (formerly Electronic Financials Users’ Circle (EUC), Inc.)!</p>
+                        <a href="#!" class="link-primary fs-14">Read More <i class="ri-arrow-right-line align-bottom"></i></a>
+                    </div>
+                </div>
+            </div><!--end col-->
+            <div class="col-lg-3">
+                <div class="card shadow-none">
+                <div class="card-body">
+                        <img src="{% static 'assets/images/nft/wallet.png' %}" alt="" class="avatar-sm">
+                        <h5 class="mt-4">13th Annual National Convention</h5>
+                        <p class="text-muted fs-14">Greetings from GFMIC, Inc. (formerly Electronic Financials Users’ Circle (EUC), Inc.)!</p>
+                        <a href="#!" class="link-primary fs-14">Read More <i class="ri-arrow-right-line align-bottom"></i></a>
+                    </div>
+                </div>
+            </div><!--end col-->
+            <div class="col-lg-3">
+                <div class="card shadow-none">
+                <div class="card-body">
+                        <img src="{% static 'assets/images/nft/wallet.png' %}" alt="" class="avatar-sm">
+                        <h5 class="mt-4">13th Annual National Convention</h5>
+                        <p class="text-muted fs-14">Greetings from GFMIC, Inc. (formerly Electronic Financials Users’ Circle (EUC), Inc.)!</p>
+                        <a href="#!" class="link-primary fs-14">Read More <i class="ri-arrow-right-line align-bottom"></i></a>
+                    </div>
+                </div>
+            </div><!--end col-->
+            <div class="col-lg-3">
+                <div class="card shadow-none">
+                    <div class="card-body">
+                        <img src="{% static 'assets/images/nft/wallet.png' %}" alt="" class="avatar-sm">
+                        <h5 class="mt-4">13th Annual National Convention</h5>
+                        <p class="text-muted fs-14">Greetings from GFMIC, Inc. (formerly Electronic Financials Users’ Circle (EUC), Inc.)!</p>
+                        <a href="#!" class="link-primary fs-14">Read More <i class="ri-arrow-right-line align-bottom"></i></a>
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!-- end container -->
+</section><!-- end features -->
+
+<section class="section" id="faqs">
+<div class="pt-1 mt-1 bg-soft-primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="text-center mt-5">
+                    <div class="py-4">
+                        <h4 class="display-6 coming-soon-text">Frequently asked questions</h4>
+                        <p class="text-muted fs-15 mt-3">If you can not find answer to your question in our FAQ, you can always contact us or email us. We will answer you shortly!</p>
+                        <div class="hstack justify-content-center gap-2">
+                            <button type="button" class="btn btn-primary btn-label rounded-pill"><i class="ri-mail-line label-icon align-middle rounded-pill fs-16 me-2"></i> Email Us</button>
+                            <a href="{% url 'users:faqs' %}" button type="button" class="btn btn-secondary btn-label rounded-pill"><i class="ri-information-line label-icon align-middle rounded-pill fs-16 me-2"></i> For more Info</button></a>
+                        </div>
+                    <!-- end card body -->
+                    </div>
+                    <!-- end card -->
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end container -->
+</div>
+<!-- end client section -->
+</section><!-- end faqs -->
+
+<!-- start contact -->
+<section class="section" id="contact">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-5">
+                    <h3 class="mb-3 fw-semibold">Get In Touch!</h3>
+                    <p class="text-muted mb-4 ff-secondary">If you have concerns about GFMIC you can message us through here.</p>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+        <div class="row gy-4">
+            <div class="col-lg-4">
+                <div>
+                    <div class="mt-4">
+                        <h5 class="fs-13 text-muted text-uppercase">Office Address:</h5>
+                        <div class="ff-secondary fw-semibold">Unit 909, The One Executive Building,<br/> West Ave, Quezon City, Metro Manila</div>
+                    </div>
+                    <div class="mt-4">
+                        <h5 class="fs-13 text-muted text-uppercase">Email Address:</h5>
+                        <div class="ff-secondary fw-semibold">gfmic@gmail.com</div>
+                    </div>
+                    <div class="mt-4">
+                        <h5 class="fs-13 text-muted text-uppercase">Customer Support:</h5>
+                        <div class="ff-secondary fw-semibold">(02) 3412 1117</div>
+                    </div>
+                    <div class="mt-4">
+                        <h5 class="fs-13 text-muted text-uppercase">Working Hours:</h5>
+                        <div class="ff-secondary fw-semibold">8:00 am to 5:00 pm (Monday to Friday)</div>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+            <div class="col-lg-8">
+                <div>
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-4">
+                                    <label for="name" class="form-label fs-13">Name</label>
+                                    <input name="name" id="name" type="text" class="form-control bg-light border-light" placeholder="Your name*">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-4">
+                                    <label for="email" class="form-label fs-13">Email</label>
+                                    <input name="email" id="email" type="email" class="form-control bg-light border-light" placeholder="Your email*">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-4">
+                                    <label for="subject" class="form-label fs-13">Subject</label>
+                                    <input type="text" class="form-control bg-light border-light" id="subject" name="subject" placeholder="Your Subject..." />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="comments" class="form-label fs-13">Message</label>
+                                    <textarea name="comments" id="comments" rows="3" class="form-control bg-light border-light" placeholder="Your message..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 text-end">
+                                <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary" value="Send Message">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end container -->
+</section>
+<!-- end contact -->
+
+
+
+
+<div id="loginModals" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 overflow-hidden">
+            <div class="modal-body login-modal p-5">
+                <h5 class="text-white fs-20">Login</h5>
+                <p class="text-white-50 mb-4">Don't have an account? <a href="javascript:void(0);" class="text-white">Sign Up.</a></p>
+                <div class="vstack gap-2 justify-content-center">
+                    <button class="btn btn-light"><i class="ri-google-fill align-bottom text-danger"></i> Google</button>
+                    <button class="btn btn-info"><i class="ri-facebook-fill align-bottom"></i> Facebook</button>
+                </div>
+            </div>
+            <div class="modal-body p-5">
+                <h5 class="mb-3">Login with Email</h5>
+                {% if error_message %}
+                    <p class="alert alert-danger">
+                        <strong>{{ error_message }}</strong>
+                    </p>
+                {% endif %}
+                <form action="{% url 'users:process_login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="mb-2">
+                        <input type="email" class="form-control" id="useremail" name='useremail' placeholder="Enter your email/username">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" id="password-input" name='password' placeholder="Enter your password">
+                        <div class="mt-1 text-end">
+                            <a href="">Forgot password ?</a>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="signupModals" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 overflow-hidden">
+            <div class="modal-header p-3">
+                <h4 class="card-title mb-0">Sign Up</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-success  rounded-0 mb-0">
+                <p class="mb-0">Up to <span class="fw-semibold">50% OFF</span>, Hurry up before the stock ends</p>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="email" class="form-control" id="fullName" placeholder="Enter your name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailInput" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="emailInput" placeholder="Enter your email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter your password">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="checkTerms">
+                        <label class="form-check-label" for="checkTerms">I agree to the <span class="fw-semibold">Terms of Service</span> and Privacy Policy</label>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">Sign Up Now</button>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+{% endblock %}

@@ -1,0 +1,444 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Event
+{% endblock %}
+
+{% block content %}
+
+ <!-- start page title -->
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">EVENT</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">GFMIC</a></li>
+                    <li class="breadcrumb-item active">Event</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Event</h5>
+            </div>
+            <div class="card-body">
+                <div id="customerList">
+                    <div class="row g-4 mb-3">
+                        <div class="col-sm-auto">
+                            <div>
+                                <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#add_event"><i class="mdi mdi-plus-circle me-2"></i> Add Event</button>
+                            </div>
+                        </div>
+                    </div>
+                {% if event_list %}
+                <table id="scroll-horizontal" class="table nowrap align-middle" style="width:100%">
+                    <thead class="table-light border">
+                        <tr>
+                            <th width="1%"></th>
+                            <th >Event #</th>
+                            <th >Title</th>
+                            <th >Resource Speaker</th>
+                            <th >Description</th>
+                            <th >Schedule Time</th>
+                            <th >Schedule Date</th>
+                            <th >Amount</th>
+                            <th >Event Picture</th>
+                            <th >Link</th>
+                            <th>Event Status</th>
+                            <th style="width: 100px;">Action</th>
+                        </tr>
+                    </thead>
+                    {% for e in event_list %}
+                    {% if e.event_status != 'DELETED' %}
+                    <tbody >
+                        <tr>
+                            <td width="1%" class="f-s-600 text-inverse" id="{{ e.event_id }}">{{ forloop.counter }}</td>
+                            <td >{{ e.event_no }}</td>
+                            <td>{{ e.event_title }}</td>
+                            <td>{{ e.event_speaker }}</td>
+                            <td>{{ e.event_desc }}</td>
+                            <td>{{ e.event_time_start }} - {{ e.event_time_end}}</td>
+                            <td>{{ e.event_date|date:"Y-m-d" }}</td>
+                            <td>P {{ e.event_amount }}</td>
+
+                            {% if e.event_image %}
+                                <td><a href="/media/{{ e.event_image }}" target="blank" class="text-primary d-inline-block edit-item-btn"><span class="badge bg-success" ><i class="ri-image-fill fs-16"></i> VIEW IMAGE</span></a>
+                            {% else %}
+                                {% if request.session.session_user_sub == 'ASSOCIATE' %}
+                                    <td><a href='' data-bs-toggle="modal"  data-bs-target="#event_image" onClick="event_upload('{{e.event_id}}')" class="text-primary d-inline-block edit-item-btn"><span class="badge bg-info" ><i class="ri-folder-upload-fill fs-16"></i> UPLOAD IMAGE</span></a>
+                                {% elif request.session.session_user_sub == 'ADMIN' %}
+                                    <td><a href='' data-bs-toggle="modal"  data-bs-target="#event_image" onClick="event_upload('{{e.event_id}}')" class="text-primary d-inline-block edit-item-btn"><span class="badge bg-info" ><i class="ri-folder-upload-fill fs-16"></i> UPLOAD IMAGE</span></a>
+                                {% else %}
+                                    <td><span class="badge bg-info" >NOT AVAILABLE</span>
+                                {% endif %}
+                            {% endif %}
+                            
+                            <!-- <td><a href='{{ e.event_link }}' class="text-primary d-inline-block edit-item-btn"><span class="badge bg-info" ><i></i> ZOOM LINK</span></a></td> -->
+
+                            {% if request.session.session_user_sub == 'ADMIN' %}
+                            <td><a href='{{ e.event_link }}' target = "_blank" class="text-primary d-inline-block edit-item-btn"><span class="badge bg-info" ><i></i> ZOOM LINK</span></a></td>
+                            {% elif request.session.session_user_sub == 'ASSOCIATE' %}
+                            <td><a href='{{ e.event_link }}' target = "_blank" class="text-primary d-inline-block edit-item-btn"><span class="badge bg-info" ><i></i> ZOOM LINK</span></a></td>
+                            {% else %}
+                                {% if e.reg_payment_amount %}
+                                <td><a href='{{ e.event_link }}' target = "_blank" class="text-primary d-inline-block edit-item-btn"><span class="badge bg-info" ><i></i> ZOOM LINK</span></a></td>
+                                {% else %}
+                                <td><span class="badge bg-info" >NOT AVAILABLE</span>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if e.event_status == 'ON GOING' %}
+                                <td><span class="badge bg-primary text-uppercase">{{ e.event_status }}</span></td>
+                            {% elif e.event_status == 'DONE' %}
+                                <td><span class="badge bg-warning text-uppercase">{{ e.event_status }}</span></td>
+                            {% elif e.event_status == 'PENDING' %}
+                                <td><span class="badge bg-warning text-uppercase">{{ e.event_status }}</span></td>
+                            {% elif e.event_status == 'DENIED' %}
+                                <td><span class="badge bg-danger text-uppercase">{{ e.event_status }}</span></td>
+                            {% endif %}
+                            <td>
+                                <ul class="list-inline hstack gap-2 mb-0">
+                                    <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                          <a data-bs-target="#creatertaskModal" data-bs-toggle="modal" onClick="viewEvent2('{{e.event_id}}')" class="text-primary d-inline-block edit-item-btn">
+                                             <i class="ri-eye-fill fs-16"></i>
+                                          </a>
+                                    </li>
+                                    <!-- {% if e.event_associate.user_sub == 'ASSOCIATE' %}
+                                        {% if e.event_associate.user_id == request.session.session_user_id %}
+                                        <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Modify">
+                                            <a href="#modify-event" data-bs-toggle="modal" class="text-primary d-inline-block edit-item-btn">
+                                                <i class="ri-pencil-fill fs-16"></i>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endif %} -->
+                                    {% if e.event_associate.user_sub == 'ASSOCIATE' %}
+                                        {% if e.event_associate.user_id == request.session.session_user_id %}
+                                            {% if e.event_status == 'PENDING' %}
+                                            <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Delete">
+                                                <a class="text-danger d-inline-block remove-item-btn" data-bs-toggle="modal" onClick="deleteEvent('{{e.event_id}}')">
+                                                    <i class="ri-delete-bin-5-fill fs-16"></i>
+                                                </a>
+                                            </li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if request.session.session_user_sub == 'ADMIN' %}
+                                        {% if e.event_status == 'PENDING' %}
+                                        <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Approve">
+                                            <a class="text-success d-inline-block add-item-btn" data-bs-toggle="modal" onClick="approveEvent('{{e.event_id}}')">
+                                            <i class="ri-check-fill fs-16" ></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Disapprove">
+                                            <a class="text-danger d-inline-block remove-item-btn" data-bs-toggle="modal" onClick="disapproveEvent('{{e.event_id}}')">
+                                        <i class=" ri-close-fill fs-16"></i>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+                {% else %}
+                <table id="scroll-horizontal" class="table nowrap align-middle" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th width="1%"></th>
+                            <th >Event #</th>
+                            <th >Title</th>
+                            <th >Resource Speaker</th>
+                            <th >Description</th>
+                            <th >Schedule Time</th>
+                            <th >Schedule Date</th>
+                            <th>Event Status</th>
+                            <th style="width: 100px;">Action</th>
+                        </tr>
+                    </thead>
+                </table>   
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="creatertaskModal" tabindex="-1" aria-labelledby="creatertaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0">
+            <div class="modal-header p-3 bg-soft-primary">
+                <h5 class="modal-title" id="pamagat2" name="pamagat2"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="btn_close()" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3 class="fs-20" id="event_date2" name="event_date2">
+                </h3>
+                <h3 class="fs-20" id="event_speaker2" name="event_speaker2">
+                </h3>
+                <h3 class="fs-20"><span id="event_time_start2" name="event_time_start2"></span> - <span id="event_time_end2" name="event_time_end2"></span>
+                </h3>
+                <h5 class="fs-15" id="desc" name="desc">  
+                </h5>
+                
+                <!-- Table Head -->
+                <table class="table align-middle table-nowrap mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">User #: </th>
+                            <th scope="col">Name: </th>
+                            <th scope="col">Contact #: </th>
+                            <th scope="col">Email Address: </th>
+                            <th scope="col">Status: </th>
+                        </tr>
+                    </thead>
+                    <tbody id="event_Attendies">
+                    
+                    </tbody>
+                </table>
+                <br>
+                <h5 class="fs-15" hidden id="link" name="link"></h5>
+                <h5 class="fs-15" hidden id="amount2" name="amount2"></h5>
+                <h5 class="fs-15" hidden id="eid2" name="eid2"></h5>
+                <br>
+                <div class="mt-4">
+                    <div class="hstack gap-2 justify-content-end">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+<script>
+
+function event_upload(event_id){
+    $('#event_id').val(event_id)
+}
+
+// Event Approve
+function approveEvent(event_id){
+    // alert(event_id)
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure',
+        text: "You want to save this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, save it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                type:'POST',
+                url : "{% url 'users:approve_event' %}",
+                dataType: 'json',
+                data: {
+                    event_id:event_id,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                success: function(data){
+                    window.location.reload()  
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+            'Cancelled'
+            )
+        }
+    });
+    return false;
+}
+// Event Reject
+function disapproveEvent(event_id){
+    // alert(event_id)
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure',
+        text: "You want to save this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, save it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                type:'POST',
+                url : "{% url 'users:disapprove_event' %}",
+                dataType: 'json',
+                data: {
+                    event_id:event_id,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                success: function(data){
+                    window.location.reload()  
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+            'Cancelled'
+            )
+        }
+    });
+    return false;
+}
+// Event Delete
+function deleteEvent(event_id){
+    // alert(event_id)
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure',
+        text: "You want to save this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, save it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                type:'POST',
+                url : "{% url 'users:delete_event' %}",
+                dataType: 'json',
+                data: {
+                    event_id:event_id,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                success: function(data){
+                    window.location.reload()  
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+            'Cancelled'
+            )
+        }
+    });
+    return false;
+}
+
+function btn_close(){
+    $("#event_Attendies").empty();
+}
+
+// funtion para makita list ng participants
+function viewEvent2(e_id){
+        // alert(e_id)
+        // e_id = document.getElementById('e_id').textContent;
+        // document.getElementById('ev_id').value = e_id
+        $.ajax({
+            type:'POST',
+            url : "{% url 'users:event_view_data' %}",
+            dataType: 'json',
+            data: {
+                event_id:e_id,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            success: function(data){
+                // alert(data.event_speaker)
+                $('#event_speaker2').val(data.event_speaker).text(data.event_speaker);
+                document.getElementById('event_time_start2').innerHTML = data.event_time_start;
+                document.getElementById('desc').innerHTML = data.event_desc;
+                document.getElementById('pamagat2').innerHTML = data.event_title;
+                $('#event_date2').val(data.event_date).text(data.event_date);
+                $('#event_time_end2').val(data.event_time_end).text(data.event_time_end);
+
+                $.ajax({
+                    type:'POST',
+                    url : "{% url 'users:event_admin_view' %}",
+                    dataType: 'json',
+                    data: {
+                        e_id:e_id,
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                    },
+                    success: function(response){
+                        const studData = response.data
+                        studData.map(item=>{  
+                            
+                            $.ajax({
+                                type:'POST',
+                                url : "{% url 'users:member_view_data' %}",
+                                dataType: 'json',
+                                data: {
+                                    event_id:item.reg_ev_id_id,
+                                    member_id: item.reg_member_id_id,
+                                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                                },
+                                success: function(data){
+                                    $("#event_Attendies").append('<tr><td>'+data.user_number +'</td><td>'+data.user_name +'</td><td>'+data.user_contact +'</td><td>'+data.user_email +'</td><td>'+data.status +'</td></tr>')
+                                },
+                                error: function(error){
+                                    console.log(error)
+                                }
+                            });
+                            // alert(item.reg_payment_status)
+                            });
+            
+                    },
+                    error: function(error){
+                        console.log(error)
+                    }
+                });
+            },
+            error: function(error){
+                console.log(error)
+            }
+        });
+}
+</script>
+{% endblock %}
+
+
+

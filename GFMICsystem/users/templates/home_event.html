@@ -1,0 +1,156 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <title>Event | GFMIC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="GFMIC" name="Capstone"/>
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/logos/gfmic logo.PNG' %}">
+    <!--Swiper slider css-->
+    <link href="{% static '/assets/libs/swiper/swiper-bundle.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Layout config Js -->
+    <script src="{% static 'assets/js/layout.js' %}"></script>
+    <!-- Bootstrap Css -->
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="{% static 'assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
+
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar-example">
+
+    <!-- Begin page -->
+    <div class="layout-wrapper landing">
+        <nav class="navbar navbar-expand-lg navbar-landing navbar-dark fixed-top" id="navbar">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'users:home' %}">
+                    <img src="{% static 'assets/images/logos/black logo.png' %}" class="card-logo card-logo-dark" alt="logo dark" height="60">
+                    <img src="{% static 'assets/images/logos/white logo.png' %}" class="card-logo card-logo-light" alt="logo light" height="60">
+                </a>
+                <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="mdi mdi-menu"></i>
+                </button>   
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+                        <li class="nav-item">
+                            <a class="nav-link fs-14 active" href="{% url 'users:home_event' %}">Events</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" href="{% url 'users:webinar' %}">Webinar</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" href="{% url 'users:national_convention' %}">National Convention</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" href="{% url 'users:membership_conference' %}">Membership Conference</a>
+                        </li>
+                    </ul>
+
+                    <div class="">
+                        <a href="{% url 'users:login' %}" class="btn btn-link fw-medium mx-auto">Sign In</a>
+                        <a href="{% url 'users:register' %}" class="btn btn-primary">Sign Up</a>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+            <div class="bg-overlay bg-overlay-pattern"></div>
+        <!-- end navbar -->
+
+        <!-- start plan -->
+        <section class="section bg-grey" id="categories">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+                        <div class="text-left mb-5">
+                            <br><br><br>
+                            <h2 class="mb-3 fw-bold lh-base" style="text-align:center;color:#007c99">Announcements</h2>
+                            <h4  class="mb-3 fw-bold lh-base">13th Annual National Convention</h4>
+                            
+                            <p style="text-align:justify" class="text-muted"><b>Greetings from GFMIC, Inc. (formerly Electronic Financials Users’ Circle (EUC), Inc.)!</p>
+                            <p style="text-align:justify" class="text-muted">The GFMIC, Inc. will be holding its 13th Annual National Convention via the virtual platform (Zoom) on August 10 to 12, 2022, with the theme: “Pursuing PFM Excellence: Onto the New Administration”. During this event, the GFMIC, in recognition of the significant accomplishments and contributions of users of the electronic New Government Accounting System (eNGAS) and eBudget System for the period July 1, 2021 to May 31, 2022, will be awarding agencies under the following categories:</p>
+                            <em><p style="text-align:justify;color:#51C5E0" >&ensp;&ensp;&ensp;&ensp;&ensp;1. eNGAS and eBudget System Inclusiveness Award (formerly Gallantry Award);</p>
+                            <p style="text-align:justify;color:#51C5E0" >&ensp;&ensp;&ensp;&ensp;&ensp;2. Grassroot Implementer Award; and</p>
+                            <p style="text-align:justify;color:#51C5E0" >&ensp;&ensp;&ensp;&ensp;&ensp;3. eNGAS and eBudget System Collaborator/Contributor Award.</p></em>
+                            <p style="text-align:justify" class="text-muted"><b>The mechanics, deadlines and eligibility criteria for the foregoing awards are attached for your reference (Annex A). In view of the above, GFMIC requests that your agency submit the self-Nomination Form (Annex B), together with the documents to support the nomination, to the Audit Team Leader for validation and endorsement to the Commission on Audit – Government Accountancy Sector for further verification and validation before submission to GFMIC for final evaluation.</p>
+                            <p style="text-align:justify" class="text-muted"><b>Government Accountancy Sector for further verification and validation before submission to GFMIC for final evaluation.</p>
+                            <p style="text-align:justify" class="text-muted"><b>The self-nomination process adopted by GFMIC provides a fair opportunity for all qualified agencies to be recipients of the Awards.</p>
+                            <p style="text-align:justify" class="text-muted"><b>We look forward to your participation in this endeavor. Thank you!</p>
+                            <a href="https://forms.gle/e5agVYaTaneGLkqa6"><button type="button" class="btn btn-success waves-effect waves-light"><i class="ri-registered-line"></i> Registration</button></a>
+                            <a href="https://drive.google.com/file/d/1Pavq7HJbfD_51IkKO2hlAeytz5dgA7zb/view?usp=sharing"><button type="button" class="btn btn-primary waves-effect waves-light"><i class="las la-file-pdf"></i> Annex A</button></a>
+                            <a href="https://drive.google.com/file/d/1WA2lwwkSVDA3K1lsdMoWi2vuxt13lA0u/view?usp=sharing"><button type="button" class="btn btn-primary waves-effect waves-light"><i class="las la-file-pdf"></i> Annex B</button></a>
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+               
+            </div><!-- end container -->
+        </section>
+        <!-- end plan -->
+        
+        </section>
+
+        <section class="section bg-grey" id="categories">
+            <div class="container-fluid">
+                <div class="row justify-content-center ">
+                    <div class="col-lg-5">
+                        <div class="text-left mb-5">
+                            <img src="{% static 'assets/images/logos/icgfm2022.PNG' %}" class="img-fluid" alt="Responsive image" width="1300" height="1300">
+                            <h2 class="mb-3 fw-bold lh-base" style="text-align:center;color:green">This Week's News</h2>
+                            <p style="text-align:justify" class="text-muted"><b>Registration is now open for the ICGFM 2022 International Conference scheduled for September 19-23, 2022 in Washington, DC, USA!</p>
+                            <p style="text-align:justify" class="text-muted"><b>The International Conference is designed to engage participants from all levels of government including ministers of finance, accountants, and auditors general, department heads, and other PFM professionals from across the globe as well as others in the PFM community. Keynote speakers, panels, research papers and other presentations will focus on common challenges and innovative approaches to address all aspects of the PFM cycle.</p>
+                            <br><p style="text-align:justify" class="text-muted fw-bold">The 2022 International Conference has been re-imagined and reinvented!</p><br>
+                            <p style="text-align:justify" class="text-muted fw-bold">Full program and speaker information coming soon!</p>
+                            <ul class="list-group">
+                                <li class="list-group-item text-muted"><i class="bx bxs-circle"></i> 4 1/2 days of programming</li>
+                                <li class="list-group-item text-muted"><i class="bx bxs-circle"></i> 20 sessions designed to promote dialogue and discussions.  Note: Sessions are in English.</li>
+                                <li class="list-group-item text-muted"><i class="bx bxs-circle"></i> 40+ speakers</li>
+                                <li class="list-group-item text-muted"><i class="bx bxs-circle"></i> Breakfasts and lunches included in the registration fee.</li>
+                                <li class="list-group-item text-muted"><i class="bx bxs-circle"></i> A new, intimate venue - ICGFM has exclusive use of the meeting space.</li>
+                            </ul><br>
+                            <p style="text-align:justify" class="text-muted">The conference will be held at The University Club of Washington, DC on historic 16th Street, just blocks from the White House, the U.S. State Department, The World Bank, and the IMF.  The University Club offers fine dining, athletic facilities, including a swimming pool and squash courts as well as a spa.</p>
+                            <p style="text-align:justify" class="text-muted">ICGFM has reserved a limited block of rooms at The University Club at a special conference rate of $299++ single/double occupancy.   Please click here for The University Club of Washington and book your room.  Space is limited.  Additional hotels are located within walking distance and are listed on the conference site.</p>
+                            <h5 class="mb-3 fw-bold lh-base" style="color:green">If you need a visa letter please contact us at <a href="https://www.icgfm.org/">www.icgfm.org</a></h5>
+                        </div>
+                            
+                    </div><!-- end col -->
+                    
+                </div><!-- end row -->
+               
+            </div><!-- end container -->
+        </section>
+
+    </div>
+    <!-- end layout wrapper -->
+    
+</body>
+{% include 'home_footer.html' %}
+
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+    <script src="{% static 'assets/libs/feather-icons/feather.min.js' %}"></script>
+    <script src="{% static 'assets/js/pages/plugins/lord-icon-2.1.0.js' %}"></script>
+    <script src="{% static 'assets/js/plugins.js' %}"></script>
+    <!--Swiper slider js-->
+    <script src="{% static 'assets/libs/swiper/swiper-bundle.min.js' %}"></script>
+    <!-- landing init -->
+    <script src="{% static 'assets/js/pages/landing.init.js' %}"></script>
+    <!-- App js -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+    
+</html>

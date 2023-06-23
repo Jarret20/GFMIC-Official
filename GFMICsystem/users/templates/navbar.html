@@ -1,0 +1,1416 @@
+{% load static %}
+<header id="page-topbar">
+    <div class="layout-width">
+        <div class="navbar-header">
+            <div class="d-flex">
+                <img hidden id="gfmiclogo" style="width: auto; height: auto;"/>
+
+                <img hidden id="mem_cert" style="width: auto; height: auto;"/>
+
+                <img hidden id="Receipt" style="width: auto; height: auto;"/>
+                <!-- LOGO -->
+                <div class="navbar-brand-box horizontal-logo">
+                    <a href="{% url 'users:dashboard' %}" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="{% static 'assets/images/logos/gfmic logo.png' %}" alt="" height="50">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="{% static 'assets/images/logos/black logo.png' %}" alt="" height="50">
+                        </span>
+                    </a>
+                    <a href="{% url 'users:dashboard' %}" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="{% static 'assets/images/logos/gfmic logo.png' %}" alt="" height="50">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="{% static 'assets/images/logos/white logo.png' %}" alt="" height="50">
+                        </span>
+                    </a>
+                </div>
+
+                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+
+                <!-- App Search-->
+                <form class="app-search d-none d-md-block">
+                    <div class="position-relative">
+                        <input type="text" class="form-control" placeholder="Search..." autocomplete="off" id="search-options" value="">
+                        <span class="mdi mdi-magnify search-widget-icon"></span>
+                        <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-lg" id="search-dropdown">
+                        <div data-simplebar style="max-height: 320px;">
+                            <!-- item-->
+                            <div class="dropdown-header">
+                                <h6 class="text-overflow text-muted mb-0 text-uppercase">Recent Searches</h6>
+                            </div>
+
+                            <div class="dropdown-item bg-transparent text-wrap">
+                                <a href="index.html" class="btn btn-soft-secondary btn-sm btn-rounded">how to setup <i class="mdi mdi-magnify ms-1"></i></a>
+                                <a href="index.html" class="btn btn-soft-secondary btn-sm btn-rounded">buttons <i class="mdi mdi-magnify ms-1"></i></a>
+                            </div>
+                            <!-- item-->
+                            <div class="dropdown-header mt-2">
+                                <h6 class="text-overflow text-muted mb-1 text-uppercase">Pages</h6>
+                            </div>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="ri-bubble-chart-line align-middle fs-18 text-muted me-2"></i>
+                                <span>Analytics Dashboard</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="ri-lifebuoy-line align-middle fs-18 text-muted me-2"></i>
+                                <span>Help Center</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="ri-user-settings-line align-middle fs-18 text-muted me-2"></i>
+                                <span>My account settings</span>
+                            </a>
+
+                            <!-- item-->
+                            <div class="dropdown-header mt-2">
+                                <h6 class="text-overflow text-muted mb-2 text-uppercase">Members</h6>
+                            </div>
+
+                            <div class="notification-list">
+                                <!-- item -->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
+                                    <div class="d-flex">
+                                        <img src="{% static '/assets/images/users/avatar-2.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-1">
+                                            <h6 class="m-0">Angela Bernier</h6>
+                                            <span class="fs-11 mb-0 text-muted">Manager</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <!-- item -->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
+                                    <div class="d-flex">
+                                        <img src="{% static '/assets/images/users/avatar-3.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-1">
+                                            <h6 class="m-0">David Grasso</h6>
+                                            <span class="fs-11 mb-0 text-muted">Web Designer</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <!-- item -->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
+                                    <div class="d-flex">
+                                        <img src="{% static '/assets/images/users/avatar-5.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-1">
+                                            <h6 class="m-0">Mike Bunch</h6>
+                                            <span class="fs-11 mb-0 text-muted">React Developer</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="text-center pt-3 pb-1">
+                            <a href="pages-search-results.html" class="btn btn-primary btn-sm">View All Results <i class="ri-arrow-right-line ms-1"></i></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="d-flex align-items-center">
+
+                <div class="dropdown d-md-none topbar-head-dropdown header-item">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="bx bx-search fs-22"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-search-dropdown">
+                        <form class="p-3">
+                            <div class="form-group m-0">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                    <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                {% if request.session.session_user_sub == 'GUEST' %}
+                    <button type="button" class="btn btn-warning btn-label waves-effect waves-light" data-bs-target="#payment-membership" data-bs-toggle="modal" onclick="view_payment('{{request.session.session_user_id}}')">Upgrade to GFMIC Premium</button>
+                {% endif %}
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-toggle="fullscreen">
+                        <i class='bx bx-fullscreen fs-22'></i>
+                    </button>
+                </div>
+
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
+                        <i class='bx bx-moon fs-22'></i>
+                    </button>
+                </div>
+
+                <div class="dropdown topbar-head-dropdown ms-1 header-item">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class='bx bx-bell fs-22'></i>
+                        <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">3<span class="visually-hidden">unread messages</span></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
+
+                        <div class="dropdown-head bg-primary bg-pattern rounded-top">
+                            <div class="p-3">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6 class="m-0 fs-16 fw-semibold text-white"> Notifications </h6>
+                                    </div>
+                                    <div class="col-auto dropdown-tabs">
+                                        <span class="badge badge-soft-light fs-13"> 4 New</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="px-2 pt-2">
+                                <ul class="nav nav-tabs dropdown-tabs nav-tabs-custom" data-dropdown-tabs="true" id="notificationItemsTab" role="tablist">
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#all-noti-tab" role="tab" aria-selected="true">
+                                            All (4)
+                                        </a>
+                                    </li>
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#messages-tab" role="tab" aria-selected="false">
+                                            Messages
+                                        </a>
+                                    </li>
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#alerts-tab" role="tab" aria-selected="false">
+                                            Alerts
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-content" id="notificationItemsTabContent">
+                            <div class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
+                                <div data-simplebar style="max-height: 300px;" class="pe-2">
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                        <div class="d-flex">
+                                            <div class="avatar-xs me-3">
+                                                <span class="avatar-title bg-soft-info text-info rounded-circle fs-16">
+                                                    <i class="bx bx-badge-check"></i>
+                                                </span>
+                                            </div>
+                                            <div class="flex-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-2 lh-base">Your <b>Elite</b> author Graphic
+                                                        Optimization <span class="text-secondary">reward</span> is
+                                                        ready!
+                                                    </h6>
+                                                </a>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> Just 30 sec ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="all-notification-check01">
+                                                    <label class="form-check-label" for="all-notification-check01"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative active">
+                                        <div class="d-flex">
+                                            <img src="{% static '/assets/images/users/avatar-2.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <div class="flex-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Angela Bernier</h6>
+                                                </a>
+                                                <div class="fs-13 text-muted">
+                                                    <p class="mb-1">Answered to your comment on the cash flow forecast's
+                                                        graph 🔔.</p>
+                                                </div>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 48 min ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="all-notification-check02" checked>
+                                                    <label class="form-check-label" for="all-notification-check02"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                        <div class="d-flex">
+                                            <div class="avatar-xs me-3">
+                                                <span class="avatar-title bg-soft-danger text-danger rounded-circle fs-16">
+                                                    <i class='bx bx-message-square-dots'></i>
+                                                </span>
+                                            </div>
+                                            <div class="flex-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-2 fs-13 lh-base">You have received <b class="text-success">20</b> new messages in the conversation
+                                                    </h6>
+                                                </a>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 2 hrs ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="all-notification-check03">
+                                                    <label class="form-check-label" for="all-notification-check03"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                        <div class="d-flex">
+                                            <img src="{% static '/assets/images/users/avatar-8.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <div class="flex-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Maureen Gibson</h6>
+                                                </a>
+                                                <div class="fs-13 text-muted">
+                                                    <p class="mb-1">We talked about a project on linkedin.</p>
+                                                </div>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 4 hrs ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="all-notification-check04">
+                                                    <label class="form-check-label" for="all-notification-check04"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="my-3 text-center">
+                                        <button type="button" class="btn btn-soft-success waves-effect waves-light">View
+                                            All Notifications <i class="ri-arrow-right-line align-middle"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="tab-pane fade py-2 ps-2" id="messages-tab" role="tabpanel" aria-labelledby="messages-tab">
+                                <div data-simplebar style="max-height: 300px;" class="pe-2">
+                                    <div class="text-reset notification-item d-block dropdown-item">
+                                        <div class="d-flex">
+                                            <img src="{% static '/assets/images/users/avatar-3.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <div class="flex-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">James Lemire</h6>
+                                                </a>
+                                                <div class="fs-13 text-muted">
+                                                    <p class="mb-1">We talked about a project on linkedin.</p>
+                                                </div>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 30 min ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="messages-notification-check01">
+                                                    <label class="form-check-label" for="messages-notification-check01"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item">
+                                        <div class="d-flex">
+                                            <img src="{% static '/assets/images/users/avatar-2.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <div class="flex-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Angela Bernier</h6>
+                                                </a>
+                                                <div class="fs-13 text-muted">
+                                                    <p class="mb-1">Answered to your comment on the cash flow forecast's
+                                                        graph 🔔.</p>
+                                                </div>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 2 hrs ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="messages-notification-check02">
+                                                    <label class="form-check-label" for="messages-notification-check02"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item">
+                                        <div class="d-flex">
+                                            <img src="{% static '/assets/images/users/avatar-6.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <div class="flex-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Kenneth Brown</h6>
+                                                </a>
+                                                <div class="fs-13 text-muted">
+                                                    <p class="mb-1">Mentionned you in his comment on 📃 invoice #12501.
+                                                    </p>
+                                                </div>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 10 hrs ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="messages-notification-check03">
+                                                    <label class="form-check-label" for="messages-notification-check03"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item">
+                                        <div class="d-flex">
+                                            <img src="{% static '/assets/images/users/avatar-8.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <div class="flex-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Maureen Gibson</h6>
+                                                </a>
+                                                <div class="fs-13 text-muted">
+                                                    <p class="mb-1">We talked about a project on linkedin.</p>
+                                                </div>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 3 days ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="messages-notification-check04">
+                                                    <label class="form-check-label" for="messages-notification-check04"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="my-3 text-center">
+                                        <button type="button" class="btn btn-soft-success waves-effect waves-light">View
+                                            All Messages <i class="ri-arrow-right-line align-middle"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade p-4" id="alerts-tab" role="tabpanel" aria-labelledby="alerts-tab">
+                                <div class="w-25 w-sm-50 pt-3 mx-auto">
+                                    <img src="{% static '/assets/images/svg/bell.svg' %}" class="img-fluid" alt="user-pic">
+                                </div>
+                                <div class="text-center pb-5 mt-2">
+                                    <h6 class="fs-18 fw-semibold lh-base">Hey! You have no any notifications </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown ms-sm-3 header-item topbar-user">
+                    <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="d-flex align-items-center">
+                            <img class="rounded-circle header-profile-user" src="{% static '/assets/images/users/avatar3.png' %}" alt="Header Avatar" data-bs-target="#profile_pic" data-bs-toggle="modal">
+                            <span class="text-start ms-xl-2">
+                                {% if request.session.session_fname %}
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ request.session.session_fname }} {{ request.session.session_lname }}</span>
+                                {% else %}
+                               
+                                {% endif %}
+                                {% if request.session.session_user_sub %}
+                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{request.session.session_user_sub}}</span>
+                                {% else %}
+                                {% endif %}
+                            </span>
+                        </span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <!-- item-->
+                        <h6 class="dropdown-header">Welcome {{ request.session.session_fname }}!</h6>
+                        <!-- <a class="dropdown-item" href="{% url 'users:help_desk' %}"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Membership</span></a> -->
+                        <a class="dropdown-item" data-bs-target="#view-membership2" data-bs-toggle="modal"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle" onclick="membership_populate('{{ request.session.session_user_id }}')">Membership</span></a>
+                       
+                        <a class="dropdown-item" data-bs-target="#modify-profile" data-bs-toggle="modal"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle" onclick="profile_populate('{{ request.session.session_user_id }}')">Profile</span></a>
+
+                        <a class="dropdown-item" href="{% url 'users:help_desk' %}"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'users:logout' %}"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</header>
+
+
+<!-- Add Event Modal -->
+<div class="modal fade" id="add_event" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="">Add Event Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+            <form id="add-event-form" class="needs-validation" novalidate="" > 
+                <div class="modal-body">
+
+                    <div class="mb-3" id="modal-id" style="display: none;">
+                        <label for="id-field" class="form-label">Event ID</label>
+                        <input type="text" id="id-field" class="form-control" placeholder="ID" readonly />
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-sm-4">
+                            <label class="form-label" for="event_title">Event Title</label>
+                            <input type="text" class="form-control" id="event_title" name="event_title" placeholder="Event Title" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Event Title.
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="event_status" class="form-label">Event Category</label>
+                                <select class="form-select" data-trigger name="event_category" id="event_category">
+                                    <option selected disabled="true">--Select--</option>
+                                    <option value="Semninar">Seminar</option>
+                                    <option value="Webinar">Webinar</option>
+                                    <option value="National Convention">National Convention</option>
+                                    <option value="Training">Training</option>
+                                    <option value="Training">Membership Conference</option>
+                                </select>
+                            <div class="invalid-feedback">
+                                Please provide an Event Status.
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label" for="res_speaker">Resource Speaker</label>
+                            <input type="text" class="form-control" id="res_speaker" name="res_speaker" placeholder="Resource Speaker" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Resource Speaker.
+                            </div>
+                        </div>
+                    </div><br>
+
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" for="sched_date">Schedule Date</label>
+                            <input type="date" class="form-control" id="sched_date" name="sched_date" placeholder="Schedule Date" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Schedule Date.
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label" for="event_amount">Amount</label>
+                            <input type="text" class="form-control" id="event_amount" name="event_amount" placeholder="Amount" required="">
+                            <div class="invalid-feedback">
+                                Please provide an amount for the event.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" for="sched_time_start">Start Time</label>
+                            <input type="time" class="form-control" id="sched_time_start" name="sched_time_start" placeholder="Schedule Time" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Start Time.
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" for="sched_time_end">End Time</label>
+                            <input type="time" class="form-control" id="sched_time_end" name="sched_time_end" placeholder="End Time" required="">
+                            <div class="invalid-feedback">
+                                Please provide a End Time.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" for="e_date">Registration Deadline</label>
+                            <input type="date" class="form-control" id="e_date" name="e_date" placeholder="Schedule Date" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Expiry Date.
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label" for="e_slot">Slot</label>
+                            <input type="text" class="form-control" id="e_slot" name="e_slot" placeholder="Total Slot" required="">
+                            <div class="invalid-feedback">
+                                Please provide a number of slot for the event.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="col-sm-6">
+                            <label class="form-label" for="event_link">Event Link</label>
+                            <input type="text" class="form-control" id="event_link" name="event_link" placeholder="Zoom link" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Zoom Link.
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="event_status" class="form-label">Status</label>
+                                <select class="form-select" readonly data-trigger name="event_status" id="event_status">
+                                    <option selected disabled="true">PENDING</option>
+            
+                                </select>
+                            <div class="invalid-feedback">
+                                Please provide an Event Status.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <label class="form-label" for="event_desc">Description</label>
+                        <div class="snow-editor" id="event_desc" name="event_desc" placeholder="Enter Description" style="height: 100px;">
+                        </div>
+                    </div><br>
+                    
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="invalidCheck" required="">
+                            <label class="form-check-label form-label" for="invalidCheck">I confirm that the details that I have 
+                            provided in this Event Information are correct, <br> and that I have not deliberately withheld any relevant information. </label>
+                            <div class="invalid-feedback">
+                                You must agree before submitting.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button class="btn btn-primary" type="button" onClick="submit_event('{{request.session.session_user_id}}')">Submit form</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> 
+
+<!-- View Membership -->
+<div class="modal fade" id="view-membership2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="">Membership Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+                <div class="modal-body">
+
+                    <div class="mb-3" id="modal-id" style="display: none;">
+                        <label for="id-field" class="form-label">Event ID</label>
+                        <input type="text" id="id-field" class="form-control" placeholder="ID" readonly />
+                    </div>
+                    
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label class="form-label" for="membership_no"><b>Membership Number: </b> <span id="membership_no" name="membership_no"></span></label> 
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label class="form-label" for="membership_no"><b>Validity: </b> <span name="user_start" id="user_start"></span> / <span name="user_end" id="user_end"></span></label> 
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label class="form-label" for="membership_no"><b>Status: </b> <span name="m_status" id="m_status"></span></label> 
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+
+                        {% if request.session.session_user_sub == 'PREMIUM' %}
+                        <a data-bs-target="" data-bs-toggle="modal" onClick="" class="text-primary d-inline-block edit-item-btn">
+                            <button type="button" onclick="genCertm('{{ request.session.session_user_id }}')" class="btn btn-info btn-label waves-effect waves-light rounded-pill"><i class="ri-printer-line label-icon align-middle rounded-pill fs-16 me-2"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eCertificate</button></a>
+                          
+                        <a data-bs-target="" data-bs-toggle="modal" onClick="" class="text-primary d-inline-block edit-item-btn">
+                            <button type="button" onclick="genReceiptm('{{ request.session.session_user_id }}')" class="btn btn-success btn-label waves-effect waves-light rounded-pill"><i class="ri-printer-line label-icon align-middle rounded-pill fs-16 me-2"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Official Receipt</button></a>
+                        {% else %}    
+                            <button type="button" class="btn btn-warning btn-label waves-effect waves-light" data-bs-target="#payment-membership" data-bs-toggle="modal" onclick="view_payment('{{request.session.session_user_id}}')">Upgrade to GFMIC Premium</button>
+                        {% endif %}
+
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Modal -->
+<div class="modal fade" id="modify-profile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="">Profile Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <div class="profile-user position-relative d-inline-block mx-auto  mb-4">
+                        <img src="{% static '/assets/images/users/avatar3.png' %}" class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">
+                        <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
+                            <input id="profile-img-file-input" type="file" class="profile-img-file-input">
+                            <label for="profile-img-file-input" class="profile-photo-edit avatar-xs">
+                                <span class="avatar-title rounded-circle bg-light text-body">
+                                    <i class="ri-camera-fill"></i>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <h5 class="fs-16 mb-1">{{ request.session.session_fname }} {{ request.session.session_lname }}</h5>
+                    <p class="text-muted mb-0">{{ request.session.session_user_sub }}</p>
+                </div>
+            </div>
+                <div class="modal-body">
+
+                    <div class="mb-3" id="modal-id" style="display: none;">
+                        <label for="id-field" class="form-label">User ID</label>
+                        <input type="text" id="id-field" class="form-control" placeholder="ID" readonly />
+                    </div>
+                    
+                    <h6 class="modal-title" id="">Personal Details</h6><br>
+                    <div class="row g-3">
+                        <div class="col-sm-4">
+                            <label for="first_name" class="form-label">First Name<span class="text-danger">*</label>
+                                <input type="text" class="form-control" readonly id="first_name" name="first_name" placeholder="" required="">
+                            <div class="invalid-feedback">
+                                Please provide a First Name.
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="middle_name" class="form-label">Middle Name</label>
+                                <input type="text" class="form-control" readonly id="middle_name" name="middle_name" placeholder="Middle Name">
+                            <div class="invalid-feedback">
+                                Please provide a Middle Name.
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="last_name" class="form-label">Last Name<span class="text-danger">*</label>
+                            <input type="text" class="form-control" id="last_name" readonly name="last_name" placeholder="Last Name" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Last Name.
+                            </div>
+                        </div>
+                    </div><br>
+                    
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-6">
+                            <label for="date" class="form-label">Birthday<span class="text-danger">*</label>    
+                                {% if request.session.session_user_bday == null or request.session.session_user_bday == '' %}
+                                    <input type="date" class="form-control" id="birthday"  name="birthday" placeholder="Birthday" required="">
+                                    <div class="invalid-feedback">
+                                        Please provide a Birthday.
+                                    </div>
+                                {% elif request.session.session_user_bday != null or request.session.session_user_bday != '' %}
+                                    <input type="date" class="form-control" id="birthday" readonly name="birthday" placeholder="Birthday" required="">
+                                    <div class="invalid-feedback">
+                                        Please provide a Birthday.
+                                    </div>
+                                {% endif %}
+
+                            
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="contact" class="form-label">Contact Number<span class="text-danger">*</label>
+                                <input type="tel" class="form-control" id="contact" name="contact" placeholder="+(639) 000 0000" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Contact Number.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-6">
+                            <label for="address" class="form-label">Address<span class="text-danger">*</label>
+                                <input type="text" class="form-control" id="address" name="address" placeholder="Address" required="">
+                            <div class="invalid-feedback">
+                                Please provide an Address.
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="agency" class="form-label">Agency/Company Affiliated<span class="text-danger">*</label>
+                                <input type="text" class="form-control" id="agency" name="agency" placeholder="Agency/Company Affiliated" required="">
+                            <div class="invalid-feedback">
+                                Please provide an Agency/Company Affiliated.
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="modal-title" id="">Educational Attainment<span class="text-danger">*</h6><br>
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-6">
+                            <label for="college" class="form-label">College<span class="text-danger">*</label>
+                                <input type="text" class="form-control" id="college" name="college" placeholder="College" required="">
+                            <div class="invalid-feedback">
+                                Please provide a College.
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="post_grad" class="form-label">Post Graduate<span class="text-danger">*</label>
+                                <input type="text" class="form-control" id="post_grad" name="post_grad" placeholder="Post Graduate" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Post Graduate.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="invalidCheck" required="">
+                            <label class="form-check-label form-label" for="invalidCheck">I confirm that the details that I have 
+                            provided in this Event Information are correct, <br> and that I have not deliberately withheld any relevant information. </label>
+                            <div class="invalid-feedback">
+                                You must agree before submitting.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button class="btn btn-primary" type="submit" id="submit_profile" onClick="submit_profile('{{request.session.session_user_id}}')">Submit form</button>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+{% if error_message %}
+<p class="alert alert-danger">
+    <strong>{{ error_message }}</strong>
+</p>
+{% endif %}
+
+<!-- Membership Modal -->
+<div class="modal fade" id="payment-membership" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="">Payment Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+            <div class="card-body form-steps">
+                <form action="{% url 'users:payment' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="text-center pt-3 pb-4 mb-1">
+                        <img src="{% static 'assets/images/logos/black logo.png' %}" alt="" height="60">
+                    </div>
+                    <div class="step-arrow-nav mb-4">
+
+                        <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="steparrow-gen-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-gen-info" type="button" role="tab" aria-controls="steparrow-gen-info" aria-selected="true">Payment Information</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="steparrow-description-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-description-info" type="button" role="tab" aria-controls="steparrow-description-info" aria-selected="false" style="pointer-events: none;">Proof of Payment</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-experience-tab" data-bs-toggle="pill" data-bs-target="#pills-experience" type="button" role="tab" aria-controls="pills-experience" aria-selected="false" style="pointer-events: none;">Finish</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="steparrow-gen-info" role="tabpanel" aria-labelledby="steparrow-gen-info-tab">
+                            <div>
+                               
+                                <div class="row">
+                                    <input class="form-control" hidden id="payment_id" name="payment_id"/>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label for="mode_of_payment" class="form-label" >Mode of Payment</label>
+                                            <select class="form-select" data-trigger name="mode_of_payment" id="mode_of_payment">
+                                                <option selected disabled="true">--Select--</option>
+                                                <option value="Gcash">Gcash</option>
+                                                <option value="Paymaya">Paymaya</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please provide a Mode of Payment.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="payment_amount">Payment</label>
+                                            <input type="text" class="form-control" id="payment_amount" name="payment_amount" value= '500' placeholder="500" readonly="" required="">
+                                            <div class="invalid-feedback">
+                                                Please provide a Payment.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="m_start">Start of Membership</label>
+                                            <input type="text" class="form-control" id="m_start" name="m_start" placeholder="" readonly="" required="">
+                                            <div class="invalid-feedback">
+                                                Please provide a Start of Membership.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="m_end">End of Membership</label>
+                                            <input type="text" class="form-control" id="m_end" name="m_end" placeholder="" readonly="" required="">
+                                            <div class="invalid-feedback">
+                                                Please provide a End of Membership.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="d-flex align-items-start gap-3 mt-4">
+                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="steparrow-description-info-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Next</button>
+                            </div>
+                        </div>
+                        <!-- end tab pane -->
+
+                        <div class="tab-pane fade" id="steparrow-description-info" role="tabpanel" aria-labelledby="steparrow-description-info-tab">
+                            <div>
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">Upload Image</label>
+                                    <input class="form-control" type="file" id="formFile" name="file">
+                                </div>
+                                <!--<div>
+                                    <label class="form-label" for="des-info-description-input">Proof of Payment</label>
+                                    <textarea class="form-control" placeholder="Enter Description" id="des-info-description-input" rows="3"></textarea>
+                                </div> -->
+                            </div>
+                            <div class="d-flex align-items-start gap-3 mt-4">
+                                <button type="button" class="btn btn-light btn-label previestab" data-previous="steparrow-gen-info-tab"><i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Back to Information</button>
+                                <button type="submit" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="pills-experience-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Submit</button>
+                            </div>
+                        </div>
+                        <!-- end tab pane -->
+
+                        <div class="tab-pane fade" id="pills-experience" role="tabpanel">
+                            <div class="text-center">
+
+                                <div class="avatar-md mt-5 mb-4 mx-auto">
+                                    <div class="avatar-title bg-light text-success display-4 rounded-circle">
+                                        <i class="ri-checkbox-circle-fill"></i>
+                                    </div>
+                                </div>
+                                <h5>Done!</h5>
+                                <p class="text-muted">You have submitted successfully your Payment.</p>
+                            </div>
+                        </div>
+                        <!-- end tab pane -->
+                    </div>
+                    <!-- end tab content -->
+                </form>
+            </div>
+            <!-- <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button class="btn btn-primary" id="submit_payment"  data-bs-target="#payment_proof" data-bs-toggle="modal" onClick="submit_payment('{{member.user_id}}')">Submit form</button>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!--Upload profile pic--->
+
+<!-- <div class="modal fade" id="profile_pic" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="">Upload Profile Picture</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-2 align-items-start">
+                    <form action="" method="POST" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-12">
+                                    <label class="form-label" for="userid">Upload Here:</label>
+                                    <input class="form-control" hidden id="userid" name="userid"/>
+                                    <input type="file" name="user_profile" id="user_profile">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>    
+                </div>
+            </div>
+                
+        </div>
+    </div>
+</div> -->
+
+<!----upload event img-->
+<div class="modal fade" id="event_image" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="">Upload Event Image/Banner</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3" id="modal-id" style="display: none;">
+                    <label for="id-field" class="form-label">Event ID</label>
+                    <input type="text" id="id-field" class="form-control" placeholder="ID" readonly />
+                </div>
+
+                <div class="row g-2 align-items-start">
+                    <form action="{% url 'users:add_event_picture' %}" method="POST" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-12">
+                                    <label class="form-label" for="event_id">Upload Here:</label>
+                                    <input class="form-control" hidden id="event_id" name="event_id"/>
+                                    <input type="file" name="event_file" id="event_file">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>    
+                </div>
+            </div>
+                
+        </div>
+    </div>
+</div>
+
+
+<div class="row" hidden>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Dropzone</h4>
+            </div><!-- end card header -->
+
+            <div class="card-body">
+                <p class="text-muted">DropzoneJS is an open source library that provides drag’n’drop file uploads with image previews.</p>
+
+                <div class="dropzone">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple="multiple">
+                    </div>
+                    <div class="dz-message needsclick">
+                        <div class="mb-3">
+                            <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
+                        </div>
+
+                        <h4>Drop files here or click to upload.</h4>
+                    </div>
+                </div>
+
+                <ul class="list-unstyled mb-0" id="dropzone-preview">
+                    <li class="mt-2" id="dropzone-preview-list">
+                        <!-- This is used as the file preview template -->
+                        <div class="border rounded">
+                            <div class="d-flex p-2">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="avatar-sm bg-light rounded">
+                                        <img data-dz-thumbnail class="img-fluid rounded d-block" src="#" alt="Dropzone-Image" />
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="pt-1">
+                                        <h5 class="fs-14 mb-1" data-dz-name>&nbsp;</h5>
+                                        <p class="fs-13 text-muted mb-0" data-dz-size></p>
+                                        <strong class="error text-danger" data-dz-errormessage></strong>
+                                    </div>
+                                </div>
+                                <div class="flex-shrink-0 ms-3">
+                                    <button data-dz-remove class="btn btn-sm btn-primary">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- end dropzon-preview -->
+            </div>
+            <!-- end card body -->
+        </div>
+        <!-- end card -->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+
+
+
+<script>
+
+document.getElementById("gfmiclogo").src = "/media/black.png";
+
+document.getElementById("Receipt").src = "/media/receipt.jpg";
+
+document.getElementById("mem_cert").src = "/media/membership2.jpg";
+
+function genReceiptm(member_id){
+    // alert(member_id)
+    var wme = window.open("","", "width = 816px, height = 1344px");
+    $.ajax({
+            url: '{% url "users:member_gen_receipt" %}',
+            type: "POST",
+            data: {
+                member_id: member_id,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            dataType: 'json',
+            success: function(data){
+                wme.document.write('<page size="Letter" style="word-wrap:break-word; margin-top: 20px;">')
+   
+                 wme.document.write('<div class="bg-image" style="max-width: 100%;"><img src="/media/receipt.jpg"/> <h4 style="text-align-last: center; margin-top: -280px; margin-right: -10px; margin-left: 60px; font-size:250%;">'+ data.user_name +'</h4> <p style="text-align-last: center; margin-top: -220px; margin-right: -50px; margin-left: 100px; font-size:150%;">'+ data.user_receipt_no +'</p> <p class="m-0" Style="text-align-last: center; margin-top: 150px; margin-right: -30px; margin-left: 40px; font-size:150%;">GFMIC MEMBERSHIP</p> <p class="m-0" Style="text-align-last: center; margin-top: -170px; margin-right: -100px; margin-left: 500px; font-size:150%;">'+ data.user_validity +'</p> <p class="m-0" style="text-align-last: center; margin-top: 210px; margin-right: -10px; margin-left: 30px; font-size:150%;">P'+ data.user_amount +'.00</p> <p style="text-align-last: center; margin-top: -20px; margin-right: -10px; margin-left: 30px; font-size:150%;">'+ data.user_approver +'</p> </div> </div> <div class="row" style=" margin-top: 50px; bottom: 0;"><p style="font-family: Times New Roman; font-size: 15.5px; color: black; font-weight: 400; text-align: center;"><b>Unit 909, The One Executive Building,West Ave, Quezon City, Metro Manila Phone: (Direct Line) (02) 3412 1117 Email: gfmic@gmail.com Website: https://gfmic.ph/</b></p><br><p style="font-family: Times New Roman; font-size: 18.5px; color: black; font-weight: 400; text-align: center; margin-top: -10px;"></p></div>')
+
+                wme.document.write('</page>')
+                
+                wme.document.close();
+                wme.focus()
+                wme.print();
+                wme.close();
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+    
+}
+
+function genCertm(member_id){
+    // alert(member_id)
+    var wme = window.open("","", "width = 816px, height = 1344px");
+    $.ajax({
+            url: '{% url "users:member_gen_receipt" %}',
+            type: "POST",
+            data: {
+                member_id: member_id,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            dataType: 'json',
+            success: function(data){
+                wme.document.write('<page size="Letter" style="word-wrap:break-word; margin-top: 20px;">')
+   
+                        wme.document.write('<div class="bg-image" style="max-width: 22rem;"><img src="/media/membership2.jpg"/> <h4 style="text-align-last: center; margin-top: -360px; margin-right: -400px; margin-left: 200px; font-size:300%;">'+ data.user_name +'</h4> <p class="m-0" Style="text-align-last: right; margin-top: -50px; margin-right: -300px; margin-left: 300px; font-size:150%;">'+ data.user_validity +'</p> <p class="m-0" style="text-align-last: right; margin-top: -10px; margin-right: -300px; margin-left: 300px; font-size:150%;">'+ data.user_expire +'</p> <p style="text-align-last: right; margin-top: -5px; margin-right: -300px; margin-left: 300px; font-size:150%;">'+ data.user_no +'</p> </div> </div> <div class="row" style=" margin-top: 140px; bottom: 0;"><p style="font-family: Times New Roman; font-size: 15.5px; color: black; font-weight: 400; text-align: center;"><b>Unit 909, The One Executive Building,West Ave, Quezon City, Metro Manila Phone: (Direct Line) (02) 3412 1117 Email: gfmic@gmail.com Website: https://gfmic.ph/</b></p><br><p style="font-family: Times New Roman; font-size: 18.5px; color: black; font-weight: 400; text-align: center; margin-top: -10px;"></p></div>')
+        
+                wme.document.write('</page>')
+                
+                wme.document.close();
+                wme.focus()
+                wme.print();
+                wme.close();
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+    
+}
+   
+function membership_populate(user_id){
+    // alert(user_id)
+    // document.getElementById('member_id').textContent = user_id
+    $.ajax({
+            type:'POST',
+            url : "{% url 'users:view_membership' %}",
+            dataType: 'json',
+            data: {
+                user_id:user_id,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            success: function(data){
+                $('#membership_no').val(data.membership_no).text(data.membership_no);
+                if (data.payment_amount){
+                    // $('#user_amount').val(data.payment_amount).text(data.payment_amount);
+                    // $('#user_mode').val(data.mode_of_payment).text(data.mode_of_payment);
+                    const m_start = data.m_start.split("T");
+                    let member_start = m_start[0];
+                    $('#user_start').val(member_start).text(member_start);
+                    const m_end = data.m_end.split("T");
+                    let member_end = m_end[0];
+                    $('#user_end').val(member_end).text(member_end);
+                    // document.getElementById("proof_pic").setAttribute("src", "/media/" + data.member_proof); 
+                    $('#m_status').val(data.m_status).text(data.m_status);
+                    
+                }
+                else {
+                    // $('#user_amount').val('N/A').text('N/A');
+                    // $('#user_mode').val('N/A').text('N/A');
+                    $('#user_start').val('N/A').text('N/A');
+                    $('#user_end').val('N/A').text('N/A');
+                    $('#m_status').val('N/A').text('N/A');
+                    // document.getElementById("proof_pic").setAttribute("src", "/media/proof_pic/images.png"); 
+                }
+                
+            },
+            error: function(error){
+                console.log(error)
+            }
+        });
+}
+
+function profile_populate(user_id){
+    // alert(user_id)
+    $.ajax({
+        type:'POST',
+        url : "{% url 'users:view_profile' %}",
+        dataType: 'json',
+        data: {
+            user_id:user_id,
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success: function(data){
+            // alert(JSON.stringify(data.user_fname))
+            // alert(JSON.stringify(data.user_bday))
+            $('#first_name').val(data.user_fname).text(data.user_fname);
+            $('#last_name').val(data.user_lname).text(data.user_lname);
+            if (data.usermname == null){
+                $('#middle_name').val('N/A').text('N/A');
+            }
+            else{
+                $('#middle_name').val(data.user_mname).text(data.user_mname);
+            }
+            
+            $('#contact').val(data.user_mobile).text(data.user_mobile);
+            $('#birthday').val(data.user_bday).text(data.user_bday);
+            $('#address').val(data.user_address).text(data.user_address);
+            $('#agency').val(data.user_agency).text(data.user_agency);
+            $('#college').val(data.user_school).text(data.user_school);
+            $('#post_grad').val(data.user_post).text(data.user_post);
+            
+        },
+        error: function(error){
+            console.log('error')
+        }
+    });
+}
+
+function view_payment(user_id){
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    var yyyyy = today.getFullYear() + 1;
+
+    today = mm + '/' + dd + '/' + yyyy;
+    end = mm + '/' + dd + '/' + yyyyy;
+    // alert(today)
+    $('#payment_id').val(user_id)
+    // alert(user_id)
+    $('#m_end').val(end).text(end);
+    $('#m_start').val(today).text(today);
+}
+
+function profile_id(user_id){
+    $('#userid').val(user_id)
+    // alert(user_id)
+}
+
+function submit_payment(user_id){
+    var mode_of_payment = $('#mode_of_payment').find(":selected").val();
+    var payment_amount = document.getElementById("payment_amount").placeholder
+    var m_start = document.getElementById("m_start").placeholder
+    var m_end = document.getElementById("m_end").placeholder
+    if (mode_of_payment){
+            $.ajax({
+                type:'POST',
+                url : "{% url 'users:payment' %}",
+                dataType: 'json',
+                data: {
+                    user_id:user_id,
+                    mode_of_payment:mode_of_payment,
+                    m_start:m_start,
+                    m_end:m_end,
+                    payment_amount:payment_amount,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                success: function(data){
+                    console.log(data)
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+    }
+    return false;
+}
+
+function submit_event(user_id){
+    var event_slot = $('input[name="e_slot"]').val();
+    var event_e_date = $('input[name="e_date"]').val();
+    var event_title = $('input[name="event_title"]').val();
+    var event_speaker = $('input[name="res_speaker"]').val();
+    var sched_time_start = $('input[name="sched_time_start"]').val();
+    var sched_time_end = $('input[name="sched_time_end"]').val();
+    var sched_date = $('input[name="sched_date"]').val();
+    event_category = document.getElementById("event_category").value;
+    event_amount = document.getElementById("event_amount").value;
+    event_link = document.getElementById("event_link").value;
+    var event_desc = document.querySelector("#event_desc").textContent 
+    // alert(event_desc)
+
+    const number = moment(sched_time_start, ["HH.mm"]).format("hh:mm a");
+    const number1 = moment(sched_time_end, ["HH.mm"]).format("hh:mm a");
+    // alert(number)
+    if (sched_date){
+        const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure',
+        text: "You want to add this event?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, add it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type:'POST',
+                url : "{% url 'users:add_event' %}",
+                dataType: 'json',
+                data: {
+                    event_title:event_title,
+                    event_speaker:event_speaker,
+                    sched_time_start:number,
+                    event_e_date:event_e_date,
+                    event_slot:event_slot,
+                    sched_time_end:number1,
+                    sched_date:sched_date,
+                    event_amount:event_amount,
+                    event_link:event_link,
+                    event_desc:event_desc,
+                    event_category:event_category,
+                    user_id:user_id,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                success: function(data){
+                    swalWithBootstrapButtons.fire(
+                        'Saved!',
+                        'Your event has been saved.',
+                        'success'
+                    )
+                    setTimeout(function(){
+                        window.location.reload()  
+                }, 1000);
+                    
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+            'Cancelled'
+            )
+        }
+    });
+    return false;
+    }
+    else{
+        // alert(event_title + event_speaker + sched_time + sched_date + event_category + event_desc)
+    }
+        
+}
+
+function submit_profile(user_id){
+    // alert(user_id)
+    var first_name = $('input[name="first_name"]').val().trim();
+    var last_name = $('input[name="last_name"]').val().trim();
+    var middle_name = $('input[name="middle_name"]').val().trim();
+    var contact = $('input[name="contact"]').val().trim();
+    var bday = $('input[name="birthday"]').val().trim();
+    var address= $('input[name="address"]').val().trim();
+    var agency = $('input[name="agency"]').val().trim();
+    var college = $('input[name="college"]').val().trim();
+    var post_grad = $('input[name="post_grad"]').val().trim();
+    if (last_name, first_name, middle_name, contact){
+        const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure',
+        text: "You want to save this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, save it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type:'POST',
+                url : "{% url 'users:profile' %}",
+                dataType: 'json',
+                data: {
+                    user_id:user_id,
+                    first_name:first_name,
+                    last_name:last_name,
+                    middle_name:middle_name,
+                    contact:contact,
+                    bday:bday,
+                    address:address,
+                    agency:agency,
+                    college:college,
+                    post_grad:post_grad,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                success: function(data){
+                    swalWithBootstrapButtons.fire(
+                        'Saved!',
+                        'Your record has been saved.',
+                        'success'
+                    )
+                    setTimeout(function(){
+                        window.location.reload()  
+                }, 1000);
+                    
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+            'Cancelled'
+            )
+        }
+    });
+    return false;
+    }
+}
+</script>

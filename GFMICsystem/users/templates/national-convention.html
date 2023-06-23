@@ -1,0 +1,359 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <title>National Convention | GFMIC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="GFMIC" name="Capstone"/>
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/logos/gfmic logo.PNG' %}">
+    <!--Swiper slider css-->
+    <link href="{% static '/assets/libs/swiper/swiper-bundle.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Layout config Js -->
+    <script src="{% static 'assets/js/layout.js' %}"></script>
+    <!-- Bootstrap Css -->
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="{% static 'assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- glightbox css -->
+    <link rel="stylesheet" href="{% static 'assets/libs/glightbox/css/glightbox.min.css' %}">
+
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar-example">
+
+    <!-- Begin page -->
+    <div class="layout-wrapper landing">
+        <nav class="navbar navbar-expand-lg navbar-landing navbar-dark fixed-top" id="navbar">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'users:home' %}">
+                    <img src="{% static 'assets/images/logos/black logo.png' %}" class="card-logo card-logo-dark" alt="logo dark" height="60">
+                    <img src="{% static 'assets/images/logos/white logo.png' %}" class="card-logo card-logo-light" alt="logo light" height="60">
+                </a>
+                <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="mdi mdi-menu"></i>
+                </button>   
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" href="{% url 'users:home_event' %}">Events</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" href="{% url 'users:webinar' %}">Webinar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-14 active" href="{% url 'users:national_convention' %}">National Convention</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" href="{% url 'users:membership_conference' %}">Membership Conference</a>
+                        </li>
+                    </ul>
+
+                    <div class="">
+                        <a href="{% url 'users:login' %}" class="btn btn-link fw-medium mx-auto">Sign In</a>
+                        <a href="{% url 'users:register' %}" class="btn btn-primary">Sign Up</a>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+            <div class="bg-overlay bg-overlay-pattern"></div>
+        <!-- end navbar -->
+
+        <!-- start plan -->
+        <section class="section bg-grey" id="categories">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+                        <div class="text-left mb-5">
+                            <br><br>
+                            <h2 class="mb-3 fw-bold lh-base" style="text-align:center;color:#007c99">Annual National Convention</h2>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary waves-effect waves-light">ALL</button>
+                                <button type="button" class="btn btn-primary waves-effect waves-light">2021</button>
+                                <button type="button" class="btn btn-primary waves-effect waves-light">2022</button>
+                            </div>
+                        </div>
+                        <!-- 2021 -->
+                        <div class="text-left mb-5">
+                            <img src="{% static 'assets/images/webinar/national-2021.PNG' %}" class="img-fluid" alt="Responsive image" width="1600" height="1600"><br><br>
+                            <h2 class="mb-3 fw-bold lh-base text-muted" style="text-align:center">ADVISORY</h2>
+                            
+                            <div class="container">
+                                <div class="row align-items-center gy-4">
+                                    <div class="col-lg-6 col-sm-7 mx-auto">
+                                        <div>
+                                            <img src="{% static 'assets/images/webinar/postponed.PNG' %}" alt="" class="img-fluid mx-auto">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="text-muted">
+                                            <p style="text-align:justify" class="mb-4 ff-secondary fs-16">The Government Financial Management Innovators Circle (GFMIC), Inc. would like to inform everyone that the 12th Annual National Convention (ANC) scheduled on June 23-25, 2021 is rescheduled on July 21-23, 2021 due to inevitable circumstances.</p>
+                                        </div>
+                                    </div>
+                                    <!-- end col -->
+                                </div><br>
+                                <!-- end row -->
+                            </div>
+                            <h2 class="mb-3 fw-bold lh-base text-muted" style="text-align:center">ABOUT</h2>
+                            <p style="text-align:justify" class="text-muted"><b>The Government Financial Management Innovators Circle (GFMIC), Inc., an organization of government financial management professionals who utilize information and communications technology as a tool for productivity, transparency and accountability, will be conducting its 12th Annual National Convention on July 21-23, 2021 with the theme:</p>
+                            <p style="text-align:justify;color:#51C5E0" ><em>“Ensuring Business Continuity: Innovative Fiscal and Administrative Measures in Addressing the Pandemic”.</em></p>
+                            <p style="text-align:justify" class="text-muted">In this regard, we are cordially inviting the heads and personnel of the finance, budget, accounting, treasury, procurement, information and communications technology and allied offices of National Government Agencies, Government Corporations and Local Government Units, including the Barangays (Barangay Chairman, Kagawads, Treasurer, Secretary and Record Keeper) to attend this Convention. </p>
+                            <p style="text-align:justify" class="text-muted">The registration fee for the three-day convention is P1,500.00 per participant and may be deposited to any Philippine National Bank Branch under GFMIC, Inc. PNB Account No. 1102-7000-2003 or to any Land Bank Branch under GFMIC, Inc. LBP No. 1691-1707-28. Please visit the GFMIC website www.gfmic.ph on how to register to the said Convention and/or to be a member. </p>
+                            <p style="text-align:justify" class="text-muted">For inquiries and/or confirmation, please contact GFMIC at mobile phone numbers 0916-677-2956 or 0917-825-8675. </p>
+                            <p style="text-align:justify" class="text-muted">We look forward to seeing you and thank you very much for your continued support.</p><br>
+                            <h2 class="mb-3 fw-bold lh-base text-muted" style="text-align:center">TOPICS FOR DISCUSSION</h2>
+                            <p style="text-align:justify" class="text-muted">Day 1: July 21, 2021 (8:30am-12nn)</p>
+                            <p style="text-align:justify" class="text-muted"><i class="bx bxs-circle"></i> Resilience in times of Crisis: Pasig City Best Practice</p>
+                            <p style="text-align:justify" class="text-muted"><i class="bx bxs-circle"></i> Financing Government Response to COVID 19 Pandemic</p>
+                            <p style="text-align:justify" class="text-muted">Day 2: July 22, 2021 (8:30am-12nn)</p>
+                            <p style="text-align:justify" class="text-muted"><i class="bx bxs-circle"></i> Updates on the Revised Chart of Accounts for National Government Agencies</p>
+                            <p style="text-align:justify" class="text-muted"><i class="bx bxs-circle"></i> Feel Pag-Ibig Anytime: Benefit Updates</p>
+                            <p style="text-align:justify" class="text-muted">Day 3: July 23, 2021 (8:30am-12nn)</p>
+                            <p style="text-align:justify" class="text-muted"><i class="bx bxs-circle"></i> Compensability of COVID 19 under the Employees’ Compensation Commission</p>
+                            <p style="text-align:justify" class="text-muted"><i class="bx bxs-circle"></i> The BITBo Updates & Sharing the Municipality of Tanay Experience</p>
+                            <br><br>
+                        </div>
+                        <!-- end 2021 -->
+                        
+                        <!-- 2021 -->
+                        <div class="text-left mb-5">
+                            <img src="{% static 'assets/images/webinar/national2022.PNG' %}" class="img-fluid" alt="Responsive image" width="1600" height="1600"><br><br>
+                            <h2 class="mb-3 fw-bold lh-base text-muted" style="text-align:center">ABOUT</h2>
+                            <p style="text-align:justify" class="text-muted"><b>The Government Financial Management Innovators Circle (GFMIC), Inc, an organization of government financial management professionals who utilize information and communications technology as a tool for productivity, transparency and accountability, will be conducting its 13th Annual National Convention (ANC) on August 10-12, 2022, with the theme:</p>
+                            <p style="text-align:justify;color:#51C5E0" ><em>“Pursuing PFM Excellence: Onto the New Administration”.</em></p>
+                            <p style="text-align:justify" class="text-muted">We are cordially inviting the heads and personnel of the finance, budget, accounting, treasury, procurement, information and communications technology and allied offices from the National Government Agencies, Government Owned and/or Controlled Corporations, and Local Government Units, including Barangays to attend this Convention.</p>
+                            <p style="text-align:justify" class="text-muted">The registration fee is P1,800.00 per participant and may be deposited under Government Financial Management Innovators Circle (GFMIC), Inc. to the Philippine National Bank under Current Account No. 11020-700-2003 or to the Land Bank of the Philippines under Savings Account No. 1691-1707-28. Please visit the GFMIC website at www.gfmic.ph on how to register to the said event and/or to be a member. For inquiries and/or confirmation, please contact Ms. Loida L. Vasquez at mobile phone numbers 0965-8131185/0927-7945452 or email at gfmic22.inc@gmail.com.</p>
+                            <p style="text-align:justify" class="text-muted">We look forward to seeing you and thank you very much for your continued support.</p>
+                            <p style="text-align:justify" class="text-muted">Very truly yours,</p>
+                            <p style="text-align:justify" class="text-muted fw-bold">MARIETTA M. LORENZO</p>
+                            <h2 class="mb-3 fw-bold lh-base text-muted" style="text-align:center">PROGRAM OF ACTIVITIES</h2>
+                            <!-- Table Head -->
+                            <table class="table align-middle table-nowrap mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col" >August 10, 2022</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>8:00am-8:45am</td>
+                                        <td>Registration</td>
+                                        <td>GFMIC</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="8">8:45am-11:00am</td>
+                                        <td>Opening Ceremonies:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Doxology/Opening Prayer</td>
+                                        <td>Audio Visual Presentation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>National Anthem</td>
+                                        <td>Audio Visual Presentation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Declaration of Opening of ANC</td>
+                                        <td>ANC Chair Clarito Alejandro D. <br>Magsino</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Opening Remarks</td>
+                                        <td>President Marietta M. Lorenzo</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Welcome Message and Introduction <br>of the Keynote Speaker</td>
+                                        <td>Chairperson Carmela S. Perez</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Keynote Address</td>
+                                        <td>Ms. Laura Robinson President, <br>ICGFM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Awarding – Outstanding eNGAS/<br>eBudget System Users</td>
+                                        <td>Trustee Villa DJ. Bernaldo and <br>Trustee Luzvi Pangan-Chatto<br> Co-Chairpersons – Committee on <br>Awards</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="4">11:00am-12:00nn</td>
+                                        <td>Technical Session I</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Introduction of the Resource Speaker</td>
+                                        <td>Trustee Richard M. Fulleros</td>
+                                    </tr>
+                                    <tr>
+                                        <td>NEDA Updates: Outlook on <br>Expenditure Program</td>
+                                        <td>Usec Rosemarie G. Edillon <br>National Economic and <br>Development Authority</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Open Forum</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="text-align:justify" class="text-muted">Emcees: Gregorio C. Rulloda Ma. Lourdes V. Dedal</p><br>
+
+                            <table class="table align-middle table-nowrap mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">August 11, 2022</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>8:00am–8:45am</td>
+                                        <td>Opening Program Recap of Day 1</td>
+                                        <td>ANC Chair Clarito Alejandro D. <br>Magsino</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="3">8:45am-10:00am</td>
+                                        <td>Introduction of the Keynote Speaker</td>
+                                        <td>President Marietta M. Lorenzo</td>
+                                    </tr>
+                                    <tr>
+                                   
+                                        <td>PFM: Prospects in the New <br>Administration</td>
+                                        <td>Commissioner Roland C. Pondoc <br>Commission on Audit</td>
+                                    </tr>
+                                    <tr>
+                                        
+                                        <td>Open Forum</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="3">10:01-12nn</td>
+                                        <td>Technical Session 2:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                               
+                                        <td>Introduction of the Resource Speaker</td>
+                                        <td>Trustee Villa DJ. Bernaldo</td>
+                                    </tr>
+                                    <tr>
+                                     
+                                        <td>Revisiting EO 55: Towards an Integrated <br>Financial Management Information <br>System</td>
+                                        <td>Ms. Luzvi Pangan Chatto Member, <br>PSASB</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Open Forum</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="text-align:justify" class="text-muted">Emcees: Gregorio C. Rulloda Cecilia B. Camon</p><br>
+
+                            <table class="table align-middle table-nowrap mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">August 12, 2022</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>8:00am–8:45am</td>
+                                        <td>Opening Program Recap of Day 2</td>
+                                        <td>ANC Chair Clarito Alejandro D. Magsino</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="3">8:45am-10:00am</td>
+                                        <td>Introduction of the Keynote Speaker</td>
+                                        <td>EVP Cecilia B. Camon</td>
+                                    </tr>
+                                    <tr>
+                                      
+                                        <td>Modernizing the Civil Service: <br>The Next Six Years</td>
+                                        <td>Chairman Karlo Alexei B. Nograles <br>Civil Service Commission</td>
+                                    </tr>
+                                    <tr>
+                                     
+                                        <td>Open Forum</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="5">10:01am-12:00nn</td>
+                                        <td>Technical Session 3:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                             
+                                        <td>Introduction of the Resource <br>Speaker</td>
+                                        <td>VP Rosicar E. Escober</td>
+                                    </tr>
+                                    <tr>
+                                      
+                                        <td>Integrating the Human Resource <br>Management Information System</td>
+                                        <td>Director Helene Grace T. Ramos <br>Civil Service Commission</td>
+                                    </tr>
+                                    <tr>
+                                       
+                                        <td>Open Forum</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                              
+                                        <td>Closing Remarks</td>
+                                        <td>ANC Vice Chair Ester A. Aldana</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="text-align:justify" class="text-muted">Emcees: Atty. Richard M. Fulleros Gregorio C. Rulloda</p><br>
+                            <h5 class="mb-3 fw-bold lh-base text-muted" >Note: eNGAS & eBudget System e-clinic is available thru a separate link from 10:00am to 12:00nn c/o COA</h5>
+                        </div>
+                        <!-- end 2021 -->
+
+                    </div><!-- end col -->
+                </div><!-- end row -->
+               
+            </div><!-- end container -->
+        </section>
+        <!-- end plan -->
+        
+        </section>
+
+    </div>
+    <!-- end layout wrapper -->
+
+</body>
+{% include 'home_footer.html' %}
+
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+    <script src="{% static 'assets/libs/feather-icons/feather.min.js' %}"></script>
+    <script src="{% static 'assets/js/pages/plugins/lord-icon-2.1.0.js' %}"></script>
+    <script src="{% static 'assets/js/plugins.js' %}"></script>
+    <!-- glightbox js -->
+    <script src="{% static 'assets/libs/glightbox/js/glightbox.min.js' %}"></script>
+    <!-- isotope-layout -->
+    <script src="{% static 'assets/libs/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/js/pages/gallery.init.js'%}"></script>
+    <!--Swiper slider js-->
+    <script src="{% static 'assets/libs/swiper/swiper-bundle.min.js' %}"></script>
+    <!-- landing init -->
+    <script src="{% static 'assets/js/pages/landing.init.js' %}"></script>
+    <!-- App js -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+</html>

@@ -1,0 +1,1516 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Codespaces
+Marketplace
+Explore
+ 
+@Klyy00 
+glennbaliza
+/
+OSAS-System
+Public
+Fork your own copy of glennbaliza/OSAS-System
+Code
+Issues
+Pull requests
+Actions
+Projects
+Security
+Insights
+OSAS-System/OsasSystem/templates/Facilitation/fund.html
+@glennbaliza
+glennbaliza Final Revision
+Latest commit 9992af0 on Aug 3, 2021
+ History
+ 1 contributor
+1474 lines (1348 sloc)  96.7 KB
+
+{% extends 'base.html'%}
+{% load static %}
+
+{% block page-css %}
+    <link href="{% static 'OsasSystem/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'OsasSystem/assets/plugins/bootstrap-eonasdan-datetimepicker/build/css/bootstrap-datetimepicker.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'OsasSystem/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css' %}" rel="stylesheet" />
+
+    <link href="{% static 'OsasSystem/assets/plugins/isotope/isotope.css' %}" rel="stylesheet" />
+    <link href="{% static 'OsasSystem/assets/plugins/lightbox/css/lightbox.css' %}" rel="stylesheet" />
+
+    <link href="{%static 'OsasSystem/assets/plugins/dropzone/min/dropzone.min.css' %}" rel="stylesheet" />
+{% endblock%}
+
+{% block title %}
+    Year and Section
+{% endblock %}
+
+
+{% block content%}
+<div id="content" class="content">
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Dashboard</a></li>
+        <li class="breadcrumb-item">Fund</li>
+    </ol>
+    <h1 class="page-header mb-1"  style="font-weight: 700; color:#800000 "><i class="fas fa-dollar-sign mr-2" ></i>Fund</h1>
+    <p class="mb-5">Page Description</p>
+    <img hidden id="myImg" style="width: auto; height: auto;"/>
+    <img hidden id="myImg2" style="width: auto; height: auto;"/>
+    <img hidden id="myImg3" style="width: auto; height: auto;"/>
+    <img hidden id="myImg4" style="width: auto; height: auto;"/>
+    <img hidden id="myImg5" style="width: auto; height: auto;"/>
+    <img hidden id="signature" style="width: auto; height: auto;"/>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel">
+                <div class="panel-heading p-25">
+                    {% if j %}
+                    <div class="container col-lg-6 col-md-3" style="display: inline-block;">
+                        <h2 class="panel-title" style="font-size:15px; display: inline-block; " >Pending Deposited Amount: <span class="badge badge-warning" style="font-family: Roboto; font-size: 16px;">₱ {{j}}</span></h2>
+                    </div>     
+                    {% else %}
+                    <div class="container col-lg-6 col-md-3" style=" display: inline-block;">
+                        <h2 class="panel-title" style="font-size:15px; display: inline-block">Pending Deposited Amount: <span class="badge badge-warning" style="font-family: Roboto; font-size: 16px;">₱ 0</span></h2>
+                    </div>     
+                    {% endif %}
+                    {% if i %}
+                    <div class="container col-lg-6 col-md-4 pull-right" style=" display: inline-block;">
+                        <h2 class="panel-title" style="font-size:15px; display: inline-block;  ">Pending Amount Requested: <span class="badge badge-warning" style="font-family: Roboto; font-size: 16px;">₱ {{i}}</span></h2>
+                    </div> 
+                    {% else %}
+                    <div class="container col-lg-6 col-md-4 pull-right" style=" display: inline-block;">
+                        <h2 class="panel-title" style="font-size:15px; display: inline-block; ">Pending Amount Requested: <span class="badge badge-warning" style="font-family: Roboto; font-size: 16px;">₱ 0</span></h2>
+                    </div> 
+                    {% endif %}
+                </div>
+                <div class="panel-body" style="padding: 0%; height: 0px;">
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="panel" data-sortable-id="index-1">
+                <div class="panel-heading p-25">
+                    <h2 class="panel-title" style="font-size:16px;">Filter <i class="fas fa-filter mr-2" ></i></h2>
+                </div>
+                <div class="panel-body" style="padding: 0%; height: 250px;">
+                    <form id="validate_form" method="POST" action="{% url 'osas_fund' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group" >
+                            <label style="text-align: left; margin-bottom: 7px; margin-top: 4px;" class="col-sm-12">Fund Type:</label> 
+                            <div class="col-sm-12">
+                                <select id="fund_type" name="fund_type" class="form-control">
+                                    <option selected disabled="true">--Select--</option>
+                                    <option  value="DEPOSIT">Deposit</option>
+                                    <option  value="REQUEST">Request</option>
+                                </select>
+                            </div>
+                            <label style="text-align: left; margin-bottom: 7px; margin-top: 4px;" class="col-sm-12" >Academic Year:</label> 
+                            <div class="col-sm-12">
+                                <select id="acad_year" name="acad_year" class="form-control">
+                                    <option selected disabled="true">--Select--</option>
+                                    <option  value="2016">2016 - 2017</option>
+                                    <option  value="2017">2017 - 2018</option>
+                                    <option  value="2018">2018 - 2019</option>
+                                    <option  value="2019">2019 - 2020</option>
+                                    <option  value="2020">2020 - 2021</option>
+                                    <option  value="2021">2021 - 2022</option>
+                                    <option  value="2022">2022 - 2023</option>
+                                </select>
+                            </div>
+                            <label style="text-align: left; margin-bottom: 7px; margin-top: 4px;" class="col-sm-12">Status:</label> 
+                            <div class="col-sm-12">
+                                <select id="filter_status" name="filter_status" class="form-control">
+                                    <option selected disabled="true">--Select--</option>
+                                    <option  value="PENDING">Pending</option>
+                                    <option  value="COMPLETED">Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-success col-sm-12">Filter <i class="fas fa-filter mr-2" ></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <div class="panel">
+                <div class="panel-heading p-25">
+                    <div class="btn-group btn-group-toggle pull-right" data-toggle="buttons" style="margin-right: -10px; margin-bottom: -10px;">
+                      
+                    </div>
+                    <h2 class="panel-title" style="font-size:16px;"><i class="fas fa-calendar-alt mr-2" ></i>Fund List</h2>  
+                </div>
+                <div class="panel-body">
+                    <table id="data-table" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="1%"></th>
+                                <th data-orderable="false" class="text-nowrap" style="font-weight: 700; color:#800000 ">DESCRIPTIONS</th>
+                                <th data-orderable="false" class="text-nowrap" style="font-weight: 700; color:#800000">VOUCHER</th>
+                                <th data-orderable="false"class="text-nowrap" style="font-weight: 700; color:#800000">RECEIPT</th>
+                                <th data-orderable="false" class="text-nowrap" style="font-weight: 700; color:#800000">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% if fund_org_list %}
+                            {% for fund in fund_org_list %}
+                                {% if fund.fund_org_id %}  
+                                    <tr class="odd gradeA tr_  align-middle" id="{{ fund.fund_id }}">
+                                        <td width="1%" class="f-s-600 text-inverse">{{ forloop.counter }}</td>
+                                        <td class="text-nowrap" >
+                                            <dl class="row mb-0 p-2" style="line-height: .6rem;">
+                                                <dd class="col-sm-8 gritter-  ysd{{ fund.fund_id  }}" style="color: rgb(106, 106, 255)"><strong>{{ fund.fund_org_id.org_name }} ({{fund.fund_org_id.org_abbr}})</strong></dd>
+                                                <dd class="col-sm-8 gritter-  ysd{{ fund.fund_id  }}" >{{ fund.fund_desc }}</dd>
+                                                <dd class="col-sm-8 gritter-  ysd{{ fund.fund_id }}" ><strong>₱ {{ fund.fund_amount }}</strong> <span class="label label-info  yss{{ fund.fund_id  }}">{{ fund.fund_type }}</span></dd>
+                                                <dd class="col-sm-8 gritter-  ysd{{ fund.fund_id  }}">{{ fund.fund_word }}</dd>
+                                                <dd class="col-sm-8 gritter-  ysd{{ fund.fund_id  }}"><strong>{{ fund.fund_date_requested }}</strong></dd>
+                                                {% if fund.fund_status == 'PENDING'%}
+                                                <dd class="col-sm-8 gritter- "><strong><span class="badge badge-warning  yss{{ fund.fund_id  }}">{{ fund.fund_status }}</span></strong></dd>
+                                                {% elif fund.fund_status == 'PROCESSING' %}
+                                                <dd class="col-sm-8 gritter- "><strong><span class="badge badge-info  yss{{ fund.fund_id  }}">{{ fund.fund_status }}</span></strong></dd>
+                                                {% elif fund.fund_status == 'COMPLETED' %}
+                                                <dd class="col-sm-8 gritter- "><strong><span class="badge badge-success  yss{{ fund.fund_id  }}">{{ fund.fund_status }}</span></strong></dd>
+                                                {% endif %}
+                                            </dl>
+                                        </td>
+                                        <td class="text-nowrap" >
+                                            {% if file_list %}
+                                                {% for file in file_list %}
+                                                    {% if fund.fund_id == file.fund_fund_id.fund_id %}  
+                                                        {% if file.fund_f_status == 'Voucher' %}
+                                                            {% if file.fund_f_file_ext == 'docx' %}
+                                                                <dd class="col-sm-8 gritter- file_id{{fund.fund_id}}" id="file_id{{fund.fund_id}}" hidden >{{ file.fund_f_id }}</dd>
+                                                                <div style=" display: inline-block; padding: 2px;">
+                                                                    <a id="{{ file.fund_f_id  }}" href="/media/{{ file.fund_f_file }}" target="blank" style="color: blue;"><i class="far fa-file-word fa-2x" > </i></a> 
+                                                                </div>
+                                                                <div style="display: inline-block;">
+                                                                    <a id="{{ file.fund_f_id  }}" href="/media/{{ file.fund_f_file }}" target="blank" style="color: rgb(95, 94, 94);">{{ file.fund_f_file }}</a>
+                                                                </div>
+                                                            {% elif file.fund_f_file_ext == 'pdf' %}
+                                                                <dd class="col-sm-8 gritter- file_id{{fund.fund_id}}" id="file_id{{fund.fund_id}}" hidden>{{ file.fund_f_id }}</dd>
+                                                                <div style=" display: inline-block; padding: 2px;">
+                                                                    <a id="{{ file.fund_f_id }}"  href="/media/{{ file.fund_f_file }}" target="blank"  style="color: red;"><i class="far fa-file-pdf fa-2x" > </i></a>
+                                                                </div>
+                                                                <div style="display: inline-block;">
+                                                                    <a id="{{ file.fund_f_id }}" href="/media/{{ file.fund_f_file }}" target="blank" style="color: rgb(95, 94, 94);">{{ file.fund_f_file }}</a>
+                                                                </div>
+                                                        
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </td>                                 
+                                        <td class="text-nowrap">
+                                            {% if file_list %}
+                                                {% for file in file_list %}
+                                                    {% if fund.fund_id == file.fund_fund_id.fund_id %}  
+                                                        {% if file.fund_f_status == 'Reciept' %}
+                                                        <dd class="col-sm-8 gritter- " id="receipt{{fund.fund_id}}" hidden>{{ file.fund_f_id }}</dd>
+                                                        <dl class="row mb-0 p-2" style="line-height: .6rem;">
+                                                            <dd class="col-sm-8 gritter-  ysd{{ file.fund_f_id  }}" ><a id="{{ file.fund_f_id }}" href="/media/{{ file.fund_f_file }}" target="blank" style="color: rgb(95, 94, 94);"><img src="/media/{{file.fund_f_file}}" style="width: auto; height: 80px; "/></a></dd>
+                                                        </dl>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </td>
+                                        <td width="1%" class="text-nowrap">
+                                            {% if fund.fund_status == 'PENDING' or fund.fund_status == 'PROCESSING' %}
+                                                {% if fund.fund_type == 'REQUEST'%}
+                                                <div class="text-nowrap">
+                                                    <div class="btn-group ">
+                                                        <button id="upload-btn" class="btn btn-danger" data-toggle="modal" href="#modal_confirm" onClick="fundTrans('{{fund.fund_id }}', '{{fund.fund_org_id.org_id}}', 'org', '{{fund.fund_amount}}', '{{fund.fund_type}}')" ><i data-toggle="tooltip" data-placement="left" title="Release Fund" class="fas fa-minus"></i></button>  
+                                                        <button id="add_note"  class="btn btn-success" data-toggle="modal" href="#modal_message" onClick="viewNote('{{fund.fund_org_id.org_id}}')" ><i data-toggle="tooltip" data-placement="right" title="Message" class="fas fa-envelope" ></i></button>  
+                                                    </div>
+                                                </div>
+                                                {% elif fund.fund_type == 'DEPOSIT'%}
+                                                <div class="text-nowrap">
+                                                    <div class="btn-group ">
+                                                        <button id="upload-btn" class="btn btn-info" data-toggle="modal" href="#modal_confirm" onClick="fundTrans('{{fund.fund_id }}', '{{fund.fund_org_id.org_id}}', 'org', '{{fund.fund_amount}}', '{{fund.fund_type}}')" ><i data-toggle="tooltip" data-placement="left" title="Add Fund" class="fas fa-plus"></i></button>  
+                                                        <button id="upload-btn" class="btn btn-warning" data-toggle="modal" href="#modal_choices" onClick="uploadDocu('{{fund.fund_id }}', '{{fund.fund_room_id.room_id}}')" ><i data-toggle="tooltip" data-placement="left" title="Upload" class="fas fa-upload"></i></button> 
+                                                        <button id="add_note"  class="btn btn-success" data-toggle="modal" href="#modal_message" onClick="viewNote('{{fund.fund_org_id.org_id}}')" ><i data-toggle="tooltip" data-placement="right" title="Message" class="fas fa-envelope" ></i></button>  
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            {% elif fund.fund_status == 'COMPLETED' %}
+                                            <div class="text-nowrap">
+                                                <div class="btn-group "> 
+                                                    <button id="add_note"  class="btn btn-success" data-toggle="modal" href="#modal_message" onClick="viewNote('{{fund.fund_org_id.org_id}}')" ><i data-toggle="tooltip" data-placement="right" title="Message" class="fas fa-envelope" ></i></button>  
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% elif fund.fund_room_id %}    
+                                    <tr class="odd gradeA tr_  align-middle" id="{{ fund.fund_id }}">
+                                        <td width="1%" class="f-s-600 text-inverse">{{ forloop.counter }}</td>
+                                        <td class="text-nowrap" >
+                                            <dl class="row mb-0 p-2" style="line-height: .6rem;">
+                                                <dd class="col-sm-8 gritter-  ysd{{ fund.fund_id  }}" style="color: rgb(255, 106, 106)"><strong>{{ fund.fund_room_id.room_stud_id.stud_course_id.course_name }} {{ fund.fund_room_id.room_stud_id.stud_yas_id.yas_descriptions }}</strong></dd>
+                                                <dd class="col-sm-8 gritter-  ysd{{ fund.fund_id  }}" >{{ fund.fund_desc }}</dd>
+                                                <dd class="col-sm-8 gritter-  ysd{{ fund.fund_id }}" ><strong>₱ {{ fund.fund_amount }}</strong> <span class="label label-info  yss{{ fund.fund_id  }}">{{ fund.fund_type }}</span></dd>
+                                                <dd class="col-sm-8 gritter-  ysd{{ fund.fund_id  }}">{{ fund.fund_word }}</dd>
+                                                <dd class="col-sm-8 gritter-  ysd{{ fund.fund_id  }}"><strong>{{ fund.fund_date_requested }}</strong></dd>
+                                                {% if fund.fund_status == 'PENDING'%}
+                                                <dd class="col-sm-8 gritter- "><strong><span class="badge badge-warning  yss{{ fund.fund_id  }}">{{ fund.fund_status }}</span></strong></dd>
+                                                {% elif fund.fund_status == 'PROCESSING' %}
+                                                <dd class="col-sm-8 gritter- "><strong><span class="badge badge-info  yss{{ fund.fund_id  }}">{{ fund.fund_status }}</span></strong></dd>
+                                                {% elif fund.fund_status == 'COMPLETED' %}
+                                                <dd class="col-sm-8 gritter- "><strong><span class="badge badge-success  yss{{ fund.fund_id  }}">{{ fund.fund_status }}</span></strong></dd>
+                                                {% endif %}
+                                            </dl>
+                                        </td>
+                                        <td class="text-nowrap" >
+                                            {% if file_list %}
+                                                {% for file in file_list %}
+                                                    {% if fund.fund_id == file.fund_fund_id.fund_id %}  
+                                                        {% if file.fund_f_status == 'Voucher' %}
+                                                            {% if file.fund_f_file_ext == 'docx' %}
+                                                                <dd class="col-sm-8 gritter- file_id{{fund.fund_id}}" id="file_id{{fund.fund_id}}" hidden >{{ file.fund_f_id }}</dd>
+                                                                <div style=" display: inline-block; padding: 2px;">
+                                                                    <a id="{{ file.fund_f_id  }}" href="/media/{{ file.fund_f_file }}" target="blank" style="color: blue;"><i class="far fa-file-word fa-2x" > </i></a> 
+                                                                </div>
+                                                                <div style="display: inline-block;">
+                                                                    <a id="{{ file.fund_f_id  }}" href="/media/{{ file.fund_f_file }}" target="blank" style="color: rgb(95, 94, 94);">{{ file.fund_f_file }}</a>
+                                                                </div>
+                                                            {% elif file.fund_f_file_ext == 'pdf' %}
+                                                                <dd class="col-sm-8 gritter- file_id{{fund.fund_id}}" id="file_id{{fund.fund_id}}" hidden>{{ file.fund_f_id }}</dd>
+                                                                <div style=" display: inline-block; padding: 2px;">
+                                                                    <a id="{{ file.fund_f_id }}"  href="/media/{{ file.fund_f_file }}" target="blank"  style="color: red;"><i class="far fa-file-pdf fa-2x" > </i></a>
+                                                                </div>
+                                                                <div style="display: inline-block;">
+                                                                    <a id="{{ file.fund_f_id }}" href="/media/{{ file.fund_f_file }}" target="blank" style="color: rgb(95, 94, 94);">{{ file.fund_f_file }}</a>
+                                                                </div>
+                                                        
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </td>                                 
+                                        <td class="text-nowrap" >
+                                            {% if file_list %}
+                                                {% for file in file_list %}
+                                                    {% if fund.fund_id == file.fund_fund_id.fund_id %}  
+                                                        {% if file.fund_f_status == 'Reciept' %}
+                                                        <dd class="col-sm-8 gritter- " id="receipt{{fund.fund_id}}" hidden>{{ file.fund_f_id }}</dd>
+                                                        <dl class="row mb-0 p-2" style="line-height: .6rem;">
+                                                            <dd class="col-sm-8 gritter-  ysd{{ file.fund_f_id  }}" ><a id="{{ file.fund_f_id }}" href="/media/{{ file.fund_f_file }}" target="blank" style="color: rgb(95, 94, 94);"><img src="/media/{{file.fund_f_file}}" style="width: auto; height: 80px; "/></a></dd>
+                                                        </dl>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </td>
+                                        <td width="1%" class="text-nowrap">
+                                            {% if fund.fund_status == 'PENDING' or fund.fund_status == 'PROCESSING' %}
+                                                {% if fund.fund_type == 'REQUEST'%}
+                                                <div class="text-nowrap">
+                                                    <div class="btn-group ">
+                                                        <button id="upload-btn" class="btn btn-danger" data-toggle="modal" href="#modal_confirm" onClick="fundTrans('{{fund.fund_id }}', '{{fund.fund_room_id.room_id}}', 'class', '{{fund.fund_amount}}', '{{fund.fund_type}}' )" ><i data-toggle="tooltip" data-placement="left" title="Release Fund" class="fas fa-minus"></i></button>  
+                                                        <button id="add_note"  class="btn btn-success" data-toggle="modal" href="#modal_message2" onClick="viewNote2('{{fund.fund_room_id.room_id}}')" ><i data-toggle="tooltip" data-placement="right" title="Message" class="fas fa-envelope" ></i></button>  
+                                                    </div>
+                                                </div>
+                                                {% elif fund.fund_type == 'DEPOSIT'%}
+                                                <div class="text-nowrap">
+                                                    <div class="btn-group ">
+                                                        <button id="upload-btn" class="btn btn-info" data-toggle="modal" href="#modal_confirm" onClick="fundTrans('{{fund.fund_id }}', '{{fund.fund_room_id.room_id}}', 'class', '{{fund.fund_amount}}', '{{fund.fund_type}}')" ><i data-toggle="tooltip" data-placement="left" title="Add Fund" class="fas fa-plus"></i></button>  
+                                                        <button id="upload-btn" class="btn btn-warning" data-toggle="modal" href="#modal_choices" onClick="uploadDocu('{{fund.fund_id }}', '{{fund.fund_room_id.room_id}}')" ><i data-toggle="tooltip" data-placement="left" title="Upload" class="fas fa-upload"></i></button> 
+                                                        <button id="add_note"  class="btn btn-success" data-toggle="modal" href="#modal_message2" onClick="viewNote2('{{fund.fund_room_id.room_id}}')" ><i data-toggle="tooltip" data-placement="right" title="Message" class="fas fa-envelope" ></i></button>  
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            {% elif fund.fund_status == 'COMPLETED' %}
+                                            <div class="text-nowrap">
+                                                <div class="btn-group ">
+                                                    <button id="add_note"  class="btn btn-success" data-toggle="modal" href="#modal_message2" onClick="viewNote2('{{fund.fund_room_id.room_id}}')" ><i data-toggle="tooltip" data-placement="right" title="Message" class="fas fa-envelope" ></i></button>  
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_confirm" role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-md" role="document" id="myModal">
+        <div class="modal-content">
+            <input class="form-control" id="excuse_id" type="hidden" name="excuse_id"/>
+            <div class="panel panel-inverse" >
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color: gray; margin: 6px;">×</button>  
+                <div class="panel-body">
+                    <div class="col">
+                        <h1 class="page-header mb-1">Add/Release Fund</h1>
+                        <p class="mb-5"><i class="fas fa-exclamation m-l-3" ></i> This page cointains important transaction. Authorized and verified personel are required to input needed information in order to proceed.</p>
+                        <div class="col-lg-12" id="error">
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <input class="form-control" id="trans_fund_id" type="hidden" name="trans_fund_id"/>
+                            <input class="form-control" id="trans_fund_cat" type="hidden" name="trans_fund_cat"/>
+                            <input class="form-control" id="trans_fund_type" type="hidden" name="trans_fund_type"/>
+                            <input class="form-control" id="trans_fund_amount" type="hidden" name="trans_fund_amount"/>
+                            <input class="form-control" id="trans_type" type="hidden" name="trans_type"/>
+                            <label>Password: <span class="text-danger">*</span></label>
+                            <input class="form-control" type="password" id="auth_pass"  name="auth_pass" placeholder="Write your password here..."></input><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn_success col-md-3 pull-right m-l-10 " id="btn_submit" style="height: 33px; padding: 5px; background: linear-gradient(to right, #66ccff -1%, #3366ff 98%); border:none; color: white;" >Proceed<i class="far fa-paper-plane m-l-3 zoom" ></i></button>
+                    <a class="btn btn-white pull-right m-l-10" data-dismiss="modal">Cancel<i class="fas fa-reply m-l-3 zoom"></i></a>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_newfund" role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-md" role="document" id="myModal">
+        <div class="modal-content">
+            <input class="form-control" id="excuse_id" type="hidden" name="excuse_id"/>
+            <div class="panel panel-inverse" >
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color: gray; margin: 6px;">×</button>  
+                <div class="panel-body">
+                    <div class="col">
+                        <h1 class="page-header mb-1">Deposit/Request New Fund</h1>
+                        <p class="mb-5">Page Description</p>
+                        <div class="col-lg-12" id="error"></div>
+                        <div class="col-sm-12">
+                            <label>Type: <span class="text-danger">*</span></label>
+                            <select id="type_fund" name="type_fund" class="form-control">
+                                <option selected disabled="true">--Select--</option>
+                                <option  value="DEPOSIT">Deposit Fund</option>
+                                <option  value="REQUEST">Request Fund</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="col-lg-12 col-md-6">
+                            <label>Descriptions: <span class="text-danger">*</span></label>
+                            <input class="form-control" id="org_id" type="hidden" name="sanction_id"/>
+                            <input class="form-control essay_text" id="fund_desc"  name="fund_desc" placeholder="Write your descriptions here..."></input><br>
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <label>Amount: <span class="text-danger">*</span></label>
+                            <input class="form-control" id="org_id" type="hidden" name="sanction_id"/>
+                            <input class="form-control essay_text" id="fund_amount" type="number" name="fund_amount" placeholder="0"></input><br>
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <label>Amount in words: <span class="text-danger">*</span></label>
+                            <input class="form-control" id="org_id" type="hidden" name="sanction_id"/>
+                            <input class="form-control essay_text" id="fund_word"  name="fund_word" placeholder="Write your amount in words here..."></input><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn_success col-md-3 pull-right m-l-10 " id="btn_submit" style="height: 33px; padding: 5px; background: linear-gradient(to right, #66ccff -1%, #3366ff 98%); border:none; color: white;" >Submit<i class="far fa-paper-plane m-l-3 zoom" ></i></button>
+                    <a class="btn btn-white pull-right m-l-10" data-dismiss="modal">Back<i class="fas fa-reply m-l-3 zoom"></i></a>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_editfund" role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-md" role="document" id="myModal">
+        <div class="modal-content">
+            <input class="form-control" id="excuse_id" type="hidden" name="excuse_id"/>
+            <div class="panel panel-inverse" >
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color: gray; margin: 6px;">×</button>  
+                <div class="panel-body">
+                    <div class="col">
+                        <h1 class="page-header mb-1" id="fund_title">Edit Fund Request</h1>
+                        <p class="mb-5">Page Description</p>
+                        <div class="col-lg-12" id="error">
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Type: <span class="text-danger">*</span></label>
+                            <select id="type_fund" name="type_fund" class="form-control type_fund">
+                                <option selected disabled="true">--Select--</option>
+                                <option  value="DEPOSIT">Deposit Fund</option>
+                                <option  value="REQUEST">Request Fund</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="col-lg-12 col-md-6">
+                            <label>Description of item:</label>
+                            <input class="form-control" id="org_id1" type="hidden" name="org_id1"/>
+                            <input class="form-control" id="fund_id" type="hidden" name="fund_id"/>
+                            <input class="form-control essay_text" id="fund_desc1"  name="fund_desc1" placeholder="Write your descriptions here..."></input><br>
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <label>Amount:</label>
+                            <input class="form-control essay_text" id="fund_amount1" type="number" name="fund_amount1" placeholder="0"></input><br>
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <label>Amount in words:</label>
+                            <input class="form-control essay_text" id="fund_word1"  name="fund_word1" placeholder="Write your amount in words here..."></input><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn_success col-md-3 pull-right m-l-10 " id="btn_submit" style="height: 33px; padding: 5px; background: linear-gradient(to right, #66ccff -1%, #3366ff 98%); border:none; color: white;" >Submit<i class="far fa-paper-plane m-l-3 zoom" ></i></button>
+                    <a class="btn btn-white pull-right m-l-10" data-dismiss="modal">Back<i class="fas fa-reply m-l-3 zoom"></i></a>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="modal_message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: block imp !important;"> 
+    <div class="modal-dialog" style="overflow-y: scroll; max-height:85%; overflow-y: initial !important; margin-top: 50px; margin-bottom:50px;" > 
+        <div class="modal-content"> 
+            <div class="modal-header"> 
+                <h4 class="modal-title org_abbr"></h4> 
+                <button type="submit" id="clear_msg" hidden class="btn btn-danger" style="height: 20px; width: 20px; padding: 0px; margin-left: -300px; margin-top: 4px; "><i  class="fas fa-trash-alt fa-sm" data-toggle="tooltip" data-placement="right" title="Clear Messages"  ></i></button>
+                <button type="button" onclick="clearMsg()" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> 
+            <div class="modal-body" id="chatparent" style="height: 390px; overflow-y: auto; overflow-x: hidden; background-color: whitesmoke;">
+                <form id="validate_form1" autocomplete="off" style="margin-top: -30px; font-family: Roboto; font-weight: 350; font-size: 15px; color: black; letter-spacing: 1.5px; ">
+                    <br>
+                    {% csrf_token %}
+                    <section class="container refresh_chat mt-2" id="chatbox" >
+                        <br>
+                        <li class="x" hidden></li>
+                    </section>     
+                </form>
+                <section class="container" id="chatbox_date" hidden>
+                    <li id="initial_date"></li>
+                </section>
+            </div> 
+            <div class="modal-footer">
+                <input id="btn-input" name="btn-input" maxlength = "183" onfocus="this.placeholder = ''"
+                onblur="this.placeholder = 'Type your message here...'" autocomplete="off" type="text" style="border-radius: 10px; font-family: Roboto; font-weight: 350; font-size: 15px; color: black; letter-spacing: 1.5px; "  class="form-control input-md" placeholder="Type your message here..." />
+            </div> 
+        </div> 
+    </div> 
+</div> 
+
+<div class="modal fade" id="modal_view_academic" role="dialog" data-backdrop="static" >
+    <div class="modal-dialog modal-md" >
+        <div class="modal-content " style="background-color:whitesmoke;" >
+            <div class="panel panel-inverse" style="border-radius: 15px;">
+                <button type="button" class="close"  data-dismiss="modal" aria-hidden="true" style="color: gray; margin: 6px;">×</button>
+                <div class="panel-body"  style="background-color:whitesmoke;" id="notes_body">
+                    <h1 class="page-header mb-1"><i class="fas fa-calendar-alt mr-2" ></i> Academic School Year</h1>
+                    <p class="mb-5">Academic School Year</p>
+                    <select id="acad_year" name="acad_year" class="form-control">
+                        <option selected disabled="true">--Select--</option>
+                        <option  value="2016">2016 - 2017</option>
+                        <option  value="2017">2017 - 2018</option>
+                        <option  value="2018">2019 - 2020</option>
+                        <option  value="2019">2020 - 2021</option>
+                    </select>
+
+                </div>
+                          
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_view_date" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-md" >
+        <div class="modal-content " style="background-color:whitesmoke;" >
+            <div class="panel panel-inverse" style="border-radius: 15px; background-color:whitesmoke;">
+                <button type="button" class="close"  data-dismiss="modal" aria-hidden="true" style="color: gray; margin: 6px;">×</button>
+                <div class="panel-body"  style="background-color:whitesmoke;" id="notes_body">
+                    <h5 class="page-header mb-1"><i class="fas fa-calendar-alt mr-2 " ></i> Academic School Year</h5>
+                    <div class="input-group input-daterange mt-5 col-lg-10 offset-md-1">
+                        
+                        <input type="month" id="datepicker" name="datepicker"  min="2020-01"/>
+                        <div class="input-group-addon">to</div>
+                        <input type="month" id="datepicker2" name="datepicker2" />
+                    </div>
+                    <br>
+                    <button type="submit" onclick="genReport()" class="btn btn-success col-sm-8 offset-md-2">Generate Report <i class="fas fa-spinner mr-2" ></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_view_date2" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-md" >
+        <div class="modal-content " style="background-color:whitesmoke;" >
+            <div class="panel panel-inverse" style="border-radius: 15px; background-color:whitesmoke;">
+                <button type="button" class="close"  data-dismiss="modal" aria-hidden="true" style="color: gray; margin: 6px;">×</button>
+                <div class="panel-body"  style="background-color:whitesmoke;" id="notes_body">
+                    <h5 class="page-header mb-1"><i class="fas fa-calendar-alt mr-2 " ></i> Academic School Year</h5>
+                    <div class="input-group input-daterange mt-5 col-lg-10 offset-md-1">
+                        <input type="month" id="datepicker2" name="datepicker"  min="2020-01"/>
+                        <div class="input-group-addon">to</div>
+                        <input type="month" id="datepicker3" name="datepicker2" />
+                    </div>
+                    <br>
+                    <button type="submit" onclick="genReport2()" class="btn btn-success col-sm-8 offset-md-2">Generate Report <i class="fas fa-spinner mr-2" ></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_upload" role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-md" role="document" id="myModal">
+        <div class="modal-content">
+            <input class="form-control" id="excuse_id" type="hidden" name="excuse_id"/>
+            <div class="panel panel-inverse" >
+                <button type="button" class="close" data-dismiss="modal" id="close_upload" aria-hidden="true" style="color: gray; margin: 6px;">×</button>  
+                <div class="panel-body">
+                    <h1 class="page-header mb-1"><i class="fas fa-upload mr-2" ></i> Upload Signed Voucher</h1>
+                    <p class="mb-5">Page Descriptions</p>
+                    <div id="dropzone">
+                        <form action="{%url 'organization_fund_reciept_upload' %}" method="POST" class="dropzone" id="file-upload">
+                            {% csrf_token %}
+                            <input class="form-control" id="org_id2" type="hidden" name="org_id2"/>
+                            <input class="form-control" id="fund_id2" type="hidden" name="fund_id2"/>
+                            <input class="form-control" id="voucher" type="hidden" name="receipt" value="Voucher"/>
+                            <input class="form-control" id="fund_f_id" type="hidden" name="fund_f_id" value=""/>
+                            <div class="fallback">
+                                <input name="file" type="file" multiple id="document_file" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_choices" role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-md" role="document" id="myModal">
+        <div class="modal-content">
+            <input class="form-control" id="excuse_id" type="hidden" name="excuse_id"/>
+            <div class="panel panel-inverse" >
+                <button type="button" class="close" data-dismiss="modal" id="close_upload" aria-hidden="true" style="color: gray; margin: 6px;">×</button>  
+                <div class="panel-body">
+                    <h1 class="page-header mb-1"><i class="fas fa-file mr-2" ></i> Upload File</h1>
+                    <p class="mb-5">Choose what type of file to upload.</p>
+                    <br>
+                    <button id="edit-btn" class="btn btn-danger btn-block"  data-dismiss="modal" data-toggle="modal" href="#modal_upload2" >CASH RECEIPT</button>    
+                    <button id="edit-btn" class="btn btn-danger btn-block"  data-dismiss="modal" data-toggle="modal" href="#modal_upload" >SIGNED VOUCHER</button>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_upload2" role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-md" role="document" id="myModal">
+        <div class="modal-content">
+            <input class="form-control" id="excuse_id" type="hidden" name="excuse_id"/>
+            <div class="panel panel-inverse" >
+                <button type="button" class="close" data-dismiss="modal" id="close_upload" aria-hidden="true" style="color: gray; margin: 6px;">×</button>  
+                <div class="panel-body">
+                    <h1 class="page-header mb-1"><i class="fas fa-upload mr-2" ></i> Upload Cash Receipt</h1>
+                    <p class="mb-5">Page Descriptions</p>
+                    <div id="dropzone">
+                        <form action="{%url 'organization_fund_reciept_upload' %}" method="POST" class="dropzone" id="file-upload2">
+                            {% csrf_token %}
+                            <input class="form-control" id="org_id3" type="hidden" name="org_id2"/>
+                            <input class="form-control" id="fund_id3" type="hidden" name="fund_id2"/>
+                            <input class="form-control" id="receipt" type="hidden" name="receipt" value="Reciept"/>
+                            <input class="form-control" id="fund_f_id2" type="hidden" name="fund_f_id" value=""/>
+                            <div class="fallback">
+                                <input name="file" type="file" multiple id="document_file" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="modal_message2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: block imp !important;"> 
+    <div class="modal-dialog" style="overflow-y: scroll; max-height:85%; overflow-y: initial !important; margin-top: 50px; margin-bottom:50px;" > 
+        <div class="modal-content"> 
+            <div class="modal-header"> 
+                <h4 class="modal-title org_abbr"></h4> 
+                <button type="submit" id="clear_msg" hidden class="btn btn-danger" style="height: 20px; width: 20px; padding: 0px; margin-left: -300px; margin-top: 4px; "><i  class="fas fa-trash-alt fa-sm" data-toggle="tooltip" data-placement="right" title="Clear Messages"  ></i></button>
+                <button type="button" onclick="clearMsg2()" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> 
+            <div class="modal-body" id="chatparent2" style="height: 390px; overflow-y: auto; overflow-x: hidden; background-color: whitesmoke;">
+                <form id="validate_form2" autocomplete="off" style="margin-top: -30px; font-family: Roboto; font-weight: 350; font-size: 15px; color: black; letter-spacing: 1.5px; ">
+                    <br>
+                    {% csrf_token %}
+                    <section class="container refresh_chat mt-2" id="chatbox2" >
+                        <br>
+                        <li class="x" hidden></li>
+                    </section>     
+                </form>
+                <section class="container" id="chatbox_date2" hidden>
+                    <li id="initial_date2"></li>
+                </section>
+            </div> 
+            <div class="modal-footer">
+                <input id="btn-input2" name="btn-input2" maxlength = "183" onfocus="this.placeholder = ''"
+                onblur="this.placeholder = 'Type your message here...'" autocomplete="off" type="text" style="border-radius: 10px; font-family: Roboto; font-weight: 350; font-size: 15px; color: black; letter-spacing: 1.5px; "  class="form-control input-md" placeholder="Type your message here..." />
+            </div> 
+        </div> 
+    </div> 
+</div> 
+{% endblock %}
+
+{% block page-level %}
+	<script src="{%static 'OsasSystem/assets/plugins/bootstrap-sweetalert/sweetalert.min.js' %}"></script>
+	<script src="{%static 'OsasSystem/assets/js/demo/ui-modal-notification.demo.min.js' %}"></script>
+    <script src="{%static 'OsasSystem/assets/index.js' %}"></script>
+
+    <script src="{%static 'OsasSystem/assets/plugins/isotope/jquery.isotope.min.js' %}"></script>
+  	<script src="{%static 'OsasSystem/assets/plugins/lightbox/js/lightbox.min.js' %}"></script>
+	<script src="{%static 'OsasSystem/assets/js/demo/gallery.demo.min.js' %}"></script>
+
+    <script src="{%static 'OsasSystem/assets/plugins/dropzone/min/dropzone.min.js' %}"></script>
+	<script src="{%static 'OsasSystem/assets/plugins/highlight/highlight.common.js' %}"></script>
+	<script src="{%static 'OsasSystem/assets/js/demo/render.highlight.js' %}"></script>
+
+    <script src="https://cdn.ckeditor.com/4.16.0/standard-all/ckeditor.js"></script>
+
+    <script src="{%static 'OsasSystem/assets/js/demo/render.highlight.js' %}"></script>
+    <script src="{%static 'OsasSystem/assets/plugins/highlight/highlight.common.js' %}"></script>
+{% endblock %}
+{% block page-js %}
+<script>
+    $(document).ready(function() {
+        document.getElementById("myImg2").src = "/media/cert header.png";
+        document.getElementById("myImg").src = "/media/cert footer.png";
+        document.getElementById("myImg3").src = "/media/cert ssc.png";
+        document.getElementById("myImg4").src = "/media/signature.jpg";
+        document.getElementById("myImg5").src = "/media/PUPLOGO.png";
+        document.getElementById("signature").src = "/media/unnamed.jpg";
+        $('#data-table').DataTable({
+                    ordering: false,
+        });
+       
+        const today = moment()
+        var new_date = today.format('YYYY-MM')
+        document.getElementById('datepicker2').value = new_date;
+        document.getElementById('datepicker').value = new_date;
+    
+    });
+</script>
+<script>
+
+function clearMsg(){
+    $('#chatbox').empty()
+}
+function clearMsg2(){
+    $('#chatbox2').empty()
+}
+$('#btn-input2').keyup(function (e) {
+    if (e.keyCode === 13) {
+        var msg = $('input[name="btn-input2"]').val().trim();
+        var osas_id = $('#auth_id').text();
+        var x = document.getElementById("chatbox2").lastElementChild.className;
+        var y = document.getElementById("chatbox_date2").lastElementChild.textContent;
+
+        const now = moment()
+        const msg_date = moment(y)
+
+        // initiating new format needed for appending li tag used for comparing recent datetime to datime now
+        const date_today = moment(now, ['YYYY-MM-DD hh:mm A']).format();    
+        const msg_date2 = moment(msg_date, ['YYYY-MM-DD hh:mm A']).format();
+
+        // initiating ne format neede for appending li tag used for displaying datetime in chatbox
+        const msg_date3 = moment(msg_date).format("YYYY-MM-DD, ddd, hh:mm A");
+        const date_today2 = moment(now).format("YYYY-MM-DD, ddd, hh:mm A");
+       
+        if(msg){
+            if (x == "right"){
+                if (msg_date3 == date_today2){
+
+                    $.ajax({
+                        url: '{% url "concept_paper_osas_msg" %}',
+                        type: "POST",
+                        data: {
+                            class_id:class_id,
+                            osas_id: osas_id,
+                            date_today: date_today,
+                            msg: msg,
+                            csrfmiddlewaretoken: "{{ csrf_token }}",
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            $("#modal_message2 #chatbox2").append('<li class="right" style="list-style-type: none;"><div class="chat-body clearfix"><p data-toggle="tooltip" data-placement="right" title="Delivered"  class="bg-info pull-right comments" style="margin-top: -15px; max-width: 300px; text-align: left; float: right; padding: 8px;border-radius: 10px; color: white; word-wrap: break-word; "  name="comment_stud">'+msg+'</p></div></li>'); 
+
+                            $("#modal_message2 #chatbox_date2").append('<li>'+date_today+'</li>')
+                            var objDiv = document.getElementById("chatparent2");
+                            objDiv.scrollTop = objDiv.scrollHeight;
+                        }
+                    });
+                }
+                else{
+                    
+                    $.ajax({
+                        url: '{% url "concept_paper_osas_msg" %}',
+                        type: "POST",
+                        data: {
+                            class_id:class_id,
+                            osas_id: osas_id,
+                            date_today: date_today,
+                            msg: msg,
+                            csrfmiddlewaretoken: "{{ csrf_token }}",
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            
+                            $("#modal_message2 #chatbox2").append('<li class="right" style="list-style-type: none;"><div class="chat-body clearfix"><div class="header"><i class="far fa-clock pull-left text-muted" style="margin-right: 5px;"></i><small class="pull-left text-muted"  id="date_" style="font-size: 10px">'+date_today2+'</small><strong class="primary-font pull-right" style="font-size: 10px">'+'{{request.session.session_user_role}}'+'</strong></div><p data-toggle="tooltip" data-placement="right" title="Delivered"  class="bg-info pull-right comments" style="max-width: 300px; text-align: left; float: right; padding: 8px; border-radius: 10px; color: white; word-wrap: break-word;"  name="comment_stud">'+msg+'</p></div></li>'); 
+
+                            $("#modal_message2 #chatbox_date2").append('<li>'+date_today+'</li>')
+                            var objDiv = document.getElementById("chatparent2");
+                            objDiv.scrollTop = objDiv.scrollHeight;
+                        }
+                    });
+                }
+            }
+            else{
+                $.ajax({
+                    url: '{% url "concept_paper_osas_msg" %}',
+                    type: "POST",
+                    data: {
+                        class_id:class_id,
+                        osas_id: osas_id,
+                        date_today: date_today,
+                        msg: msg,
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#modal_message2 #chatbox2").append('<li class="right" style="list-style-type: none;"><div class="chat-body clearfix"><div class="header"><i class="far fa-clock pull-left text-muted" style="margin-right: 5px;"></i><small class="pull-left text-muted"  id="date_" style="font-size: 10px">'+date_today2+'</small><strong class="primary-font pull-right" style="font-size: 10px">'+'{{request.session.session_user_role}}'+'</strong></div><p data-toggle="tooltip" data-placement="right" title="Delivered"  class="bg-info pull-right comments" style="max-width: 300px; text-align: left; float: right; padding: 8px; border-radius: 10px; color: white; word-wrap: break-word;" name="comment_stud">'+msg+'</p></div></li>'); 
+
+                        $("#modal_message #chatbox_date").append('<li>'+date_today+'</li>')
+
+                        var objDiv = document.getElementById("chatparent2");
+                        objDiv.scrollTop = objDiv.scrollHeight;
+                    }
+                });
+            }
+            document.getElementById('btn-input2').value = "";
+        }
+    }
+});
+var class_id;
+function viewNote2(room_id){
+    auth_id = $('#auth_id').text();
+    if (room_id) {
+        document.getElementById('btn-input2').value = "";
+        tr_id = room_id;
+        class_id = room_id
+        $.ajax({
+            url: '{% url "class_view_messages" %}',
+            type: "POST",
+            data: {
+                room_id: room_id,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            dataType: 'json',
+            success: function(response){
+                $('.org_abbr').text(response.room_course + ' ' + response.room_year );
+                var temp_osas_date;
+                var temp_org_date;
+                const studData = response.data
+                studData.map(item=>{
+                    const msg_date_new = moment(item.msg_date).format("YYYY-MM-DD, ddd, hh:mm A");
+                    if(item.msg_send_to == response.room_course + ' ' + response.room_year ){
+                        if(temp_org_date){
+                            if(temp_org_date == msg_date_new){
+                                $("#modal_message2 #chatbox2").append('<li class="right" style="list-style-type: none;"><div class="chat-body clearfix"><p data-toggle="tooltip" data-placement="right" title="'+item.msg_status+'" class="bg-info pull-right comments" style="margin-top: -15px; max-width: 300px; text-align: left; float: right; padding: 8px;border-radius: 10px; color: white; word-wrap: break-word;"  name="comment_stud">'+item.msg_message+'</p></div></li>'); 
+
+                                var objDiv = document.getElementById("chatparent2");
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                            }   
+                            else{
+                                $('#chatbox2').append('<li class="right" style="list-style-type: none;"><div class="chat-body clearfix"><div class="header"><i class="far fa-clock pull-left text-muted" style="margin-right: 5px;"></i><small class="pull-left text-muted sample_date"  id="date_" style="font-size: 10px">'+msg_date_new+'</small><strong class="primary-font pull-right" style="font-size: 10px" >'+response.osas_data+'</strong></div><p data-toggle="tooltip" data-placement="right" title="'+item.msg_status+'" class="bg-info pull-right osas_msg comments" style="max-width: 300px; text-align: left; padding: 8px; border-radius: 10px; color: white; word-wrap: break-word;" name="comment_stud">'+item.msg_message+'</p></div></li>')
+                                
+                                $("#modal_message2 #chatbox_date2").append('<li>'+item.msg_date+'</li>')
+                                temp_org_date = msg_date_new
+
+                                var objDiv = document.getElementById("chatparent2");
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                            }
+                        }
+                        else{
+                            $('#chatbox2').append('<li class="right" style="list-style-type: none;"><div class="chat-body clearfix"><div class="header"><i class="far fa-clock pull-left text-muted" style="margin-right: 5px;"></i><small class="pull-left text-muted sample_date"  id="date_" style="font-size: 10px">'+msg_date_new+'</small><strong class="primary-font pull-right" style="font-size: 10px" >'+response.osas_data+'</strong></div><p data-toggle="tooltip" data-placement="right" title="'+item.msg_status+'" class="bg-info pull-right osas_msg" style="max-width: 300px; text-align: left; padding: 8px; border-radius: 10px; color: white; word-wrap: break-word;" id="comments"  name="comment_stud">'+item.msg_message+'</p></div></li>')
+                            
+                            temp_org_date = msg_date_new
+                            $("#modal_message2 #chatbox_date2").append('<li>'+item.msg_date+'</li>')
+                            var objDiv = document.getElementById("chatparent2");
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                        }
+                    }
+                    else if (item.msg_send_from == response.room_course + ' ' + response.room_year){
+                        osas_message = item.msg_id
+                        $.ajax({
+                            url: '{% url "organization_osas_msg_seen" %}',
+                            type: "POST",
+                            data: {
+                                osas_message: osas_message,
+                                csrfmiddlewaretoken: "{{ csrf_token }}",
+                            },
+                            dataType: 'json',
+                            success: function (data) {
+                                }
+                        });
+                        if(temp_osas_date){
+                            if(temp_osas_date == msg_date_new){
+                                $("#modal_message2 #chatbox2").append('<li class="left" style="list-style-type: none;"><div class="chat-body clearfix"><p data-toggle="tooltip" data-placement="right" title="'+item.msg_status+'" style=" max-width: 300px; background-color: white; float: left; padding: 8px; border-radius: 10px; color: black; word-wrap: break-word; margin-top: -15px;"  name="comment_stud">'+item.msg_message+'</p></div></li>'); 
+
+                                var objDiv = document.getElementById("chatparent2");
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                            }
+                            else{
+                                $("#chatbox2").append('<li class="left"  style="list-style-type: none;"><div class="chat-body clearfix"><div class="header"><i class="far fa-clock pull-right text-muted" style="margin-left: 5px;"></i><small class="pull-right text-muted" id="date_stud" style="font-size: 10px"  >'+msg_date_new+'</small><strong class="pull-left primary-font" id="stud_name" name="stud_name" style="font-size: 10px">'+response.room_course + ' ' + response.room_year+'</strong></div><p data-toggle="tooltip" data-placement="right" title="'+item.msg_status+'" style=" max-width: 300px; background-color: white; float: left; padding: 8px; border-radius: 10px; color: black; word-wrap: break-word;" id="comment_stud" value="'+item.msg_message+'" name="comments">'+item.msg_message+'</p></div></li>')
+                                
+                                $("#modal_message2 #chatbox_date2").append('<li>'+item.msg_date+'</li>')
+                                temp_osas_date = msg_date_new
+
+                                var objDiv = document.getElementById("chatparent2");
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                            }
+                        }
+                        else{
+                            $("#chatbox2").append('<li class="left"  style="list-style-type: none;"><div class="chat-body clearfix"><div class="header"><i class="far fa-clock pull-right text-muted" style="margin-left: 5px;"></i><small class="pull-right text-muted" id="date_stud" style="font-size: 10px"  >'+msg_date_new+'</small><strong class="pull-left primary-font" id="stud_name" name="stud_name" style="font-size: 10px">'+response.room_course + ' ' + response.room_year + '</strong></div><p data-toggle="tooltip" data-placement="right" title="'+item.msg_status+'" style=" max-width: 300px; background-color: white; float: left; padding: 8px; border-radius: 10px; color: black; word-wrap: break-word;" id="comment_stud" value="'+item.msg_message+'" name="comments">'+item.msg_message+'</p></div></li>')
+                            
+                            temp_osas_date = msg_date_new
+                            $("#modal_message2 #chatbox_date2").append('<li>'+item.msg_date+'</li>')
+                            var objDiv = document.getElementById("chatparent2");
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                        }
+                    }
+                })
+            }
+        });
+    }    
+}
+
+function fundTrans(fund_id, org_id, org, amount, type){
+    $('#trans_fund_cat').val(org_id)
+    $('#trans_fund_id').val(fund_id)
+    $('#trans_fund_type').val(org)
+    $('#trans_fund_amount').val(amount)
+    $('#trans_type').val(type)
+}
+
+$('#modal_confirm').on('click','#btn_submit', function () {
+    var auth_pass = $('#auth_pass').val().trim();
+    var trans_fund_id = $('#trans_fund_id').val()
+    var trans_fund_type = $('#trans_fund_type').val()
+    var trans_fund_cat = $('#trans_fund_cat').val()
+    var trans_fund_amount = $('#trans_fund_amount').val()
+    var trans_type = $('#trans_type').val()
+    if (auth_pass,trans_fund_id,trans_fund_type,trans_fund_cat,trans_fund_amount,trans_type){
+        $.ajax({
+            url: '{% url "osas_fund_authentication" %}',
+            type: "POST",
+            data: {
+                auth_pass: auth_pass,
+                trans_fund_id:trans_fund_id,
+                trans_fund_cat:trans_fund_cat,
+                trans_fund_type:trans_fund_type,
+                trans_fund_amount:trans_fund_amount,
+                trans_type:trans_type,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success){
+                    swal("Success! Fund transferred!.", {
+                    icon: "success",
+                    })
+                    window.location.reload()
+                }
+                else if (data.error){
+                    swal("Error! Unathorized Personel!", {
+                    icon: "error",
+                    })
+                }
+                else if (data.error1){
+                    swal("Error! error occured.", {
+                    icon: "error",
+                    })
+                }
+            }
+        });
+    }  
+});
+
+function genVoucher(fund_id, org_id){
+    var wme = window.open("","", "width = 816px, height = 1344px");
+    $.ajax({
+            url: '{% url "organization_fund_voucher_gen" %}',
+            type: "POST",
+            data: {
+                fund_id: fund_id,
+                org_id: org_id,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            dataType: 'json',
+            success: function(response){
+                
+                const studData = response.data
+                studData.map(item=>{
+                    wme.document.write('<page size="Letter" style="word-wrap:break-word; margin: 0px;">')
+                        
+                    wme.document.write('<div class="row" style=" float: left;"><img src="/media/PUPLOGO.png" style="width: auto; height: 92.2204724411px; margin-left: 35.795275590551px;"/></div><div class="row" style="margin-top: -5px; margin-left: 180px;"><img src="/media/cert ssc.png" style="width: auto; height: 92.2204724411px; margin-left: 55.795275590551px; margin-top: 3px; "/><div style=" float: left;  padding: 5px; text-align: center; "><p style="font-family: Calibri; font-size: 14.5px; color: black; ">Republic of the Philippines</p><p style="font-family: Times New Roman; font-size: 14.5px; color: black; margin-top: -17px;"><b>POLYTECHNIC UNIVERSITY OF THE PHILIPPINES</b></p><b><p style="font-family: Times New Roman; color: black; margin-top: -17px; font-size: 14px; ">QUEZON CITY BRANCH</p><b><b><p style="font-family: Times New Roman; color: black; margin-top: -17px; font-size: 15px; color: blue; ">SUPREME STUDENT COUNCIL (SSC)</p><b></div></div><br><div class="container-fluid" style="background: black; height: 3px; margin-top: -5px;"></div></div><br/></div>')
+
+                    wme.document.write('<div class="container" style="font-weight: 500"><div style="text-align:center; "><p style="font-family: Calibri; font-size: 15.5px; color: black; ">Office of the Students Affairs and Services</p><p style="font-family: Calibri; font-size: 15.5px; color: black; margin-top: -15px; ">Student Organizational Fund Request Form</p></div></div><br>')
+
+                    wme.document.write('<div class="container" style="font-weight: 500"><div style="text-align:left; margin-left: 70px;"><p style="font-family: Calibri; font-size: 15.5px; color: black; ">Cash Voucher: </p></div><div style="text-align:left; margin-right: 70px; float: right; margin-top: -50px;"><p style="font-family: Calibri; font-size: 15.5px; color: black; ">Date: '+ item.fund_date_requested +'</p></div></div><br>')
+
+                    wme.document.write('<div class="container" style="font-weight: 500"><div style="text-align:left; margin-left: 40px;"><b><p style="font-family: Calibri; font-size: 15.5px; color: black; ">To: </p></b></div><div style="text-align:left; margin-left: 70px; float: left; margin-top: -50px;"><b><p style="font-family: Calibri; font-size: 15.5px; color: black; ">Prof. Demelyn E. Monzon</p></b><p style="font-family: Calibri; font-size: 15.5px; color: black; margin-top: -15px;">Head, Student Affairs and Services</p></div></div><br>')
+
+                    wme.document.write('<div class="container" style="margin: auto; width: 90%;"><table style="border-collapse: collapse; width: 100%; font-family: Arial; font-size: 14.5px;" id="data-table" class="table table-bordered"><thead ><tr><th  width="80%" style="border: 1px solid black; text-align: center; padding: 5px; font-size:15px;"><b>DESCRIPTION OF THE ITEM</b></th><th style="border: 1px solid black; text-align: center; padding: 5px; font-size: 14.5px;"><b>AMOUNT</b></th></tr></thead><tbody><tr><th width="80%" style="border: 1px solid black; font-size:13px; text-align: left;padding: 5px;">'+ item.fund_desc +'</th><th style="border: 1px solid black; font-size: 13px; text-align: left; padding: 5px;"><b>₱ '+ item.fund_amount +'</b> </th></tr><tr><th width="80%" style="border: 1px solid black; font-size:13px; text-align: left;padding: 5px;">Amount in word: '+ item.fund_word +'</th><th style="border: 1px solid black; font-size: 13px; text-align: left; padding: 5px;"><b>₱ '+ item.fund_amount +'</b> </th></tr></tbody></table></div>')
+
+                    wme.document.write('<br><br><br><br><br><br><br><br><div class="container" style="margin-left: 20px; position: relative; "><div style="display: inline-block; width: 45%; margin-left: 40px; position: absolute;"><p style="font-family: Calibri; font-size: 15.5px; color: black; "><b>Prepared by: </b></p></div><div style="display: inline-block; width: 45%; margin-left: 350px; position: absolute;"><p style="font-family: Calibri; font-size: 15.5px; color: black; "><b>Checked by: </p></div></div>')
+
+                    wme.document.write('<br><br><br><br><br><br><br><br><div class="container" style="margin-left: 20px; position: relative; "><div style="display: inline-block; width: 45%; margin-left: 40px; position: absolute;"><p style="font-family: Calibri; font-size: 15.5px; color: black; "><b>Approved by: </b></p></div><div style="display: inline-block; width: 45%; margin-left: 350px; position: absolute;"><p style="font-family: Calibri; font-size: 15.5px; color: black; "><b>Recieved by: </p></div></div>')
+
+                    wme.document.write('<div class="row" style="position: fixed; bottom: 0;"><p style="font-family: Times New Roman; font-size: 15.5px; color: black; font-weight: 400; text-align: center;">Rothlener Bldg., PUP Quezon City Branch, Don Fabian St., Commonwealth Quezon City Phone: (Direct Lines) 9527817;4289144;9577817 Email: commonwealth@pup.edu.ph/ Website: www.pup.edu.ph</p><br><p style="font-family: Times New Roman; font-size: 18.5px; color: black; font-weight: 400; text-align: center; margin-top: -10px;">“THE COUNTRY’S 1ST POLYTECHNICU”</p></div>')
+
+                    wme.document.write('</page>')
+                    
+                    wme.document.close();
+                    wme.focus()
+                    wme.print();
+                    wme.close();
+                   
+                })
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+
+    
+}
+
+function uploadDocu(fund_id, org_id){
+    tr_id = fund_id;
+
+    file_id =  $('#file_id'+tr_id+'').text() 
+    receipt_id =  $('#receipt'+tr_id+'').text() 
+    $('#fund_f_id').val(file_id)
+    $('#fund_f_id2').val(receipt_id)
+    $('#fund_id2').val(fund_id)
+    $('#org_id2').val(org_id)
+    $('#fund_id3').val(fund_id)
+    $('#org_id3').val(org_id)
+}
+var file_id;
+var receipt_id;
+
+$('#modal_upload').on('click','#close_upload', function () {
+    window.location.reload()
+});
+
+$('#modal_upload2').on('click','#close_upload', function () {
+    window.location.reload()
+});
+
+function removeEvent(fund_id, org_id){
+    if (fund_id, org_id) {
+        swal({
+            title: "Are you sure?",
+            text: "you want to remove/cancel this request?", 
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: 'Cancel',
+                    value: null,
+                    visible: true,
+                    className: 'btn btn-default',
+                    closeModal: true,
+                },
+                confirm: {
+                    text: 'Yes',
+                    value: true,
+                    visible: true,
+                    className: 'btn btn-warning',
+                    closeModal: true
+                }
+            }
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url: '{% url "fund_request_remove" %}',
+                    type: "POST",
+                    data: {
+                        fund_id:fund_id,
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.error) {
+                        console.log(error)
+                        }
+                        if (data.success) {
+                            $("#data-table #" + fund_id).fadeOut("slow", function(){
+                                $("#data-table #" + fund_id).remove();
+                                window.location.reload()
+                            })
+                        }
+                    }
+                });
+                
+            } 
+        });
+    }
+}
+
+var con_id_; 
+$('#data-table2 tbody').on( 'click', 'tr', function () {
+    var id = $(this).closest("tbody tr").find("td:eq(0)").html() 
+    con_id_ = id
+});
+
+
+function refresh_upload(){
+    window.location.reload()
+}
+function clearMsg(){
+    $('#chatbox').empty()
+}
+
+$('#modal_editfund').on('click','#btn_submit', function () {
+    var fund_desc = $('#fund_desc1').val();
+    var fund_amount = $('#fund_amount1').val();
+    var fund_word = $('#fund_word1').val();
+    var org_id = $('#org_id1').val();
+    var fund_id = $('#fund_id').val();
+    var foredit = "edit"
+    var type_fund = $('.type_fund').val();
+    if (fund_desc, fund_amount, fund_word, type_fund ){
+        swal({
+            title: "Are you sure?",
+            text: "you want to edit the this request?", 
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: 'Cancel',
+                    value: null,
+                    visible: true,
+                    className: 'btn btn-default',
+                    closeModal: true,
+                },
+                confirm: {
+                    text: 'Yes',
+                    value: true,
+                    visible: true,
+                    className: 'btn btn-warning',
+                    closeModal: true
+                }
+            }
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url: '{% url "orgnaization_request_fund" %}',
+                    type: "POST",
+                    data: {
+                        org_id:org_id,
+                        fund_amount:fund_amount,
+                        fund_desc:fund_desc,
+                        fund_word:fund_word,
+                        foredit:foredit,
+                        fund_id:fund_id,
+                        type_fund:type_fund,
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.success) {
+                            swal("Success! fund request successfully changed.", {
+                            icon: "success",
+                            })
+                            window.location.reload()
+                        }
+                        else if (data.error){
+                            swal("Error! Insufficient fund.", {
+                            icon: "error",
+                            })
+                        }
+                    }
+                });
+                
+            } 
+        });
+    }  
+});
+
+function editDocu(fund_id, org_id,){
+    $('#fund_id').val(fund_id)
+    $('#org_id1').val(org_id)
+    $.ajax({
+        url: '{% url "organization_fund_populate" %}',
+        type: "POST",
+        data: {
+            fund_id: fund_id,
+            org_id:org_id,
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        dataType: 'json',
+        success: function (response) {
+            const studData = response.data
+            studData.map(item=>{
+                $('#fund_desc1').val(item.fund_desc)
+                $('#fund_amount1').val(item.fund_amount)
+                $('#fund_word1').val(item.fund_word)
+                $('#fund_title').text('Edit Fund Request')
+            });
+        }
+    });
+}
+
+function editDocu1(fund_id, org_id,){
+    $('#fund_id').val(fund_id)
+    $('#org_id1').val(org_id)
+    $.ajax({
+        url: '{% url "organization_fund_populate" %}',
+        type: "POST",
+        data: {
+            fund_id: fund_id,
+            org_id:org_id,
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        dataType: 'json',
+        success: function (response) {
+            const studData = response.data
+            studData.map(item=>{
+                $('#fund_desc1').val(item.fund_desc)
+                $('#fund_amount1').val(item.fund_amount)
+                $('#fund_word1').val(item.fund_word)
+                $('#fund_title').text('Edit Fund Deposit')
+            });
+        }
+    });
+}
+$('#modal_newfund').on('click','#btn_submit', function () {
+    org_id = $('#auth_id').text();
+    var fund_desc = $('#fund_desc').val().trim();
+    var fund_amount = $('#fund_amount').val().trim();
+    var fund_word = $('#fund_word').val().trim();
+    var type_fund = $('#type_fund').val();
+    if (fund_desc,fund_amount,fund_word,type_fund){
+        $.ajax({
+            url: '{% url "orgnaization_request_fund" %}',
+            type: "POST",
+            data: {
+                fund_desc: fund_desc,
+                fund_amount:fund_amount,
+                fund_word:fund_word,
+                org_id:org_id,
+                type_fund:type_fund,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success){
+                    window.location.reload()
+                }
+                else if (data.error){
+                    swal("Error! Insufficient fund.", {
+                    icon: "error",
+                    })
+                }
+            }
+        });
+    }  
+});
+
+$('#btn-input').keyup(function (e) {
+    if (e.keyCode === 13) {
+        var msg = $('input[name="btn-input"]').val().trim();
+        var osas_id = $('#auth_id').text();
+        var x = document.getElementById("chatbox").lastElementChild.className;
+        var y = document.getElementById("chatbox_date").lastElementChild.textContent;
+
+        const now = moment()
+        const msg_date = moment(y)
+
+       
+        // initiating new format needed for appending li tag used for comparing recent datetime to datime now
+        const date_today = moment(now, ['YYYY-MM-DD hh:mm A']).format();    
+        const msg_date2 = moment(msg_date, ['YYYY-MM-DD hh:mm A']).format();
+
+        // initiating ne format neede for appending li tag used for displaying datetime in chatbox
+        const msg_date3 = moment(msg_date).format("YYYY-MM-DD, ddd, hh:mm A");
+        const date_today2 = moment(now).format("YYYY-MM-DD, ddd, hh:mm A");
+
+       
+        if(msg){
+            if (x == "right"){
+                if (msg_date3 == date_today2){
+                    $.ajax({
+                        url: '{% url "accreditation_osas_msg" %}',
+                        type: "POST",
+                        data: {
+                            organization_id:organization_id,
+                            osas_id: osas_id,
+                            date_today: date_today,
+                            msg: msg,
+                            csrfmiddlewaretoken: "{{ csrf_token }}",
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            $("#modal_message #chatbox").append('<li class="right" style="list-style-type: none;"><div class="chat-body clearfix"><p data-toggle="tooltip" data-placement="right" title="Delivered"  class="bg-info pull-right comments" style="margin-top: -15px; max-width: 300px; text-align: left; float: right; padding: 8px;border-radius: 10px; color: white; word-wrap: break-word; "  name="comment_stud">'+msg+'</p></div></li>'); 
+
+                            $("#modal_message #chatbox_date").append('<li>'+date_today+'</li>')
+                            // console.log(date_today)
+                            var objDiv = document.getElementById("chatparent");
+                            objDiv.scrollTop = objDiv.scrollHeight;
+                        }
+                    });
+                }
+                else{
+                    
+                    $.ajax({
+                        url: '{% url "accreditation_osas_msg" %}',
+                        type: "POST",
+                        data: {
+                            organization_id:organization_id,
+                            osas_id: osas_id,
+                            date_today: date_today,
+                            msg: msg,
+                            csrfmiddlewaretoken: "{{ csrf_token }}",
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            
+                            $("#modal_message #chatbox").append('<li class="right" style="list-style-type: none;"><div class="chat-body clearfix"><div class="header"><i class="far fa-clock pull-left text-muted" style="margin-right: 5px;"></i><small class="pull-left text-muted"  id="date_" style="font-size: 10px">'+date_today2+'</small><strong class="primary-font pull-right" style="font-size: 10px">'+'{{request.session.session_user_role}}'+'</strong></div><p data-toggle="tooltip" data-placement="right" title="Delivered"  class="bg-info pull-right comments" style="max-width: 300px; text-align: left; float: right; padding: 8px; border-radius: 10px; color: white; word-wrap: break-word;"  name="comment_stud">'+msg+'</p></div></li>'); 
+
+                            $("#modal_message #chatbox_date").append('<li>'+date_today+'</li>')
+                            var objDiv = document.getElementById("chatparent");
+                            objDiv.scrollTop = objDiv.scrollHeight;
+                        }
+                    });
+                }
+            }
+            else{
+                $.ajax({
+                    url: '{% url "accreditation_osas_msg" %}',
+                    type: "POST",
+                    data: {
+                        organization_id:organization_id,
+                        osas_id: osas_id,
+                        date_today: date_today,
+                        msg: msg,
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#modal_message #chatbox").append('<li class="right" style="list-style-type: none;"><div class="chat-body clearfix"><div class="header"><i class="far fa-clock pull-left text-muted" style="margin-right: 5px;"></i><small class="pull-left text-muted"  id="date_" style="font-size: 10px">'+date_today2+'</small><strong class="primary-font pull-right" style="font-size: 10px">'+'{{request.session.session_user_role}}'+'</strong></div><p data-toggle="tooltip" data-placement="right" title="Delivered"  class="bg-info pull-right comments" style="max-width: 300px; text-align: left; float: right; padding: 8px; border-radius: 10px; color: white; word-wrap: break-word;" name="comment_stud">'+msg+'</p></div></li>'); 
+
+                        $("#modal_message #chatbox_date").append('<li>'+date_today+'</li>')
+
+                        var objDiv = document.getElementById("chatparent");
+                        objDiv.scrollTop = objDiv.scrollHeight;
+                    }
+                });
+            }
+            document.getElementById('btn-input').value = "";
+        }
+    }
+});
+
+function genReport(){
+    var from = $('input[name="datepicker"]').val();
+    var to = $('input[name="datepicker2"]').val();
+    from_2 = from + "-01"
+    to_2 = to + "-01"
+    if (from && to){
+        $.ajax({
+            url: '{% url "organization_generate_report" %}',
+            type: "POST",
+            data: {
+                from_2: from_2,
+                to_2: to_2,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            dataType: 'json',
+            success: function(response){
+                var wme = window.open("","", "width = 816px, height = 1344px");
+
+                wme.document.write(
+                '<page size="Letter" style="word-wrap:break-word; margin: 0px;">')
+                    
+                wme.document.write('<div class="row" style="margin-top: -5px;"><img src="/media/PUPLOGO.png" style="width: auto; height: 92.2204724411px; margin-left: 35.795275590551px;"/><div style="margin-right: 105px; float: right; margin-top: -15px; padding: 5px;"><p style="font-family: Calibri; font-size: 14.5px; color: black; margin-left: -120px">Republic of the Philippines</p><p style="font-family: Californian FB; font-size: 15.5px; color: black; margin-top: -15px; margin-left: -120px;"><b>POLYTECHNIC UNIVERSITY OF THE PHILIPPINES</b></p><p style="font-family: Tahoma; color: black; margin-top: -20px; font-size: 14.5px; margin-left: -120px;"><b>QUEZON CITY BRANCH</b></p><p style="font-family: Times New Roman; color: black; margin-top: -15px; font-size: 18.5px; margin-left: -120px;"><b>OFFICE OF THE STUDENT AFFAIRS AND SERVICES</b></p></div></div></div><br/><div class="container-fluid" style="background: black; height: 2px; margin-top: -10px; margin-left: 47px;"></div>')
+
+                wme.document.write('<div class="row" style="margin-top: 20px; text-align: center;"><p style="font-family: Arial; font-size: 18px; color: black;"><b>MONITORING AND OVERALL ACCREDITED ORGNAZITION</b></p></div>')
+                wme.document.write('<div class="row" style="margin-top: -15px; text-align: center;"><p style="font-family: Arial; font-size: 17px; color: black;"><b>JUNE - DECEMBER 2021</b></p></div><br>')
+
+                wme.document.write("<table style='border-collapse: collapse; width: 100%; font-family: Arial; font-size: 14.5px;' id='data-table' class='table table-bordered' ><thead ><tr><th  width='56%' style='border: 1px solid black; text-align: center; padding: 5px; font-size:15px; background-color: lightgray;'>ORGANIZATION NAME</th><th width='22%' style='border: 1px solid black; text-align: center; padding: 5px; font-size: 14.5px; background-color: lightgray;'>DATE SUBMITTED</th><th width='22%' style='border: 1px solid black; text-align: center; font-size:14.5px; background-color: lightgray; padding: 5px;'>DATE ACCREDITED</th></tr></thead><tbody>");
+
+
+                const studData = response.data
+                studData.map(item=>{
+                   
+
+                    const date_submitted = moment(item.org_submit_date)
+                    const date_accredited = moment(item.org_date_accredited)
+                    var new_date_submitted = date_submitted.format('LL')
+                    const new_date_accredited = date_accredited.format('LL')
+
+                    wme.document.write("<tr class='odd gradeA tr_'><td width='56%' style='border: 1px solid black; text-align: center; font-family: Arial; font-size:14.5px'>"+item.org_name+"</td><td style='border: 1px solid black; text-align: center; font-family: Arial; font-size:14.5px' width='22%'>"+new_date_submitted+"</td><td style='border: 1px solid black; text-align: center; font-family: Arial; font-size:14.5px' width='22%'>"+new_date_accredited+"</td></tr>")
+                })
+
+                wme.document.write("</tbody></table>")
+                wme.document.write('</page>')
+              
+                wme.document.close();
+                wme.focus()
+                wme.print();
+                wme.close();
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+    }
+}
+
+
+var organization_id;
+function viewNote(org_id){
+    auth_id = $('#auth_id').text();
+    if (org_id) {
+        document.getElementById('btn-input').value = "";
+        tr_id = org_id;
+        
+        organization_id = org_id
+        $.ajax({
+            url: '{% url "organization_view_messages" %}',
+            type: "POST",
+            data: {
+                org_id: org_id,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            dataType: 'json',
+            success: function(response){
+                $('.org_abbr').text(response.org_data);
+                var temp_osas_date;
+                var temp_org_date;
+                const studData = response.data
+                studData.map(item=>{
+                    const msg_date_new = moment(item.msg_date).format("YYYY-MM-DD, ddd, hh:mm A");
+                    if(item.msg_send_to == response.org_data){
+                      
+                        if(temp_org_date){
+                            if(temp_org_date == msg_date_new){
+                                $("#modal_message #chatbox").append('<li class="right" style="list-style-type: none;"><div class="chat-body clearfix"><p data-toggle="tooltip" data-placement="right" title="'+item.msg_status+'" class="bg-info pull-right comments" style="margin-top: -15px; max-width: 300px; text-align: left; float: right; padding: 8px;border-radius: 10px; color: white; word-wrap: break-word;"  name="comment_stud">'+item.msg_message+'</p></div></li>'); 
+
+                                var objDiv = document.getElementById("chatparent");
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                            }   
+                            else{
+                                $('#chatbox').append('<li class="right" style="list-style-type: none;"><div class="chat-body clearfix"><div class="header"><i class="far fa-clock pull-left text-muted" style="margin-right: 5px;"></i><small class="pull-left text-muted sample_date"  id="date_" style="font-size: 10px">'+msg_date_new+'</small><strong class="primary-font pull-right" style="font-size: 10px" >'+response.osas_data+'</strong></div><p data-toggle="tooltip" data-placement="right" title="'+item.msg_status+'" class="bg-info pull-right osas_msg comments" style="max-width: 300px; text-align: left; padding: 8px; border-radius: 10px; color: white; word-wrap: break-word;" name="comment_stud">'+item.msg_message+'</p></div></li>')
+                                
+                                $("#modal_message #chatbox_date").append('<li>'+item.msg_date+'</li>')
+                                temp_org_date = msg_date_new
+
+                                var objDiv = document.getElementById("chatparent");
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                            }
+                        }
+                        else{
+                            $('#chatbox').append('<li class="right" style="list-style-type: none;"><div class="chat-body clearfix"><div class="header"><i class="far fa-clock pull-left text-muted" style="margin-right: 5px;"></i><small class="pull-left text-muted sample_date"  id="date_" style="font-size: 10px">'+msg_date_new+'</small><strong class="primary-font pull-right" style="font-size: 10px" >'+response.osas_data+'</strong></div><p data-toggle="tooltip" data-placement="right" title="'+item.msg_status+'" class="bg-info pull-right osas_msg" style="max-width: 300px; text-align: left; padding: 8px; border-radius: 10px; color: white; word-wrap: break-word;" id="comments"  name="comment_stud">'+item.msg_message+'</p></div></li>')
+                            
+                            temp_org_date = msg_date_new
+                            $("#modal_message #chatbox_date").append('<li>'+item.msg_date+'</li>')
+                            var objDiv = document.getElementById("chatparent");
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                        }
+                    }
+                    else if (item.msg_send_from == response.org_id){
+                        osas_message = item.msg_id
+                        $.ajax({
+                            url: '{% url "organization_osas_msg_seen" %}',
+                            type: "POST",
+                            data: {
+                                osas_message: osas_message,
+                                csrfmiddlewaretoken: "{{ csrf_token }}",
+                            },
+                            dataType: 'json',
+                            success: function (data) {
+                                }
+                        });
+                        if(temp_osas_date){
+                            if(temp_osas_date == msg_date_new){
+                                $("#modal_message #chatbox").append('<li class="left" style="list-style-type: none;"><div class="chat-body clearfix"><p data-toggle="tooltip" data-placement="right" title="'+item.msg_status+'" style=" max-width: 300px; background-color: white; float: left; padding: 8px; border-radius: 10px; color: black; word-wrap: break-word; margin-top: -15px;"  name="comment_stud">'+item.msg_message+'</p></div></li>'); 
+
+                                var objDiv = document.getElementById("chatparent");
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                            }
+                            else{
+                                $("#chatbox").append('<li class="left"  style="list-style-type: none;"><div class="chat-body clearfix"><div class="header"><i class="far fa-clock pull-right text-muted" style="margin-left: 5px;"></i><small class="pull-right text-muted" id="date_stud" style="font-size: 10px"  >'+msg_date_new+'</small><strong class="pull-left primary-font" id="stud_name" name="stud_name" style="font-size: 10px">'+response.org_data+'</strong></div><p data-toggle="tooltip" data-placement="right" title="'+item.msg_status+'" style=" max-width: 300px; background-color: white; float: left; padding: 8px; border-radius: 10px; color: black; word-wrap: break-word;" id="comment_stud" value="'+item.msg_message+'" name="comments">'+item.msg_message+'</p></div></li>')
+                                
+                                $("#modal_message #chatbox_date").append('<li>'+item.msg_date+'</li>')
+                                temp_osas_date = msg_date_new
+
+                                var objDiv = document.getElementById("chatparent");
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                            }
+                        }
+                        else{
+                            $("#chatbox").append('<li class="left"  style="list-style-type: none;"><div class="chat-body clearfix"><div class="header"><i class="far fa-clock pull-right text-muted" style="margin-left: 5px;"></i><small class="pull-right text-muted" id="date_stud" style="font-size: 10px"  >'+msg_date_new+'</small><strong class="pull-left primary-font" id="stud_name" name="stud_name" style="font-size: 10px">'+response.org_data+'</strong></div><p data-toggle="tooltip" data-placement="right" title="'+item.msg_status+'" style=" max-width: 300px; background-color: white; float: left; padding: 8px; border-radius: 10px; color: black; word-wrap: break-word;" id="comment_stud" value="'+item.msg_message+'" name="comments">'+item.msg_message+'</p></div></li>')
+                            
+                            
+                            temp_osas_date = msg_date_new
+                            $("#modal_message #chatbox_date").append('<li>'+item.msg_date+'</li>')
+                            var objDiv = document.getElementById("chatparent");
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                        }
+                     
+                    }
+                })
+            }
+        });
+    }    
+}
+
+
+function addNote(org_id){
+    if (org_id) {
+        tr_id = org_id;
+        $('#org_id').val(org_id);
+    }
+}
+
+</script>
+{% endblock %}
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About

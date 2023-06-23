@@ -1,0 +1,180 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <title>About | GFMIC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="GFMIC" name="Capstone"/>
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/logos/gfmic logo.PNG' %}">
+    <!--Swiper slider css-->
+    <link href="{% static '/assets/libs/swiper/swiper-bundle.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Layout config Js -->
+    <script src="{% static 'assets/js/layout.js' %}"></script>
+    <!-- Bootstrap Css -->
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="{% static 'assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
+
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar-example">
+
+    <!-- Begin page -->
+    <div class="layout-wrapper landing">
+        <nav class="navbar navbar-expand-lg navbar-landing navbar-dark fixed-top" id="navbar">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'users:home' %}">
+                    <img src="{% static 'assets/images/logos/black logo.png' %}" class="card-logo card-logo-dark" alt="logo dark" height="60">
+                    <img src="{% static 'assets/images/logos/white logo.png' %}" class="card-logo card-logo-light" alt="logo light" height="60">
+                </a>
+                <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="mdi mdi-menu"></i>
+                </button>   
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+                    </ul>
+
+                    <div class="">
+                        <a href="{% url 'users:login' %}" class="btn btn-link fw-medium mx-auto">Sign In</a>
+                        <a href="{% url 'users:register' %}" class="btn btn-primary">Sign Up</a>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+            <div class="bg-overlay bg-overlay-pattern"></div>
+        <!-- end navbar -->
+
+        <!-- start plan -->
+        <section class="section bg-grey" id="categories">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+                        <div class="text-left mb-5">
+                            <br><br><br>
+                            <h2 class="mb-3 fw-bold lh-base">About</h2>
+                            <p style="text-align:justify" class="text-muted"><b>Government Financial Management Innovators Circle (GFMIC)</b>, Inc., formerly Electronic Financials Users’ Circle (EUC), Inc., was registered with the Securities and Exchange Commission (SEC) July 15, 2008 as a non-stock and non-profit association to include in the scope of its membership those who are using not only e-NGAS and e-Budget systems but also other financial management information systems.  Its new name was approved by the SEC on February 21, 2019.</p>
+                            <p style="text-align:justify" class="text-muted">Initially, GFMIC started in 2006 as an association of users and enthusiasts of the electronic New Government Accounting System (eNGAS). </p>
+                            <p style="text-align:justify" class="text-muted">GFMIC has now evolved to an association of government financial management professionals who utilized Information and Communications Technology as a tool for productivity, transparency and accountability.  It is for this reason that the GFMIC Board of Trustees felt the need of the change in its name to truly reflect the ideals, vision and mission for what the GFMIC now stands for.  </p>
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+               
+            </div><!-- end container -->
+        </section>
+        <!-- end plan -->
+        <section class="section bg-light py-5" id="membership">
+            <div class="container">
+                <div class="row align-items-center gy-4">
+                    <div class="col-lg-2 col-sm-7 mx-auto">
+                        <div>
+                            <img src="{% static 'assets/images/logos/mission.PNG' %}" alt="" class="img-fluid mx-auto">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-muted">
+                            <h3 class="mb-3 fs-20">Mission&ensp;
+                           
+                            </h3>
+                            <p style="text-align:justify" class="mb-4 ff-secondary fs-16">GFMIC champions the effective mainstreaming of responsive and ethical Public Financial Management Systems.</p>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <div class="container">
+                <div class="row align-items-center gy-4">
+                    <div class="col-lg-2 col-sm-7 mx-auto">
+                        <div>
+                            <img src="{% static 'assets/images/logos/vision.PNG' %}" alt="" class="img-fluid mx-auto">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-muted">
+                            <h3 class="mb-3 fs-20">Vision&ensp;
+                           
+                            </h3>
+                            <p style="text-align:justify" class="mb-4 ff-secondary fs-16">Premiere partner in building capacities towards effective Public Financial Management Systems.</p>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <div class="container">
+                <div class="row align-items-center gy-4">
+                    <div class="col-lg-2 col-sm-7 mx-auto">
+                        <div>
+                            <img src="{% static 'assets/images/logos/values.PNG' %}" alt="" class="img-fluid mx-auto">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-muted">
+                            <h3 class="mb-3 fs-20">Core Values&ensp;
+                           
+                            </h3>
+                            <p style="text-align:justify" class="text-muted"><i class="ri-check-line"></i>&nbsp;Integrity &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<i class="ri-check-line"></i>&nbsp;Professionalism</p>
+                                    
+                            <p style="text-align:justify" class="text-muted"><i class="ri-check-line"></i>&nbsp;Malasakit &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;<i class="ri-check-line"></i>&nbsp;Dynamism</p>
+                           
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+            <br><br><br>
+        </section>
+        <section class="section bg-grey" id="categories">
+            <div class="container-fluid">
+                <div class="row justify-content-center ">
+                    <div class="col-lg-5">
+                        <div class="text-left mb-5">
+                            <h2 class="mb-3 fw-bold lh-base">Governance</h2>
+                            <p style="text-align:justify" class="text-muted"><b>An association is driven by its mission and largely measured by its success in achieving mission-related goals. Good governance provides the vision and direction to ensure that an association is on the right path. The responsibility for governing an association typically rests with a volunteer board of directors, operating according to a set of bylaws and working in close collaboration with the organization’s chief staff executive to set strategic direction, provide necessary resources, and make key decisions that association staff then implement to meet member needs. Volunteer leadership is often distributed among committees, task forces, and other groups, making volunteer management an important operational function for association staff.</p>
+                            </div>
+                            <img src="{% static 'assets/images/logos/chart.PNG' %}" class="img-fluid" alt="Responsive image" width="1300" height="1300">
+                    </div><!-- end col -->
+                    
+                </div><!-- end row -->
+               
+            </div><!-- end container -->
+        </section>
+        <!-- Responsive Images -->
+
+    </div>
+    <!-- end layout wrapper -->
+
+</body>
+{% include 'home_footer.html' %}
+
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+    <script src="{% static 'assets/libs/feather-icons/feather.min.js' %}"></script>
+    <script src="{% static 'assets/js/pages/plugins/lord-icon-2.1.0.js' %}"></script>
+    <script src="{% static 'assets/js/plugins.js' %}"></script>
+
+    <!--Swiper slider js-->
+    <script src="{% static 'assets/libs/swiper/swiper-bundle.min.js' %}"></script>
+
+    <!-- landing init -->
+    <script src="{% static 'assets/js/pages/landing.init.js' %}"></script>
+     
+    <!-- App js -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+</html>

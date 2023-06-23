@@ -1,0 +1,1070 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    OR Management
+{% endblock %}
+
+{% block content %}
+
+                    <!-- start page title -->
+                    <img hidden id="gfmiclogo" style="width: auto; height: auto;"/>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0">OR MANAGEMENT</h4>
+
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">GFMIC</a></li>
+                                        <li class="breadcrumb-item active">OR Management</li>
+                                    </ol>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <div id="customerList">
+                                        <div class="row g-4 mb-3">
+                                            <div class="col-sm-auto">
+                                                <div>
+                                                    {% if  request.session.session_user_sub == 'ASSOCIATE' or request.session.session_user_sub  == 'ADMIN' %}
+                                                    <!--<button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#add-or"><i class="mdi mdi-plus-circle me-2"></i> Add Invoice</button>
+                                                    <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>-->
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="d-flex justify-content-sm-end">
+                                                    <div class="search-box ms-2">
+                                                        <input type="text" class="form-control search" placeholder="Search...">
+                                                        <i class="ri-search-line search-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="table-responsive table-card mt-3 mb-1">
+                                            <table class="table align-middle table-nowrap" id="customerTable">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th scope="col" style="width: 50px;">
+                                                        </th>
+                                                        <th class="sort" data-sort="customer_name">Receipt #</th>
+                                                        <th class="sort" data-sort="email">Name</th>
+                                                        <th class="sort" data-sort="email">Issued By</th>
+                                                        <th class="sort" data-sort="phone">Description</th>
+                                                        <th class="sort" data-sort="phone">Validity</th>
+                                                        <th class="sort" data-sort="status">Membership Status</th>
+                                                        <th class="sort" data-sort="action" style="width: 100px;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="list form-check-all">
+                                                    {% if member_list %}
+                                                        {% for e in member_list %}
+                                                            {% if  request.session.session_user_id == e.user_id %}
+                                                            <tr>
+                                                                <th scope="row">
+                                                                
+                                                                </th>
+                                                                <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">{{ e.user_no }}</a></td>
+                                                                <td class="customer_name">{{ e.user_no }}</td>
+                                                                <td class="email">{{e.user_fname}} {{e.user_lname}}</td>
+                                                                <td class="email">{{ e.user_approver }}</td>
+                                                                <td class="phone">Membership</td>
+                                                                <td class="date">{{ e.user_validity }} - {{ e.user_expire }} </td>
+                                                                <td class="status"><span class="badge badge-soft-success text-uppercase">Active</span></td>
+                                                                <td>
+                                                                    <ul class="list-inline hstack gap-2 mb-0">
+                                                                    {% if  request.session.session_user_sub == 'ASSOCIATE' or request.session.session_user_sub  == 'ADMIN' %}
+                                                                        <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                                                            <a data-bs-target="#view-ecert" data-bs-toggle="modal" onClick="" class="text-primary d-inline-block edit-item-btn">
+                                                                                <i onclick="view_or('{{e.user_id}}')" class="ri-eye-fill fs-16"></i></a>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% else %}
+                                                                        <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                                                            <a data-bs-target="" data-bs-toggle="modal" onClick="" class="text-primary d-inline-block edit-item-btn">
+                                                                                <button type="button" onclick="genReceipt('{{e.user_id}}')" class="btn btn-success btn-label waves-effect waves-light rounded-pill"><i class="ri-printer-line label-icon align-middle rounded-pill fs-16 me-2"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Claim</button></a>
+                                                                              
+                                                                            </a>
+                                                                        </li>
+                                                                     
+                                                                    {% endif %}
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                    {% if event_payment_list %}
+                                                        {% for e in event_payment_list %}
+                                                            {% if  request.session.session_user_id == e.user_id %}
+                                                            <tr>
+                                                                <th scope="row">
+                                                                
+                                                                </th>
+                                                                <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">{{ e.reg_event_no }}</a></td>
+                                                                <td class="customer_name">{{ e.reg_event_no }}</td>
+                                                                <td class="email">{{e.user_fname}} {{e.user_lname}}</td>
+                                                                <td class="email">{{ e.user_approver }}</td>
+                                                                <td class="phone">{{ e.user_mobile }}</td>
+                                                                <td class="date">{{ e.user_validity }} - {{ e.user_expire }} </td>
+                                                                <td class="status"><span class="badge badge-soft-success text-uppercase">Active</span></td>
+                                                                <td>
+                                                                    <ul class="list-inline hstack gap-2 mb-0">
+                                                                    {% if  request.session.session_user_sub == 'ASSOCIATE' or request.session.session_user_sub  == 'ADMIN' %}
+                                                                        <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                                                            <a data-bs-target="#view-ecert" data-bs-toggle="modal" onClick="" class="text-primary d-inline-block edit-item-btn">
+                                                                                <i onclick="view_or('{{e.user_id}}')" class="ri-eye-fill fs-16"></i></a>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% else %}
+                                                                        <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                                                            <a data-bs-target="" data-bs-toggle="modal" onClick="" class="text-primary d-inline-block edit-item-btn">
+                                                                                <button type="button" onclick="genReceipt('{{e.user_id}}')" class="btn btn-success btn-label waves-effect waves-light rounded-pill"><i class="ri-printer-line label-icon align-middle rounded-pill fs-16 me-2"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Claim</button></a>
+                                                                              
+                                                                            </a>
+                                                                        </li>
+                                                                     
+                                                                    {% endif %}
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </tbody>
+                                            </table>
+                                            <div class="noresult" style="display: none">
+                                                <div class="text-center">
+                                                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#25a0e2,secondary:#00bd9d" style="width:75px;height:75px">
+                                                    </lord-icon>
+                                                    <h5 class="mt-2">Sorry! No Result Found</h5>
+                                                    <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any
+                                                        orders for you search.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-end">
+                                            <div class="pagination-wrap hstack gap-2">
+                                                <a class="page-item pagination-prev disabled" href="#">
+                                                    Previous
+                                                </a>
+                                                <ul class="pagination listjs-pagination mb-0"></ul>
+                                                <a class="page-item pagination-next" href="#">
+                                                    Next
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- end card -->
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end col -->
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+            
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+    <div class="modal fade" id="view-ecert" tabindex="-1" aria-labelledby="creatertaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0">
+                <div class="modal-header p-3 bg-soft-primary">
+                    <h5 class="modal-title" id="creatertaskModalLabel">Description</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h3 class="fs-20" id="pamagat" name="pamagat">
+                    </h3>
+                    <h5 class="fs-15" id="event_date" name="event_date">  
+                    </h5>
+                    
+                    <!-- Table Head -->
+                    <table class="table align-middle table-nowrap mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">Time</th>
+                                <th scope="col">Resource Speaker</th>
+                                <th scope="col">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span id="event_time_start" name="event_time_start"></span> - <span id="event_time_end" name="event_time_end"></span></td>
+                                <td id="event_speaker" name="event_speaker"></td>
+                                <td id="desc" name="desc"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <h5 class="fs-15" hidden id="amount" name="amount">
+                    </h5>
+                    </h5>
+                    <h5 class="fs-15" hidden id="eid" name="eid"></h5>
+                   
+
+                    <br>
+                    <div class="mt-4">
+                        <div class="hstack gap-2 justify-content-end">
+                            
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#payment-event">Join Event</button>
+                            <!-- <button type="button" class="btn btn-primary">Join Event</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Add OR Modal -->
+    <div class="modal fade" id="add-or" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-light p-3">
+                    <h5 class="modal-title" id="">Add Invoice Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+                </div>
+                <form id="add-or-form" class="needs-validation" novalidate id="invoice_form">
+                    <div class="card-body border-bottom border-bottom-dashed p-4">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="profile-user mx-auto  mb-3">
+                                    <input id="profile-img-file-input" type="file" class="profile-img-file-input" />
+                                    <label for="profile-img-file-input" class="d-block" tabindex="0">
+                                        <span class="overflow-hidden border border-dashed d-flex align-items-center justify-content-center rounded" style="height: 70px; width: 256px;">
+                                            <img src="{% static 'assets/images/logos/black logo.png' %}" class="card-logo card-logo-dark user-profile-image img-fluid" alt="logo dark">
+                                            <img src="{% static 'assets/images/logos/white logo.png' %}" class="card-logo card-logo-light user-profile-image img-fluid" alt="logo light">
+                                        </span>
+                                    </label>
+                                </div>
+                                <div>
+                                </div>
+                            </div>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                            <div class="col-lg-4">
+                                <div class="profile-user mx-auto  mb-3">
+                                    <input id="profile-img-file-input" type="file" class="profile-img-file-input" />
+                                    <label for="profile-img-file-input" class="d-block" tabindex="0">
+                                        <span class="overflow-hidden d-flex align-items-right justify-content-center rounded" style="height: 80px; width: 500px;">
+                                            <img src="{% static 'assets/images/logos/qr.png' %}" class="card-logo card-logo-dark user-profile-image img-fluid" alt="logo dark">
+                                            <img src="{% static 'assets/images/logos/white logo.png' %}" class="card-logo card-logo-light user-profile-image img-fluid" alt="logo light">
+                                        </span>
+                                    </label>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                            
+                            <!--end col-->
+                            <div class="mt-0">
+                        <h5 class="fs-13 text-muted text-uppercase">Office Address:</h5>
+                        <div class="ff-secondary fw-semibold">Unit 909, The One Executive Building,<br/> West Ave, Quezon City, Metro Manila</div><br>
+                        <div class="card-body p-4">
+                            <div class="row g-2">
+                                <div class="mb-3 col-md-6">
+                                    <label for="name" class="fs-13 text-muted text-uppercase">Name</label>
+                                    <input type="text" class="form-control bg-light border-0" id="invoicenoInput" placeholder="Invoice No" value="#VL25000355"/>
+                                </div>  
+                                <!--end col-->
+                                <div class="mb-3 col-md-6">
+                                    <label for="name" class="fs-13 text-muted text-uppercase">Email</label>
+                                    <input type="text" class="form-control bg-light border-0" id="invoicenoInput" placeholder="Email" value="rhoelbaylejr@Gmail.com"/>
+                                </div>
+                                <!--end col-->
+                                
+                                <!--end col-->
+
+                            </div>
+                            <!--end row-->
+                        </div>
+                        
+                    </div>
+                        </div>
+
+                        <!--end row-->
+                        
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row g-3">
+                            <div class="col-lg-3 col-sm-6">
+                                <label for="invoicenoInput">OR #</label>
+                                <input type="text" class="form-control bg-light border-0" id="invoicenoInput" placeholder="Invoice No" value="#VL25000355" readonly="readonly" />
+                            </div>
+                            <!--end col-->
+                            <div class="col-lg-3 col-sm-6">
+                                <div>
+                                    <label for="date-field" class="form-label">Date Issued</label>
+                                    <input type="date" class="form-control bg-light border-0" id="date-field" data-provider="flatpickr" data-time="true" placeholder="Select Date-time">
+                                </div>
+                            </div>
+                            <!--end col-->
+                            <div class="col-lg-3 col-sm-6">
+                                <label for="choices-payment-status">Payment Status</label>
+                                <div class="input-light">
+                                    <select class="form-control bg-light border-0" data-choices data-choices-search-false id="choices-payment-status" required>
+                                        <option value="">Select Payment Status</option>
+                                        <option value="Paid">Paid</option>
+                                        <option value="Unpaid">Unpaid</option>
+                                        <option value="Refund">Refund</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--end col-->
+                            <div class="col-lg-3 col-sm-6">
+                                <div>
+                                    <label for="totalamountInput">Total Amount</label>
+                                    <input type="text" class="form-control bg-light border-0" id="totalamountInput" placeholder="₱0.00" readonly />
+                                </div>
+                            </div>
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+                    </div>
+                        
+                    <div class="card-body p-4">
+                        <div class="table-responsive">
+                            <table class="invoice-table table table-borderless table-nowrap mb-0">
+                                <thead class="align-middle">
+                                    <tr class="table-active">
+                                        <th scope="col" style="width: 50px;">#</th>
+                                        <th scope="col">
+                                            Payment Details
+                                        </th>
+                                        <th scope="col" class="text-end" style="width: 150px;">Amount</th>
+                                        <th scope="col" class="text-end" style="width: 105px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="newlink">
+                                    <tr id="1" class="product">
+                                        <th scope="row" class="product-id">1</th>
+                                        <td class="text-start">
+                                            <div class="input-light">
+                                                <select class="form-control bg-light border-0" data-choices data-choices-search-false id="choices-payment-status" required>
+                                                    <option value="">Payment Information</option>
+                                                    <option value="Membershipsubscription">Membership Subscription</option>
+                                                    <option value="Webinarpayment">Webinar Payment</option>
+                                                    
+                                                </select>
+                                            </div>
+                                           
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control product-price bg-light border-0" id="productRate-1" step="0.01" placeholder="0.00" required />
+                                            <div class="invalid-feedback">
+                                                Please enter a rate
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-step">
+                                                <button type="button" class='minus'>–</button>
+                                                <input type="number" class="product-quantity" id="product-qty-1" value="0" readonly>
+                                                <button type="button" class='plus'>+</button>
+                                            </div>
+                                        </td>
+                                        <td class="text-end">
+                                            <div>
+                                                <input type="text" class="form-control bg-light border-0 product-line-price" id="productPrice-1" placeholder="₱0.00" readonly />
+                                            </div>
+                                        </td>
+                                        <td class="product-removal">
+                                            <a href="javascript:void(0)" class="btn btn-success">Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody id="newlink">
+                                    <tr id="2" class="product">
+                                        <th scope="row" class="product-id">2</th>
+                                        <td class="text-start">
+                                            <div class="input-light">
+                                                <select class="form-control bg-light border-0" data-choices data-choices-search-false id="choices-payment-status" required>
+                                                    <option value="">Payment Information</option>
+                                                    <option value="Membershipsubscription">Membership Subscription</option>
+                                                    <option value="Webinarpayment">Webinar Payment</option>
+                                                    
+                                                </select>
+                                            </div>
+                                           
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control product-price bg-light border-0" id="productRate-1" step="0.01" placeholder="0.00" required />
+                                            <div class="invalid-feedback">
+                                                Please enter a rate
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-step">
+                                                <button type="button" class='minus'>–</button>
+                                                <input type="number" class="product-quantity" id="product-qty-1" value="0" readonly>
+                                                <button type="button" class='plus'>+</button>
+                                            </div>
+                                        </td>
+                                        <td class="text-end">
+                                            <div>
+                                                <input type="text" class="form-control bg-light border-0 product-line-price" id="productPrice-1" placeholder="₱0.00" readonly />
+                                            </div>
+                                        </td>
+                                        <td class="product-removal">
+                                            <a href="javascript:void(0)" class="btn btn-success">Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr id="newForm" style="display: none;"><td class="d-none" colspan="5"><p>Add New Form</p></td></tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <a href="javascript:new_link()" id="add-item" class="btn btn-soft-secondary fw-medium"><i class="ri-add-fill me-1 align-bottom"></i> Add Item</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-top border-top-dashed mt-2">
+                                        <td colspan="3"></td>
+                                        <td colspan="2" class="p-0">
+                                            <table class="table table-borderless table-sm table-nowrap align-middle mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Sub Total</th>
+                                                        <td style="width:150px;">
+                                                            <input type="text" class="form-control bg-light border-0" id="cart-subtotal" placeholder="₱0.00" readonly />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Discount <small class="text-muted">(Membership)</small></th>
+                                                        <td>
+                                                            <input type="text" class="form-control bg-light border-0" id="cart-discount" placeholder="₱0.00" readonly />
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="border-top border-top-dashed">
+                                                        <th scope="row">Total Amount</th>
+                                                        <td>
+                                                            <input type="text" class="form-control bg-light border-0" id="cart-total" placeholder="₱0.00" readonly />
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!--end table-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--end table-->
+                        </div>
+                        <!--end row-->
+                        <div class="mt-4">
+                            <label for="exampleFormControlTextarea1" class="form-label text-muted text-uppercase fw-semibold">NOTES</label>
+                            <textarea class="form-control alert alert-info" id="exampleFormControlTextarea1" placeholder="Notes" rows="2" required>All accounts are to be paid within 7 days from receipt of invoice. To be paid by cheque or credit card or direct payment online. If account is not paid within 7 days the credits details supplied as confirmation of work undertaken will be charged the agreed quoted fee noted above.</textarea>
+                        </div>
+                        <div class="hstack gap-2 justify-content-end d-print-none mt-4">
+                            <button type="submit" class="btn btn-success"><i class="ri-printer-line align-bottom me-1"></i> Save</button>
+                            <a href="javascript:void(0);" class="btn btn-primary"><i class="ri-download-2-line align-bottom me-1"></i> Download Invoice</a>
+                            <a href="javascript:void(0);" class="btn btn-danger"><i class="ri-send-plane-fill align-bottom me-1"></i> Send Invoice</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- View OR Modal -->
+    <div class="modal fade" id="view-or" data-bs-backdrop="static" data-bs-target="#view-or" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-light p-3">
+                    <h5 class="modal-title" id="">View Invoice Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+                </div>
+                <form id="view-or-form" class="needs-validation" novalidate id="invoice_form">
+                    <div class="card-body border-bottom border-bottom-dashed p-4">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="profile-user mx-auto  mb-3">
+                                    <input id="profile-img-file-input" type="file" class="profile-img-file-input" />
+                                    <label for="profile-img-file-input" class="d-block" tabindex="0">
+                                        <span class="overflow-hidden border border-dashed d-flex align-items-center justify-content-center rounded" style="height: 70px; width: 256px;">
+                                            <img src="{% static 'assets/images/logos/black logo.png' %}" class="card-logo card-logo-dark user-profile-image img-fluid" alt="logo dark">
+                                            <img src="{% static 'assets/images/logos/white logo.png' %}" class="card-logo card-logo-light user-profile-image img-fluid" alt="logo light">
+                                        </span>
+                                    </label>
+                                </div>
+                                <div>
+                                </div>
+                            </div>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                            <div class="col-lg-4">
+                                <div class="profile-user mx-auto  mb-3">
+                                    <input id="profile-img-file-input" type="file" class="profile-img-file-input" />
+                                    <label for="profile-img-file-input" class="d-block" tabindex="0">
+                                        <span class="overflow-hidden d-flex align-items-right justify-content-center rounded" style="height: 80px; width: 500px;">
+                                            <img src="{% static 'assets/images/logos/qr.png' %}" class="card-logo card-logo-dark user-profile-image img-fluid" alt="logo dark">
+                                            <img src="{% static 'assets/images/logos/white logo.png' %}" class="card-logo card-logo-light user-profile-image img-fluid" alt="logo light">
+                                        </span>
+                                    </label>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                            
+                            <!--end col-->
+                            <div class="mt-0">
+                        <h5 class="fs-13 text-muted text-uppercase">Office Address:</h5>
+                        <div class="ff-secondary fw-semibold">Unit 909, The One Executive Building,<br/> West Ave, Quezon City, Metro Manila</div><br>
+                        <div class="card-body p-4">
+                            <div class="row g-2">
+                                <div class="mb-3 col-md-6">
+                                    <label for="name" class="fs-13 text-muted text-uppercase" readonly>Name</label>
+                                    <input type="text" class="form-control bg-light border-0"  id="invoicenoInput" placeholder="Invoice No" value="#VL25000355" readonly="readonly"/>
+                                </div>  
+                                <!--end col-->
+                                <div class="mb-3 col-md-6">
+                                    <label for="name" class="fs-13 text-muted text-uppercase">Email</label>
+                                    <input type="text" class="form-control bg-light border-0" id="invoicenoInput" placeholder="Email" value="rhoelbaylejr@Gmail.com" readonly="readonly"/>
+                                </div>
+                                <!--end col-->
+                                
+                                <!--end col-->
+
+                            </div>
+                            <!--end row-->
+                        </div>
+                        
+                    </div>
+                        </div>
+
+                        <!--end row-->
+                        
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row g-3">
+                            <div class="col-lg-3 col-sm-6">
+                                <label for="invoicenoInput">OR #</label>
+                                <input type="text" class="form-control bg-light border-0" id="invoicenoInput" placeholder="Invoice No" value="#VL25000355" readonly="readonly" />
+                            </div>
+                            <!--end col-->
+                            <div class="col-lg-3 col-sm-6">
+                                <div>
+                                    <label for="date-field" class="form-label">Date Issued</label>
+                                    <input type="date" class="form-control bg-light border-0" id="date-field" data-provider="flatpickr" data-time="true" placeholder="Select Date-time" readonly="readonly">
+                                </div>
+                            </div>
+                            <!--end col-->
+                            <div class="col-lg-3 col-sm-6">
+                                <label for="choices-payment-status">Payment Status</label>
+                                <div class="input-light">
+                                    <select class="form-control bg-light border-0" data-choices data-choices-search-false id="choices-payment-status" readonly="readonly">
+                                        <option value="">Select Payment Status</option>
+                                        <option value="Paid">Paid</option>
+                                        <option value="Unpaid">Unpaid</option>
+                                        <option value="Refund">Refund</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--end col-->
+                            <div class="col-lg-3 col-sm-6">
+                                <div>
+                                    <label for="totalamountInput">Total Amount</label>
+                                    <input type="text" class="form-control bg-light border-0" id="totalamountInput" placeholder="₱0.00" readonly />
+                                </div>
+                            </div>
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+                    </div>
+                        
+                    <div class="card-body p-4">
+                        <div class="table-responsive">
+                            <table class="invoice-table table table-borderless table-nowrap mb-0">
+                                <thead class="align-middle">
+                                    <tr class="table-active">
+                                        <th scope="col" style="width: 50px;">#</th>
+                                        <th scope="col">
+                                            Payment Details
+                                        </th>
+                                        <th scope="col" class="text-end" style="width: 150px;">Amount</th>
+                                        <th scope="col" class="text-end" style="width: 105px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="newlink">
+                                    <tr id="1" class="product">
+                                        <th scope="row" class="product-id">1</th>
+                                        <td class="text-start">
+                                            <div class="input-light">
+                                                <select class="form-control bg-light border-0" data-choices data-choices-search-false id="choices-payment-status" readonly="readonly">
+                                                    <option value="">Payment Information</option>
+                                                    <option value="Membershipsubscription">Membership Subscription</option>
+                                                    <option value="Webinarpayment">Webinar Payment</option>
+                                                    
+                                                </select>
+                                            </div>
+                                           
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control product-price bg-light border-0" id="productRate-1" step="0.01" placeholder="0.00" readonly="readonly" />
+                                            <div class="invalid-feedback">
+                                                Please enter a rate
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-step">
+                                                <button type="button" class='minus'>–</button>
+                                                <input type="number" class="product-quantity" id="product-qty-1" value="0" readonly="readonly">
+                                                <button type="button" class='plus'>+</button>
+                                            </div>
+                                        </td>
+                                        <td class="text-end">
+                                            <div>
+                                                <input type="text" class="form-control bg-light border-0 product-line-price" id="productPrice-1" placeholder="₱0.00" readonly="readonly" />
+                                            </div>
+                                        </td>
+                                        <td class="product-removal">
+                                            <a href="javascript:void(0)" class="btn btn-success">Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody id="newlink">
+                                    <tr id="2" class="product">
+                                        <th scope="row" class="product-id">2</th>
+                                        <td class="text-start">
+                                            <div class="input-light">
+                                                <select class="form-control bg-light border-0" data-choices data-choices-search-false id="choices-payment-status" readonly="readonly">
+                                                    <option value="">Payment Information</option>
+                                                    <option value="Membershipsubscription">Membership Subscription</option>
+                                                    <option value="Webinarpayment">Webinar Payment</option>
+                                                    
+                                                </select>
+                                            </div>
+                                           
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control product-price bg-light border-0" id="productRate-1" step="0.01" placeholder="0.00" readonly="readonly" />
+                                            <div class="invalid-feedback">
+                                                Please enter a rate
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-step">
+                                                <button type="button" class='minus'>–</button>
+                                                <input type="number" class="product-quantity" id="product-qty-1" value="0" readonly="readonly">
+                                                <button type="button" class='plus'>+</button>
+                                            </div>
+                                        </td>
+                                        <td class="text-end">
+                                            <div>
+                                                <input type="text" class="form-control bg-light border-0 product-line-price" id="productPrice-1" placeholder="₱0.00" readonly="readonly" />
+                                            </div>
+                                        </td>
+                                        <td class="product-removal">
+                                            <a href="javascript:void(0)" class="btn btn-success">Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr id="newForm" style="display: none;"><td class="d-none" colspan="5"><p>Add New Form</p></td></tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <a href="javascript:new_link()" id="add-item" class="btn btn-soft-secondary fw-medium"><i class="ri-add-fill me-1 align-bottom"></i> Add Item</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-top border-top-dashed mt-2">
+                                        <td colspan="3"></td>
+                                        <td colspan="2" class="p-0">
+                                            <table class="table table-borderless table-sm table-nowrap align-middle mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Sub Total</th>
+                                                        <td style="width:150px;">
+                                                            <input type="text" class="form-control bg-light border-0" id="cart-subtotal" placeholder="₱0.00" readonly />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Discount <small class="text-muted">(Membership)</small></th>
+                                                        <td>
+                                                            <input type="text" class="form-control bg-light border-0" id="cart-discount" placeholder="₱0.00" readonly />
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="border-top border-top-dashed">
+                                                        <th scope="row">Total Amount</th>
+                                                        <td>
+                                                            <input type="text" class="form-control bg-light border-0" id="cart-total" placeholder="₱0.00" readonly />
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!--end table-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--end table-->
+                        </div>
+                        <!--end row-->
+                        <div class="mt-4">
+                            <label for="exampleFormControlTextarea1" class="form-label text-muted text-uppercase fw-semibold">NOTES</label>
+                            <textarea class="form-control alert alert-info" id="exampleFormControlTextarea1" placeholder="Notes" rows="2" required>All accounts are to be paid within 7 days from receipt of invoice. To be paid by cheque or credit card or direct payment online. If account is not paid within 7 days the credits details supplied as confirmation of work undertaken will be charged the agreed quoted fee noted above.</textarea>
+                        </div>
+                        <div class="hstack gap-2 justify-content-end d-print-none mt-4">
+                            <button type="submit" class="btn btn-success"><i class="ri-printer-line align-bottom me-1"></i> Save</button>
+                            <a href="javascript:void(0);" class="btn btn-primary"><i class="ri-download-2-line align-bottom me-1"></i> Download Invoice</a>
+                            <a href="javascript:void(0);" class="btn btn-danger"><i class="ri-send-plane-fill align-bottom me-1"></i> Send Invoice</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modify OR Modal -->
+    <div class="modal fade" id="modify-or" data-bs-backdrop="static" data-bs-target="#modify-or" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-light p-3">
+                    <h5 class="modal-title" id="">Modify Invoice Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+                </div>
+                <form id="modify-or-form" class="needs-validation" novalidate id="invoice_form">
+                    <div class="card-body border-bottom border-bottom-dashed p-4">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="profile-user mx-auto  mb-3">
+                                    <input id="profile-img-file-input" type="file" class="profile-img-file-input" />
+                                    <label for="profile-img-file-input" class="d-block" tabindex="0">
+                                        <span class="overflow-hidden border border-dashed d-flex align-items-center justify-content-center rounded" style="height: 70px; width: 256px;">
+                                            <img src="{% static 'assets/images/logos/black logo.png' %}" class="card-logo card-logo-dark user-profile-image img-fluid" alt="logo dark">
+                                            <img src="{% static 'assets/images/logos/white logo.png' %}" class="card-logo card-logo-light user-profile-image img-fluid" alt="logo light">
+                                        </span>
+                                    </label>
+                                </div>
+                                <div>
+                                </div>
+                            </div>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                            <div class="col-lg-4">
+                                <div class="profile-user mx-auto  mb-3">
+                                    <input id="profile-img-file-input" type="file" class="profile-img-file-input" />
+                                    <label for="profile-img-file-input" class="d-block" tabindex="0">
+                                        <span class="overflow-hidden d-flex align-items-right justify-content-center rounded" style="height: 80px; width: 500px;">
+                                            <img src="{% static 'assets/images/logos/qr.png' %}" class="card-logo card-logo-dark user-profile-image img-fluid" alt="logo dark">
+                                            <img src="{% static 'assets/images/logos/white logo.png' %}" class="card-logo card-logo-light user-profile-image img-fluid" alt="logo light">
+                                        </span>
+                                    </label>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                            
+                            <!--end col-->
+                            <div class="mt-0">
+                        <h5 class="fs-13 text-muted text-uppercase">Office Address:</h5>
+                        <div class="ff-secondary fw-semibold">Unit 909, The One Executive Building,<br/> West Ave, Quezon City, Metro Manila</div><br>
+                        <div class="card-body p-4">
+                            <div class="row g-2">
+                                <div class="mb-3 col-md-6">
+                                    <label for="name" class="fs-13 text-muted text-uppercase">Name</label>
+                                    <input type="text" class="form-control bg-light border-0" id="invoicenoInput" placeholder="Invoice No" value="#VL25000355"/>
+                                </div>  
+                                <!--end col-->
+                                <div class="mb-3 col-md-6">
+                                    <label for="name" class="fs-13 text-muted text-uppercase">Email</label>
+                                    <input type="text" class="form-control bg-light border-0" id="invoicenoInput" placeholder="Email" value="rhoelbaylejr@Gmail.com"/>
+                                </div>
+                                <!--end col-->
+                                
+                                <!--end col-->
+
+                            </div>
+                            <!--end row-->
+                        </div>
+                        
+                    </div>
+                        </div>
+
+                        <!--end row-->
+                        
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row g-3">
+                            <div class="col-lg-3 col-sm-6">
+                                <label for="invoicenoInput">OR #</label>
+                                <input type="text" class="form-control bg-light border-0" id="invoicenoInput" placeholder="Invoice No" value="#VL25000355" readonly="readonly" />
+                            </div>
+                            <!--end col-->
+                            <div class="col-lg-3 col-sm-6">
+                                <div>
+                                    <label for="date-field" class="form-label">Date Issued</label>
+                                    <input type="date" class="form-control bg-light border-0" id="date-field" data-provider="flatpickr" data-time="true" placeholder="Select Date-time">
+                                </div>
+                            </div>
+                            <!--end col-->
+                            <div class="col-lg-3 col-sm-6">
+                                <label for="choices-payment-status">Payment Status</label>
+                                <div class="input-light">
+                                    <select class="form-control bg-light border-0" data-choices data-choices-search-false id="choices-payment-status" required>
+                                        <option value="">Select Payment Status</option>
+                                        <option value="Paid">Paid</option>
+                                        <option value="Unpaid">Unpaid</option>
+                                        <option value="Refund">Refund</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--end col-->
+                            <div class="col-lg-3 col-sm-6">
+                                <div>
+                                    <label for="totalamountInput">Total Amount</label>
+                                    <input type="text" class="form-control bg-light border-0" id="totalamountInput" placeholder="₱0.00" readonly />
+                                </div>
+                            </div>
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+                    </div>
+                        
+                    <div class="card-body p-4">
+                        <div class="table-responsive">
+                            <table class="invoice-table table table-borderless table-nowrap mb-0">
+                                <thead class="align-middle">
+                                    <tr class="table-active">
+                                        <th scope="col" style="width: 50px;">#</th>
+                                        <th scope="col">
+                                            Payment Details
+                                        </th>
+                                        <th scope="col" class="text-end" style="width: 150px;">Amount</th>
+                                        <th scope="col" class="text-end" style="width: 105px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="newlink">
+                                    <tr id="1" class="product">
+                                        <th scope="row" class="product-id">1</th>
+                                        <td class="text-start">
+                                            <div class="input-light">
+                                                <select class="form-control bg-light border-0" data-choices data-choices-search-false id="choices-payment-status" required>
+                                                    <option value="">Payment Information</option>
+                                                    <option value="Membershipsubscription">Membership Subscription</option>
+                                                    <option value="Webinarpayment">Webinar Payment</option>
+                                                    
+                                                </select>
+                                            </div>
+                                           
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control product-price bg-light border-0" id="productRate-1" step="0.01" placeholder="0.00" required />
+                                            <div class="invalid-feedback">
+                                                Please enter a rate
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-step">
+                                                <button type="button" class='minus'>–</button>
+                                                <input type="number" class="product-quantity" id="product-qty-1" value="0" readonly>
+                                                <button type="button" class='plus'>+</button>
+                                            </div>
+                                        </td>
+                                        <td class="text-end">
+                                            <div>
+                                                <input type="text" class="form-control bg-light border-0 product-line-price" id="productPrice-1" placeholder="₱0.00" readonly />
+                                            </div>
+                                        </td>
+                                        <td class="product-removal">
+                                            <a href="javascript:void(0)" class="btn btn-success">Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody id="newlink">
+                                    <tr id="2" class="product">
+                                        <th scope="row" class="product-id">2</th>
+                                        <td class="text-start">
+                                            <div class="input-light">
+                                                <select class="form-control bg-light border-0" data-choices data-choices-search-false id="choices-payment-status" required>
+                                                    <option value="">Payment Information</option>
+                                                    <option value="Membershipsubscription">Membership Subscription</option>
+                                                    <option value="Webinarpayment">Webinar Payment</option>
+                                                    
+                                                </select>
+                                            </div>
+                                           
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control product-price bg-light border-0" id="productRate-1" step="0.01" placeholder="0.00" required />
+                                            <div class="invalid-feedback">
+                                                Please enter a rate
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-step">
+                                                <button type="button" class='minus'>–</button>
+                                                <input type="number" class="product-quantity" id="product-qty-1" value="0" readonly>
+                                                <button type="button" class='plus'>+</button>
+                                            </div>
+                                        </td>
+                                        <td class="text-end">
+                                            <div>
+                                                <input type="text" class="form-control bg-light border-0 product-line-price" id="productPrice-1" placeholder="₱0.00" readonly />
+                                            </div>
+                                        </td>
+                                        <td class="product-removal">
+                                            <a href="javascript:void(0)" class="btn btn-success">Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr id="newForm" style="display: none;"><td class="d-none" colspan="5"><p>Add New Form</p></td></tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <a href="javascript:new_link()" id="add-item" class="btn btn-soft-secondary fw-medium"><i class="ri-add-fill me-1 align-bottom"></i> Add Item</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-top border-top-dashed mt-2">
+                                        <td colspan="3"></td>
+                                        <td colspan="2" class="p-0">
+                                            <table class="table table-borderless table-sm table-nowrap align-middle mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Sub Total</th>
+                                                        <td style="width:150px;">
+                                                            <input type="text" class="form-control bg-light border-0" id="cart-subtotal" placeholder="₱0.00" readonly />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Discount <small class="text-muted">(Membership)</small></th>
+                                                        <td>
+                                                            <input type="text" class="form-control bg-light border-0" id="cart-discount" placeholder="₱0.00" readonly />
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="border-top border-top-dashed">
+                                                        <th scope="row">Total Amount</th>
+                                                        <td>
+                                                            <input type="text" class="form-control bg-light border-0" id="cart-total" placeholder="₱0.00" readonly />
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!--end table-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--end table-->
+                        </div>
+                        <!--end row-->
+                        <div class="mt-4">
+                            <label for="exampleFormControlTextarea1" class="form-label text-muted text-uppercase fw-semibold">NOTES</label>
+                            <textarea class="form-control alert alert-info" id="exampleFormControlTextarea1" placeholder="Notes" rows="2" required>All accounts are to be paid within 7 days from receipt of invoice. To be paid by cheque or credit card or direct payment online. If account is not paid within 7 days the credits details supplied as confirmation of work undertaken will be charged the agreed quoted fee noted above.</textarea>
+                        </div>
+                        <div class="hstack gap-2 justify-content-end d-print-none mt-4">
+                            <button type="submit" class="btn btn-success"><i class="ri-printer-line align-bottom me-1"></i> Save</button>
+                            <a href="javascript:void(0);" class="btn btn-primary"><i class="ri-download-2-line align-bottom me-1"></i> Download Invoice</a>
+                            <a href="javascript:void(0);" class="btn btn-danger"><i class="ri-send-plane-fill align-bottom me-1"></i> Send Invoice</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+   
+
+
+{% endblock %}
+
+{% block page-js %}
+
+<script>
+
+    document.getElementById("gfmiclogo").src = "/media/black.png";
+
+    function view_or(user_id){
+            alert(user_id)
+        // e_id = document.getElementById('e_id').textContent;
+        // document.getElementById('ev_id').value = e_id
+        $.ajax({
+                type:'POST',
+                url : "{% url 'users:view_event' %}",
+                dataType: 'json',
+                data: {
+                    e_id:e_id,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                success: function(data){
+                    // alert(data.event_id)
+                    $('#event_speaker2').val(data.event_speaker).text(data.event_speaker);
+                    document.getElementById('event_time_start2').innerHTML = data.event_time_start;
+                    document.getElementById('desc').innerHTML = data.event_desc;
+                    document.getElementById('pamagat2').innerHTML = data.event_title;
+                    $('#event_date2').val(data.event_date).text(data.event_date);
+                    $('#event_time_end2').val(data.event_time_end).text(data.event_time_end);
+                    document.getElementById('amount2').innerHTML = data.event_amount;
+                    // $('#ev_id').val(data.event_id).text(data.event_id);
+                    document.getElementById('link').innerHTML = data.event_link;
+    
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+    }
+
+    function genReceipt(member_id){
+    
+    var wme = window.open("","", "width = 816px, height = 1344px");
+    $.ajax({
+            url: '{% url "users:member_gen_receipt" %}',
+            type: "POST",
+            data: {
+                member_id: member_id,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            dataType: 'json',
+            success: function(data){
+                wme.document.write('<page size="Letter" style="word-wrap:break-word; margin-top: 20px;">')
+                        
+                        wme.document.write('<div class="row" style=" float:left ;"><img src="/media/black.png" style="width: auto; height: 100.2204724411px; margin-left: 30.795275590551px;"/></div><br><br><div style=" float: center;  padding: 0px; text-align: center; "><p style="font-family: Times New Roman; font-size: 25.5px; color: black; margin-top: -17px;margin-left:120px; position: absolute;"><b></b></p> <p style="font-family: Times New Roman; font-size: 15.5px; color: black; margin-top: 30px; margin-left:550px; position: absolute; text-align: left;"><b>SYSTEM OR #: </b></p></div></div><br><br><br><br><div class="row" style="margin-top: -5px; margin-top: 10px; "><div class="container-fluid" style="background: black; height: 3px; margin-top: -5px;"></div></div><br/></div>')
+        
+                        wme.document.write('<br><br><div class="container" style="font-weight: 500"><div style="text-align:center; "><p style="font-family: Times New Roman; font-size: 25.5px; color: black; margin-top: -15px; "><b>OFFICIAL RECEIPT<b></p></div></div><br><br><div class="container" style="font-weight: 500" style="margin-left: 20px; position: relative; ">')
+        
+                        // wme.document.write('<div class="container" style="font-weight: 500"><div style="text-align:left; margin-left: 70px;"><p style="font-family: Calibri; font-size: 15.5px; color: black; ">Cash Voucher: </p></div><div style="text-align:left; margin-right: 70px; float: right; margin-top: -50px;"><p style="font-family: Calibri; font-size: 15.5px; color: black; ">Date: '+ item.fund_date_requested +'</p></div></div><br>')
+        
+                        // wme.document.write('<div class="container" style="font-weight: 500"><div style="text-align:left; margin-left: 40px;"><b><p style="font-family: Calibri; font-size: 15.5px; color: black; ">To: </p></b></div><div style="text-align:left; margin-left: 70px; float: left; margin-top: -50px;"><b><p style="font-family: Calibri; font-size: 15.5px; color: black; ">Prof. Demelyn E. Monzon</p></b><p style="font-family: Calibri; font-size: 15.5px; color: black; margin-top: -15px;">Head, Student Affairs and Services</p></div></div><br>')
+        
+                        // wme.document.write('<div class="container" style="margin: auto; width: 90%;"><table style="border-collapse: collapse; width: 100%; font-family: Arial; font-size: 14.5px;" id="data-table" class="table table-bordered"><thead ><tr><th  width="80%" style="border: 1px solid black; text-align: center; padding: 5px; font-size:15px;"><b>DESCRIPTION OF THE ITEM</b></th><th style="border: 1px solid black; text-align: center; padding: 5px; font-size: 14.5px;"><b>AMOUNT</b></th></tr></thead><tbody><tr><th width="80%" style="border: 1px solid black; font-size:13px; text-align: left;padding: 5px;">'+ item.fund_desc +'</th><th style="border: 1px solid black; font-size: 13px; text-align: left; padding: 5px;"><b>₱ '+ item.fund_amount +'</b> </th></tr><tr><th width="80%" style="border: 1px solid black; font-size:13px; text-align: left;padding: 5px;">Amount in word: '+ item.fund_word +'</th><th style="border: 1px solid black; font-size: 13px; text-align: left; padding: 5px;"><b>₱ '+ item.fund_amount +'</b> </th></tr></tbody></table></div>')
+        
+                        wme.document.write('<div class="container" style="margin-left: 20px; position: relative; "><div style="display: inline-block; width: 45%; margin-left: 20px; position: absolute;"><p style="font-family: Calibri; font-size: 20.5px; color: black; "><b> SYSTEM OR #:</b> '+ data.user_no +'</p></div><br><br><br>')
+        
+                        wme.document.write('<div class="container" style="margin-left: 20px; position: relative; "><div style="display: inline-block; width: 45%; margin-left: 40px; position: absolute;"><p style="font-family: Calibri; font-size: 20.5px; color: black; "><b> NAME: </b> '+ data.user_lname +', '+ data.user_fname +' '+ data.user_mname +'</p></div><div style="display: inline-block; width: 45%; margin-left: 400px; position: absolute;"><p style="font-family: Calibri; font-size: 20.5px; color: black; ">TOTAL AMOUNT:<b>'+ data.user_amount +' </p></div></div>')
+                            
+                        wme.document.write('<br><br><br><br><br><div class="container" style="margin-left: 20px; position: relative; "><div style="display: inline-block; width: 45%; margin-left: 40px; position: absolute;"><p style="font-family: Calibri; font-size: 20.5px; color: black; "><b>ISSUED BY: </b>'+ data.user_approver +'</p></div></div>')
+        
+                        wme.document.write('<br><br><br><br><br><br><div class="container" style="margin-left: 20px; position: relative; "><div style="display: inline-block; width: 45%; margin-left: 40px; position: absolute;"><p style="font-family: Calibri; font-size: 20.5px; color: black; "><b>DESCRIPTION: </b>GFMIC MEMBERSHIP </p></div></div>')
+        
+                        wme.document.write('<div class="row" style="position: fixed; bottom: 0;"><p style="font-family: Times New Roman; font-size: 15.5px; color: black; font-weight: 400; text-align: center;">Unit 909, The One Executive Building,West Ave, Quezon City, Metro Manila Phone: (Direct Line) (02) 3412 1117 Email: gfmic@gmail.com Website: https://gfmic.ph/</p><br><p style="font-family: Times New Roman; font-size: 18.5px; color: black; font-weight: 400; text-align: center; margin-top: -10px;"></p></div>')
+
+                wme.document.write('</page>')
+                
+                wme.document.close();
+                wme.focus()
+                wme.print();
+                wme.close();
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+    
+}
+
+
+</script>
+
+{% endblock %}

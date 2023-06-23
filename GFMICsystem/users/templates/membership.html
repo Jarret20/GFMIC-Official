@@ -1,0 +1,685 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Membership
+{% endblock %}
+ 
+{% block content %}
+
+ <!-- start page title -->
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">MEMBERSHIP</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">GFMIC</a></li>
+                    <li class="breadcrumb-item active">Membership</li>
+                </ol>
+            </div>
+            <p hidden id="approver_id" name="approver_id">{{ request.session.session_user_id }}</p>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Membership</h5>
+            </div>
+            <div class="card-body">
+                {% if member_list %}
+                <table id="scroll-horizontal" class="table nowrap align-middle" style="width:100%">
+                    <thead class="table-light border">
+                        <tr>
+                            <th width="1%"></th>
+                            <th class="sort" data-sort="customer_name">Membership #</th>
+                            <th class="sort" data-sort="email">Name</th>
+                            <th class="sort" data-sort="email">Email</th>
+                            <th class="sort" data-sort="email">Contact #</th>
+                            <th class="sort" data-sort="phone">Mode of Payment</th>
+                            <th class="sort" data-sort="phone">Amount</th>
+                            <th class="sort" data-sort="date">Start of Membership</th>
+                            <th class="sort" data-sort="date">End of Membership</th>
+                            <th class="sort" data-sort="status">Membership Status</th>
+                            <th class="sort" data-sort="action">Action</th>
+                        </tr>
+                    </thead>
+                    {% for m in member_list %}
+                    <tbody >
+                        <tr>
+                            <td width="1%" class="f-s-600 text-inverse">{{ forloop.counter }}</td>
+                            <td class="customer_name">{{ m.user_no }}</td>
+                            <td class="customer_name">{{ m.user_fname }} {{m.user_lname}}</td>
+                            <td class="customer_name">{{ m.user_email }}</td>
+
+                            {% if m.user_mobile %}
+                            <td class="phone">{{m.user_mobile}}</td>
+                            {% else %}
+                            <td class="phone">N/A</td>
+                            {% endif %}
+
+                            {% if m.user_pmode %}
+                            <td class="mpayment">{{ m.user_pmode }}</td>
+                            {% else %}
+                            <td class="mpayment">N/A</td>
+                            {% endif %}
+
+                            {% if m.user_amount %}
+                            <td class="mpayment">{{ m.user_amount }}</td>
+                            {% else %}
+                            <td class="mpayment">N/A</td>
+                            {% endif %}
+                            
+                            {% if m.user_validity %}
+                            <td class="date">{{ m.user_validity|date:"Y-m-d" }}</td>
+                            <td class="date">{{ m.user_expire|date:"Y-m-d" }}</td>
+                            {% else %}
+                            <td class="date">N/A</td>
+                            <td class="date">N/A</td>
+                            {% endif %}
+
+                            {% if m.user_status == 'ACTIVE' %}
+                                {% if m.user_sub == 'ASSOCIATE' %}
+                                    <td class="status"><span class="badge bg-success text-uppercase">Active</span> <span class="badge bg-primary text-uppercase">{{ m.user_sub }}</span></td>
+                                {% elif m.user_sub == 'PREMIUM' %}
+                                    <td class="status"><span class="badge bg-success text-uppercase">Active</span> <span class="badge bg-warning text-uppercase">{{ m.user_sub }}</span></td>
+                                {% else %}
+                                    <td class="status"><span class="badge bg-success text-uppercase">Active</span> <span class="badge bg-dark text-uppercase">{{ m.user_sub }}</span></td>
+                                {% endif %}
+                            {% else %}
+                                {% if m.user_sub == 'ASSOCIATE' %}
+                                    <td class="status"><span class="badge bg-danger text-uppercase">Inactive</span> <span class="badge bg-primary text-uppercase">{{ m.user_sub }}</span></td>
+                                {% elif m.user_sub == 'PREMIUM' %}
+                                    <td class="status"><span class="badge bg-danger text-uppercase">Inactive</span> <span class="badge bg-warning text-uppercase">{{ m.user_sub }}</span></td>
+                                {% else %}
+                                    <td class="status"><span class="badge bg-danger text-uppercase">Inactive</span> <span class="badge bg-dark text-uppercase">{{ m.user_sub }}</span></td>
+                                {% endif %}
+                            {% endif %}
+                            <td>
+                                {% if  request.session.session_user_sub == 'ADMIN' %}
+                                <ul class="list-inline hstack gap-2 mb-0">
+                                    <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                        <a data-bs-target="#view-membership" data-bs-toggle="modal" onClick="viewMember('{{m.user_id}}')" class="text-primary d-inline-block edit-item-btn">
+                                            <i class="ri-eye-fill fs-16"></i>
+                                        </a>
+                                    </li>
+                                    {% if m.user_sub == 'GUEST' or m.user_sub == 'PREMIUM'%}
+                                    <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Change to Associate">
+                                        <a class="text-primary d-inline-block edit-item-btn" onClick="approveAssociate('{{m.user_id}}')">
+                                            <i class="ri-exchange-line fs-16"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                {% else %}
+                                    <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                        <a data-bs-target="#view-membership" data-bs-toggle="modal" onClick="viewMember('{{m.user_id}}')" class="text-primary d-inline-block edit-item-btn">
+                                            <i class="ri-eye-fill fs-16"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                    {% if m.user_file %}
+                                        {% if m.user_sub == 'GUEST'%}
+                                        <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Approve">
+                                            <a class="text-success d-inline-block add-item-btn" data-bs-toggle="modal" onClick="approveMember('{{m.user_id}}')">
+                                            <i class="ri-check-fill fs-16" ></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Disapprove">
+                                            <a class="text-danger d-inline-block remove-item-btn" data-bs-toggle="modal" onClick="disapproveMember('{{m.user_id}}')">
+                                           <i class=" ri-close-fill fs-16"></i>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endif %}
+                                    </ul>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <table id="scroll-horizontal" class="table nowrap align-middle" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th width="1%"></th>
+                            <th class="sort" data-sort="customer_name">Membership #</th>
+                            <th class="sort" data-sort="email">Name</th>
+                            <th class="sort" data-sort="email">Email</th>
+                            <th class="sort" data-sort="email">Contact #</th>
+                            <th class="sort" data-sort="phone">Mode of Payment</th>
+                            <th class="sort" data-sort="phone">Amount</th>
+                            <th class="sort" data-sort="date">Start of Membership</th>
+                            <th class="sort" data-sort="date">End of Membership</th>
+                            <th class="sort" data-sort="status">Membership Status</th>
+                            <th class="sort" data-sort="action">Action</th>
+                        </tr>
+                    </thead>
+                </table>    
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div id="customerList">
+                    <div class="row g-4 mb-3">
+                        <div class="col-sm-auto">
+                            <div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="d-flex justify-content-sm-end">
+                                <div class="search-box ms-2">
+                                    <input type="text" class="form-control search" placeholder="Search...">
+                                    <i class="ri-search-line search-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="table-responsive table-card mt-3 mb-1" >
+                        {% if member_list %}
+                        <table class="table align-middle table-nowrap" id="customerTable">
+                            <thead class="table-light border">
+                                <tr>
+                                   
+                                    <th width="1%"></th>
+                                    <th class="sort" data-sort="customer_name">Membership #</th>
+                                    <th class="sort" data-sort="email">Name</th>
+                                    <th class="sort" data-sort="email">Email</th>
+                                    <th class="sort" data-sort="email">Contact #</th>
+                                    <th class="sort" data-sort="phone">Mode of Payment</th>
+                                    <th class="sort" data-sort="phone">Amount</th>
+                                    <th class="sort" data-sort="date">Start of Membership</th>
+                                    <th class="sort" data-sort="date">End of Membership</th>
+                                    <th class="sort" data-sort="status">Membership Status</th>
+                                    <th class="sort" data-sort="action">Action</th>
+                                </tr>
+                            </thead>
+                            {% for m in member_list %}
+                            <tbody class="list form-check-all">
+                                <tr>
+                                   
+                                    <td width="1%" class="f-s-600 text-inverse">{{ forloop.counter }}</td>
+                                    <td class="customer_name">{{ m.user_no }}</td>
+                                    <td class="customer_name">{{ m.user_fname }} {{m.user_lname}}</td>
+                                    <td class="customer_name">{{ m.user_email }}</td>
+                                    {% if m.user_mobile %}
+                                    <td class="phone">{{m.user_mobile}}</td>
+                                    {% else %}
+                                    <td class="phone">N/A</td>
+                                    {% endif %}
+
+                                    {% if m.user_pmode %}
+                                    <td class="mpayment">{{ m.user_pmode }}</td>
+                                    {% else %}
+                                    <td class="mpayment">N/A</td>
+                                    {% endif %}
+
+                                    {% if m.user_amount %}
+                                    <td class="mpayment">{{ m.user_amount }}</td>
+                                    {% else %}
+                                    <td class="mpayment">N/A</td>
+                                    {% endif %}
+                                    
+                                    {% if m.user_validity %}
+                                    <td class="date">{{ m.user_validity|date:"Y-m-d" }}</td>
+                                    <td class="date">{{ m.user_expire|date:"Y-m-d" }}</td>
+                                    {% else %}
+                                    <td class="date">N/A</td>
+                                    <td class="date">N/A</td>
+                                    {% endif %}
+
+                                    {% if m.user_status == 'ACTIVE' %}
+                                    <td class="status"><span class="badge badge-soft-success text-uppercase">Active</span></td>
+                                    {% else %}
+                                    <td class="status"><span class="badge badge-soft-danger text-uppercase">Inactive</span></td>
+                                    {% endif %}
+                                   
+                                    <td>
+                                        <ul class="list-inline hstack gap-2 mb-0">
+                                            <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                                <a data-bs-target="#view-membership" data-bs-toggle="modal" onClick="viewMember('{{m.user_id}}')" class="text-primary d-inline-block edit-item-btn">
+                                                    <i class="ri-eye-fill fs-16"></i>
+                                                </a>
+                                            </li>
+                                            {% if m.user_file %}
+                                                {% if m.user_sub == 'GUEST'%}
+                                                <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Remove">
+                                                    <a class="text-danger d-inline-block remove-item-btn" data-bs-toggle="modal">
+                                                    <button type="button" onClick="approveMember('{{m.user_id}}')" class="btn btn-success btn-label waves-effect waves-light rounded-pill"><i class="ri-check-double-line label-icon align-middle rounded-pill fs-16 me-2" ></i> Approve</button>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Remove">
+                                                    <a class="text-danger d-inline-block remove-item-btn" data-bs-toggle="modal" >
+                                                    <button type="button" onClick="disapproveMember('{{m.user_id}}')" class="btn btn-danger btn-label waves-effect waves-light rounded-pill"><i class=" ri-close-line label-icon align-middle rounded-pill fs-16 me-2"></i> Disapprove</button>
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+                                            {% endif %}
+                                        </ul>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            {% endfor %}
+                        </table>
+                        {% else %}
+                        <table class="table align-middle table-nowrap" id="customerTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col" style="width: 50px;">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
+                                        </div>
+                                    </th>
+                                    <th class="sort" data-sort="customer_name">Membership #</th>
+                                    <th class="sort" data-sort="email">Name</th>
+                                    <th class="sort" data-sort="email">Email</th>
+                                    <th class="sort" data-sort="email">Contact #</th>
+                                    <th class="sort" data-sort="phone">Mode of Payment</th>
+                                    <th class="sort" data-sort="phone">Amount</th>
+                                    <th class="sort" data-sort="date">Start of Membership</th>
+                                    <th class="sort" data-sort="date">End of Membership</th>
+                                    <th class="sort" data-sort="status">Membership Status</th>
+                                    <th class="sort" data-sort="action">Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        {% endif %}
+                        <div class="noresult" style="display: none">
+                            <div class="text-center">
+                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#25a0e2,secondary:#00bd9d" style="width:75px;height:75px">
+                                </lord-icon>
+                                <h5 class="mt-2">Sorry! No Result Found</h5>
+                                <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any
+                                    orders for you search.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <div class="pagination-wrap hstack gap-2">
+                            <a class="page-item pagination-prev disabled" href="#">
+                                Previous
+                            </a>
+                            <ul class="pagination listjs-pagination mb-0"></ul>
+                            <a class="page-item pagination-next" href="#">
+                                Next
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    </div>
+
+</div> -->
+
+
+
+ <!-- View Membership Modal -->
+ <div class="modal fade" id="view-membership" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="">View Membership Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+                <div class="modal-body">
+
+                    <div class="mb-3" id="modal-id" style="display: none;">
+                        <label for="id-field" class="form-label">Event ID</label>
+                        <input type="text" id="id-field" class="form-control" placeholder="ID" readonly />
+                    </div>
+                    
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label class="form-label" for="membership_no2">Membership #</label>
+                            <input type="text" class="form-control" id="membership_no2" name="membership_no2" placeholder="" readonly="" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Membership Number.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label class="form-label" for="user_amount">Payment Amount</label>
+                            <input type="text" class="form-control" id="user_amount" name="user_amount" placeholder="" readonly="" required="">
+                            <div class="invalid-feedback">
+                                Please provide a Membership Number.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label for="user_mode" class="form-label">Mode of Payment</label>
+                                <input type="text" class="form-control" name="user_mode" id="user_mode" placeholder="" readonly="" required="">
+                            <div class="invalid-feedback">
+                                Please provide an Event Status.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label for="user_start2" class="form-label">Start of Membership</label>
+                                <input type="text" class="form-control" name="user_start2" id="user_start2" placeholder="" readonly="" required="">
+                            <div class="invalid-feedback">
+                                Please provide an Event Status.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label for="user_end2" class="form-label">End of Membership</label>
+                                <input type="text" class="form-control" name="user_end2" id="user_end2" placeholder="" readonly="" required="">
+                            <div class="invalid-feedback">
+                                Please provide an Event Status.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-12">
+                            <label for="m_status2" class="form-label">Membership Status</label>
+                                <input type="text" class="form-control" name="m_status2" id="m_status2" placeholder="" readonly="" required="">
+                            <div class="invalid-feedback">
+                                Please provide an Event Status.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <label class="form-label" for="branches_description">Proof of Payment</label>
+                        <img src="" class="card-logo card-logo-dark" id="proof_pic" height="600">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<!--Change User Type Modal -->
+<div class="modal fade" id="associate" data-bs-backdrop="static" data-bs-target="#associate" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center p-5">
+                <lord-icon
+                    src="https://cdn.lordicon.com/lupuorrc.json"
+                    trigger="loop"
+                    colors="primary:#121331,secondary:#08a88a"
+                    style="width:120px;height:120px">
+                </lord-icon>
+                
+                <div class="mt-4">
+                    <h4 class="mb-3">Are you sure?</h4>
+                    <p class="text-muted mb-4">The user type will be changed to ASSOCIATE.</p>
+                    <div class="hstack gap-2 justify-content-center">
+                        <a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
+                        <a href="javascript:void(0);" class="btn btn-success">Approve</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block page-js %}
+
+<script>
+
+function viewMember(user_id){
+    // alert(user_id)
+    // document.getElementById('member_id').textContent = user_id
+    $.ajax({
+            type:'POST',
+            url : "{% url 'users:view_membership' %}",
+            dataType: 'json',
+            data: {
+                user_id:user_id,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            success: function(data){
+                // alert(JSON.stringify(data.m_end))
+                // alert(member_end)
+                $('#membership_no2').val(data.membership_no).text(data.membership_no);
+                if (data.payment_amount){
+                    $('#user_amount').val(data.payment_amount).text(data.payment_amount);
+                    $('#user_mode').val(data.mode_of_payment).text(data.mode_of_payment);
+                    const m_start = data.m_start.split("T");
+                    let member_start = m_start[0];
+                    $('#user_start2').val(member_start).text(member_start);
+                    const m_end = data.m_end.split("T");
+                    let member_end = m_end[0];
+                    $('#user_end2').val(member_end).text(member_end);
+                    document.getElementById("proof_pic").setAttribute("src", "/media/" + data.member_proof); 
+                    $('#m_status2').val(data.m_status).text(data.m_status);
+                    
+                }
+                else {
+                    $('#user_amount').val('N/A').text('N/A');
+                    $('#user_mode').val('N/A').text('N/A');
+                    $('#user_start2').val('N/A').text('N/A');
+                    $('#user_end2').val('N/A').text('N/A');
+                    $('#m_status2').val('N/A').text('N/A');
+                    document.getElementById("proof_pic").setAttribute("src", "/media/proof_pic/images.png"); 
+                }
+                
+            },
+            error: function(error){
+                console.log(error)
+            }
+        });
+}
+
+    function approveMember(user_id){
+        // alert(user_id)
+        var approver_id = document.getElementById('approver_id').textContent;
+        // alert(approver_id)
+        const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+        })
+        swalWithBootstrapButtons.fire({
+        title: 'Are you sure',
+        text: "You want to approve this?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, approve it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                type:'POST',
+                url : "{% url 'users:approve_membership' %}",
+                dataType: 'json',
+                data: {
+                    user_id:user_id,
+                    approver_id:approver_id,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                success: function(data){
+                    window.location.reload()
+                    
+                },
+                error: function(error){
+                    console.log(error)
+                   
+                }
+            });
+            } 
+        });
+        return false;
+    }
+
+    function approveAssociate(user_id){
+        // alert(user_id)
+        const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+        })
+        swalWithBootstrapButtons.fire({
+        title: 'Are you sure',
+        text: "You want to approve this?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, approve it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                type:'POST',
+                url : "{% url 'users:approve_associate' %}",
+                dataType: 'json',
+                data: {
+                    user_id:user_id,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                success: function(data){
+                    window.location.reload()
+                    
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+            } 
+        });
+        return false;
+    }
+
+    function disapproveMember(user_id){
+        // alert(user_id)
+        const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+        })
+        swalWithBootstrapButtons.fire({
+        title: 'Are you sure',
+        text: "You want to disapprove this?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, disapprove it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                    type:'POST',
+                    url : "{% url 'users:disapprove_membership' %}",
+                    dataType: 'json',
+                    data: {
+                        user_id:user_id,
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                    },
+                    success: function(data){
+                        window.location.reload()
+                        
+                    },
+                    error: function(error){
+                        console.log(error)
+                    }
+                });
+            } 
+        });
+        return false;
+            
+    }
+
+    
+function submit_account(){
+    var m_no = document.getElementById('m_no').textContent;
+    var m_name = document.getElementById('m_name').textContent;
+    var m_mobile = document.getElementById('m_mobile').textContent;
+    var m_satus = document.getElementById('m_satus').textContent;
+    var m_sub = document.getElementById('m_sub').textContent;
+    var email = 'sapmle@gmail.com'
+    var pass = 123
+    // alert(m_no, m_name, m_mobile, m_satus, m_sub)
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure',
+        text: "You want to save this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, save it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type:'POST',
+                url : "{% url 'users:add_membership' %}",
+                dataType: 'json',
+                data: {
+                    m_no:m_no,
+                    m_name:m_name,
+                    m_mobile:m_mobile,
+                    m_satus:m_satus,
+                    m_sub:m_sub,
+                    email:email,
+                    pass:pass,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                success: function(data){
+                    swalWithBootstrapButtons.fire(
+                        'Saved!',
+                        'Your record has been saved.',
+                        'success'
+                    )
+                    setTimeout(function(){
+                        window.location.reload()  
+                }, 1000);
+                    
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+            'Cancelled'
+            )
+        }
+    });
+    return false;
+}
+
+</script>
+
+{% endblock %}

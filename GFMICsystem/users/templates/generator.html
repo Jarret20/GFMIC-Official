@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Dashboard
+{% endblock %}
+{% block content %}
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0">ECERTIFICATE</h4>
+
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">GFMIC</a></li>
+                                        <li class="breadcrumb-item active">eCertificate</li>
+                                    </ol>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+            <div class="container">
+                <label>
+                    Name:
+                    <input id="name" type='text'>
+                </label>&emsp;
+                <style>
+                    @media print{
+                        body * {visibility: hidden;}
+                    }
+                    .ecert-print, .ecert-print * {
+                        visibility: visible;
+                    }
+                </style>
+                <button class="btn btn-success btn-label waves-effect waves-light rounded-pill" onclick="window.print()"><i class="ri-printer-line"></i> Print</button>
+                <div class="row ecert-print"> 
+                    <canvas id="canvas" height="350px" width="500px"></canvas>
+                    <script>
+                        const canvas = document.getElementById('canvas')
+                        const ctx = canvas.getContext('2d')
+                        const nameInput = document.getElementById('name')
+                        const downloadBtn = document.getElementById('download-btn')
+
+                        const image = new Image()
+                        image.src = "{% static 'assets/js/generator/certificate.jpg' %}"
+                        image.onload = function () {
+                            drawImage()
+                        }
+
+                        function drawImage() {
+                            // ctx.clearRect(0, 0, canvas.width, canvas.height)
+                            ctx.drawImage(image, 0, 0, canvas.width, canvas.height)
+                            ctx.font = '30px century gothic'
+                            ctx.fillStyle = '#29e'
+                            ctx.fillText(nameInput.value, 70, 180)
+                        }
+
+                        nameInput.addEventListener('input', function () {
+                            drawImage()
+                        })
+
+                        
+                    </script>
+                </div>
+            </div>
+
+
+
+            
+{% endblock %}

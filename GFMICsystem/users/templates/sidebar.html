@@ -1,0 +1,126 @@
+  <!-- ========== App Menu ========== -->
+        <div class="app-menu navbar-menu">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+                <!-- Dark Logo-->
+                <a href="dashboard.html" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="../assets/images/logos/gfmic logo.png" alt="" height="50">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="../assets/images/logos/black logo.png" alt="" height="50">
+                    </span>
+                </a>
+                <a href="dashboard.html" class="logo logo-light">
+                    <span class="logo-sm">
+                        <img src="../assets/images/logos/gfmic logo.png" alt="" height="50">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="../assets/images/logos/white logo.png" alt="" height="50">
+                    </span>
+                </a>
+                <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+                    <i class="ri-record-circle-line"></i>
+                </button>
+            </div>
+
+            <div id="scrollbar">
+                <div class="container-fluid">
+
+                    <div id="two-column-menu">
+                    </div>
+                    <ul class="navbar-nav" id="navbar-nav">
+                        <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'users:dashboard' %}" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                                <i data-feather="home" class="icon-dual"></i> <span data-key="t-dashboards">Dashboard</span>
+                            </a>
+                        </li> <!-- end Dashboard Menu -->
+                        {% if  request.session.session_user_sub == 'ASSOCIATE' or request.session.session_user_sub  == 'ADMIN' %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" data-bs-toggle="collapse" href="" role="button" aria-expanded="false" aria-controls="Events">
+                                <i data-feather="grid" class="icon-dual"></i> <span data-key="t-apps">Events</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarEmail">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{%  url 'users:events' %}" class="nav-link" role="button" aria-expanded="false" aria-controls="Events" data-key="t-email-templates">
+                                            Event <span class="badge badge-pill bg-danger" data-key="t-new"></span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{%  url 'users:event' %}" class="nav-link" role="button" aria-expanded="false" aria-controls="Events" data-key="t-email-templates">
+                                            Events Lists <span class="badge badge-pill bg-danger" data-key="t-new"></span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{%  url 'users:event_payment' %}" class="nav-link" role="button" aria-expanded="false" aria-controls="Events" data-key="t-email-templates">
+                                            Event Payment Lists <span class="badge badge-pill bg-danger" data-key="t-new"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" data-bs-toggle="collapse" href="" role="button" aria-expanded="false" aria-controls="Events">
+                                <i data-feather="grid" class="icon-dual"></i> <span data-key="t-apps">Events</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarEmail">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{%  url 'users:events' %}" class="nav-link" role="button" aria-expanded="false" aria-controls="Events" data-key="t-email-templates">
+                                            <i data-feather="grid" class="icon-dual"></i>
+                                            Events <span class="badge badge-pill bg-danger" data-key="t-new"></span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{%  url 'users:event_payment' %}" class="nav-link" role="button" aria-expanded="false" aria-controls="Events" data-key="t-email-templates">
+                                            <i data-feather="grid" class="icon-dual"></i>
+                                            Event Payment Lists <span class="badge badge-pill bg-danger" data-key="t-new"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        {% endif %}
+                        <!-- <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'users:ecert' %}" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                                <i data-feather="grid" class="icon-dual"></i> <span data-key="t-apps">eCertificates</span>
+                            </a>
+                        </li> -->
+                        {% if  request.session.session_user_sub == 'ASSOCIATE' or request.session.session_user_sub  == 'ADMIN' %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'users:membership' %}"  role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                                <i data-feather="layout" class="icon-dual"></i> <span data-key="t-layouts">Membership</span>
+                            </a>
+                        </li> <!-- end Dashboard Menu -->
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="https://prod.brgyit-bot.com/portal/" target="_blank" role="button" aria-expanded="false" aria-controls="sidebarPages">
+                                <i data-feather="command" class="icon-dual"></i> <span data-key="t-pages">BitBo Academy</span>
+                            </a>
+                        </li>
+                        {% if  request.session.session_user_sub == 'GUEST' or request.session.session_user_sub  == 'PREMIUM' %}
+                        <!-- <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'users:OR' %}"  role="button" aria-expanded="false" aria-controls="sidebarLanding">
+                                <i class="ri-rocket-line"></i> <span data-key="t-landing">OR Management</span>
+                            </a>
+                        </li> -->
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'users:help_desk' %}"  role="button" aria-expanded="false" aria-controls="sidebarAdvanceUI">
+                                <i data-feather="layers" class="icon-dual"></i> <span data-key="t-advance-ui">Help Desk</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- Sidebar -->
+            </div>
+
+            <div class="sidebar-background"></div>
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- Vertical Overlay-->
+        <div class="vertical-overlay"></div>

@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Help Desk
+{% endblock %}
+
+{% block content %}
+
+ <!-- start page title -->
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">HELP DESK</h4>
+ 
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">GFMIC</a></li>
+                    <li class="breadcrumb-item active">Help Desk</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="page-content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card rounded-0 bg-soft-primary mx-n5 mt-n1 border-0">
+                            <div class="px-5">
+                                <div class="row">
+                                    <div class="col-xxl-16 align-self-center">
+                                        <div class="py-4">
+                                           <center> <h4 class="display-6 coming-soon-text ">Frequently asked questions</h4> 
+                                            <p class="text-muted fs-15 mt-3">If you can not find answer to your question in our FAQ, you can always contact us or ticket us. We will answer you shortly at our ticketing service!</p>
+                                                <a href="https://gfmicorg.supportsystem.com/" target="_blank"><button type="button" class="btn btn-primary btn-label rounded-pill"><i class="ri-mail-line label-icon align-middle rounded-pill fs-16 me-2"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Send us a Ticket</button></a>
+                                            </center> 
+                                           
+                                         
+                                        </div>
+                                    </div>
+                             <!--     <div class="col-xxl-3 ms-auto">
+                                        <div class="mb-n5 pb-1 faq-img d-none d-xxl-block">
+                                            <img src="assets/images/faq-img.png" alt="" class="img-fluid">
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>  
+                            <!-- end card body -->
+                        </div>
+                        <!-- end card -->
+
+                        <div class="row justify-content-evenly ">
+                            <div class="col-lg-4"><br>
+                                <div class="mt-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="flex-shrink-0 me-1">
+                                            <i class="ri-question-line fs-24 align-middle text-success me-1"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h5 class="fs-16 mb-0 fw-semibold">General Questions</h5>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion accordion-border-box" id="genques-accordion">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="genques-headingOne">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#genques-collapseOne" aria-expanded="true" aria-controls="genques-collapseOne">
+                                                    What is GFMIC ?
+                                                </button>
+                                            </h2>
+                                            <div id="genques-collapseOne" class="accordion-collapse collapse show" aria-labelledby="genques-headingOne" data-bs-parent="#genques-accordion">
+                                                <div class="accordion-body">
+                                                    The Government Financial Management Innovators Circle (GFMIC), Inc, an organization of government financial management professionals who utilize information and 
+                                                    communications technology as a tool for productivity, transparency and accountability.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="genques-headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#genques-collapseTwo" aria-expanded="false" aria-controls="genques-collapseTwo">
+                                                    Is there an International Conventions ?
+                                                </button>
+                                            </h2>
+                                            <div id="genques-collapseTwo" class="accordion-collapse collapse" aria-labelledby="genques-headingTwo" data-bs-parent="#genques-accordion">
+                                                <div class="accordion-body">
+                                                    Yes, there will be International Conventions that will occur.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="genques-headingThree">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#genques-collapseThree" aria-expanded="false" aria-controls="genques-collapseThree">
+                                                    Are the seminars free ?
+                                                </button>
+                                            </h2>
+                                            <div id="genques-collapseThree" class="accordion-collapse collapse" aria-labelledby="genques-headingThree" data-bs-parent="#genques-accordion">
+                                                <div class="accordion-body">
+                                                   There are both free and paid seminars available, and anyone can attend one.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="genques-headingFour">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#genques-collapseFour" aria-expanded="false" aria-controls="genques-collapseFour">
+                                                    How much it will cost for a membership ?
+                                                </button>
+                                            </h2>
+                                            <div id="genques-collapseFour" class="accordion-collapse collapse" aria-labelledby="genques-headingFour" data-bs-parent="#genques-accordion">
+                                                <div class="accordion-body">
+                                                    Membership fee is Php 500.00 / per year (Renewable annually)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                     
+                                    </div>
+                                    <!--end accordion-->
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4"><br>
+                                <div class="mt-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="flex-shrink-0 me-1">
+                                            <i class="ri-user-settings-line fs-24 align-middle text-success me-1"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h5 class="fs-16 mb-0 fw-semibold">Manage Account</h5>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion accordion-border-box" id="manageaccount-accordion">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="manageaccount-headingOne">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#manageaccount-collapseOne" aria-expanded="true" aria-controls="manageaccount-collapseOne">
+                                                    Where can I signup for an account ?
+                                                </button>
+                                            </h2>
+                                            <div id="manageaccount-collapseOne" class="accordion-collapse collapse show" aria-labelledby="manageaccount-headingOne" data-bs-parent="#manageaccount-accordion">
+                                                <div class="accordion-body">
+                                                    You can signup for an account at the top right of the screen, where it indicates a "sign up" button.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="manageaccount-headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#manageaccount-collapseTwo" aria-expanded="false" aria-controls="manageaccount-collapseTwo">
+                                                   Where can I apply for Membership ?
+                                                </button>
+                                            </h2>
+                                            <div id="manageaccount-collapseTwo" class="accordion-collapse collapse" aria-labelledby="manageaccount-headingTwo" data-bs-parent="#manageaccount-accordion">
+                                                <div class="accordion-body">
+                                                    You can apply for a Membership AFTER you sign up for an account then sign in the account, once signed in, go to the "Membership" tab and apply for a membership.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="manageaccount-headingThree">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#manageaccount-collapseThree" aria-expanded="false" aria-controls="manageaccount-collapseThree">
+                                                   Are there benefits for memberships ?
+                                                </button>
+                                            </h2>
+                                            <div id="manageaccount-collapseThree" class="accordion-collapse collapse" aria-labelledby="manageaccount-headingThree" data-bs-parent="#manageaccount-accordion">
+                                                <div class="accordion-body">
+                                                    Here are examples of benefits for the members: <br> 
+                                                    <ul>
+                                                        <li>Virtual Education and Training opportunities 
+                                                            <li> Newly updated Foundation Course in Public Financial Management for both individuals and groups</li>
+                                                                <li> Webinars on important PFM topics </li>
+                                                                    <li> OnDemand symposia and webinars  </li>
+                                                                        <li> NEW Sponsorship opportunities for 2022 </li>
+                                                                            <li> CPEs available for all ICGFM programming</li>
+                                                                                <li>E-List and Forums for all ICGFM Members</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <!--end accordion-->
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4"><br>
+                                <div class="mt-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="flex-shrink-0 me-1">
+                                            <i class="ri-shield-keyhole-line fs-24 align-middle text-success me-1"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h5 class="fs-16 mb-0 fw-semibold">Privacy &amp; Security</h5>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion accordion-border-box" id="privacy-accordion">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="privacy-headingOne">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#privacy-collapseOne" aria-expanded="true" aria-controls="privacy-collapseOne">
+                                                    How can I get a copy of my OR?
+                                                </button>
+                                            </h2>
+                                            <div id="privacy-collapseOne" class="accordion-collapse collapse show" aria-labelledby="privacy-headingOne" data-bs-parent="#privacy-accordion">
+                                                <div class="accordion-body">
+                                                    You can get a copy of your OR once you settle a transaction.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="privacy-headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacy-collapseTwo" aria-expanded="false" aria-controls="privacy-collapseTwo">
+                                                    How can I get my eCertificate ?
+                                                </button>
+                                            </h2>
+                                            <div id="privacy-collapseTwo" class="accordion-collapse collapse" aria-labelledby="privacy-headingTwo" data-bs-parent="#privacy-accordion">
+                                                <div class="accordion-body">
+                                                    You can get your eCertificate once you finished a seminar, it will be provided by your host/speaker from that seminar for credentials of participation.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="privacy-headingThree">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacy-collapseThree" aria-expanded="false" aria-controls="privacy-collapseThree">
+                                                    Can I attend a seminar being a guest only ?
+                                                </button>
+                                            </h2>
+                                            <div id="privacy-collapseThree" class="accordion-collapse collapse" aria-labelledby="privacy-headingThree" data-bs-parent="#privacy-accordion">
+                                                <div class="accordion-body">
+                                                    Yes, you can attend a seminar as a guest and remain anonymous for the duration of the event.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <!--end accordion-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end col-->.
+                </div>
+                <!--end row-->
+
+            </div>
+            <!-- container-fluid -->
+        </div>
+
+
+{% endblock %}
+{% block page-js %}
+{% endblock %}
+

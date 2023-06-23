@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Dashboard
+{% endblock %}
+{% block content %}
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+ <!-- start page title -->
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">DASHBOARD</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">GFMIC</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row project-wrapper" style="height:880px; overflow-y:hidden">
+{% if request.session.session_user_sub  == 'PREMIUM' or request.session.session_user_sub == 'ASSOCIATE' or request.session.session_user_sub  == 'ADMIN' %}
+<iframe title="GFMIC Dashboard" width="1920" height="920" src="https://app.powerbi.com/reportEmbed?reportId=e24a108a-1cf5-4a05-afd6-bfafe4aad1ab&autoAuth=true&ctid=4da98571-dcea-4839-8fb1-0bdd5dc969f9" filterPaneEnabled="false" navContentPaneEnabled="false" frameborder="0" allowFullScreen="true"></iframe>
+{% endif %}
+    <div class="col-xxl-8">
+        <div class="row">
+        </div><!-- end row -->
+    </div><!-- end col -->
+</div><!-- end row -->
+
+<script>
+$( document ).ready(function() {
+  var rpEle = $('.portal-pbi-embedded'); // select report element
+  var report = powerbi.get(rpEle[0]); // get report instance
+  // we want to update settings when the report is loaded
+  report.on("loaded", function () {
+    const newSettings = {
+      panes: {
+        filters :{
+          visible: false // hide filter pane
+        }
+      }
+    };
+    report.updateSettings(newSettings)
+      .catch(error => { console.log(error) });
+  });
+});
+</script>
+
+{% endblock %}
